@@ -1,27 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 
+ #03002e	
+ #010048	
+ #010057	
+ #02006c	
+ #090088
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+ #50b8e7
+ #84cdee	
+ #b9e2f5	
+ #dcf0fa	
+ #edf7fc
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+ #4d4d4d	
+ #3c3c3c	
+ #1e1e1e	
+ #111111
+ #000000
+*/
+ 
+*,body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
