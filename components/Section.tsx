@@ -12,27 +12,29 @@ const Section=({
   slides: string[];
 }) =>{
   const [curr, setCurr] = useState(0);
-  const prev = () =>
-    setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));
-  const next = () =>
-    setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1));
-
-  useEffect(() => {
-    if (!autoSlide) return;
-    const slideInterval = setInterval(next, autoSlideInterval);
-    return () => clearInterval(slideInterval);
-  }, []);
+  // const prev = () =>
+  //   setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));
+  // const next = () =>
+  //   setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1));
+  // useEffect(() => {
+  //   if (!autoSlide) return;
+  //   const slideInterval = setInterval(next, autoSlideInterval);
+  //   return () => clearInterval(slideInterval);
+  // }, []);
 
   return (
-    <div className="overflow-hidden relative">
+    <div className=" relative h-full">
       <div
-        className="flex transition-transform ease-in-out duration-1000"
+        className="flex w-full h-full  transition-transform ease-in-out duration-1000"
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
         {slides.map((img,i) => (
-          <Image key={i} src={img} alt="" />
-        ))}
+          <div className="h-full border-2 border-blue-900" key={i}>
+            <Image key={i} width={400} height={400}  src={img} alt="" />
+          </div>
+          ))}
       </div>
+      
       {/* <div className="absolute inset-0 flex items-center justify-between p-4"> */}
         {/* <button
           onClick={prev}

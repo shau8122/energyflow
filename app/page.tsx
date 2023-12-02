@@ -12,7 +12,7 @@ export default function Home() {
     <div>
      <LogoComponent/>
      <Categories/>
-     <Footer/>
+     
     </div>
   )
 }
