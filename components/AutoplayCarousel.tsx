@@ -22,28 +22,32 @@ const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
 
   return (
  
-      <Carousel
-        className="w-full max-w-screen-lg mx-auto"
-        infiniteLoop
-        showThumbs={false}
-        showArrows={false}
-        showStatus={false}
-        selectedItem={currentIndex}
-        autoPlay
-        interval={3000}
-      >
-        {items.map((item, index) => (
-          <div className="" key={index}>
-            <Image
-              width={200}
-              height={200}
-              className="object-cover"
-              src={item}
-              alt={`Slide ${index + 1}`}
-            />
-          </div>
-        ))}
-      </Carousel>
+    <Carousel
+    className="w-full mx-auto"
+    infiniteLoop
+    showThumbs={false}
+    showArrows={false}
+    showStatus={false}
+    selectedItem={currentIndex}
+    autoPlay
+    interval={3000}
+  >
+    {items.map((item, index) => (
+      <div className="relative" key={index}>
+        <Image
+          key={index}
+          width={500}
+          height={500}
+          onClick={() => console.log("clicked")}
+          className="object-cover"
+          src={item}
+          alt={`Slide ${index + 1}`}
+        />
+      </div>
+       
+     
+    ))}
+  </Carousel>
     
   );
 };

@@ -39,7 +39,7 @@ const Navbar = () => {
     <div className="w-full">
       <div className="w-3/4 max-w-[1080px] mx-auto h-28 flex md:flex-row flex-col  ">
         <div className="md:w-1/4 w-full flex justify-center items-center">
-          <Image src="/logo.png" width={100} height={100} alt={"logo"} />
+          <Image src="/MainLogo.png" width={100} height={100} alt={"logo"} />
         </div>
           <nav className="md:w-2/4 w-full px-10 flex justify-between items-center"> 
             <CustomLink title="Home" href="/" className="mr-4" />
