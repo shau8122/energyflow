@@ -39,18 +39,34 @@ const Navbar = () => {
     <div className="w-full">
       <div className="w-3/4 max-w-[1080px] mx-auto h-28 flex md:flex-row flex-col  ">
         <div className="md:w-1/4 w-full flex justify-center items-center">
-          <Image src="/MainLogo.png" width={100} height={100} alt={"logo"} />
+          <Image src="/MainLogo2.png" width={200} height={200} alt={"logo"} />
         </div>
-          <nav className="md:w-2/4 w-full px-10 flex justify-between items-center"> 
-            <CustomLink title="Home" href="/" className="mr-4" />
-            <CustomLink title="About" href="/about" className="mx-4" />
-            <CustomLink title="Admin" href="/admin" className="mx-4" />
-            <CustomLink title="Explore" href="/explore" className="ml-4" />
-          </nav>
-        
+        <nav className="md:w-2/4 w-full px-10 flex justify-between items-center">
+          <CustomLink title="Home" href="/" className="mr-4" />
+          <CustomLink title="About" href="/about" className="mx-4" />
+          <CustomLink title="Admin" href="/admin" className="mx-4" />
+          <CustomLink title="Explore" href="/explore" className="ml-4" />
+        </nav>
+
         <div className="flex gap-2 justify-center items-center">
-          <Input className="text-[16px] text-[#50b8e7]/75" type="text" placeholder="Find your interest" />
-          <Button className="rounded-xl bg-[#50b8e7] text-white text-[16px]" variant="outline">Search</Button>
+          <Input
+            className="text-[16px] text-[#50b8e7]/75"
+            type="text"
+            placeholder="Find your interest"
+          />
+          <Button
+            className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
+            variant="outline"
+          >
+            Search
+          </Button>
+          <Button
+            className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
+            variant="outline"
+          >
+            <Link href="/auth/sign-up
+            ">Sign In</Link>
+          </Button>
         </div>
       </div>
     </div>
