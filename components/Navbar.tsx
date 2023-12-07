@@ -64,7 +64,7 @@ const Navbar = () => {
             className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
             variant="outline"
           >
-            <Link href="/auth/sign-up
+            <Link href="/auth/sign-in
             ">Sign In</Link>
           </Button>
         </div>
