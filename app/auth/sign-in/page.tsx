@@ -25,28 +25,28 @@ const Signin = () => {
       });
   };
 
-  useEffect(() => {
-    const completeSignIn = async () => {
-      if (isSignInWithEmailLink(auth, window.location.href)) {
-        let email = window.localStorage.getItem('emailForSignIn');
-        if (!email) {
-          email = window.prompt('Please provide your email for confirmation');
-        }
-        try {
-          const result = await signInWithEmailLink(auth, email, window.location.href);
-          window.localStorage.removeItem('emailForSignIn');
-          const user = result.user;
-          console.log('Successfully signed in:', user);
-        } catch (error: any) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error(`Error: ${errorMessage}`);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const completeSignIn = async () => {
+  //     if (isSignInWithEmailLink(auth, window.location.href)) {
+  //       let email = window.localStorage.getItem('emailForSignIn');
+  //       if (!email) {
+  //         email = window.prompt('Please provide your email for confirmation');
+  //       }
+  //       try {
+  //         const result = await signInWithEmailLink(auth, email, window.location.href);
+  //         window.localStorage.removeItem('emailForSignIn');
+  //         const user = result.user;
+  //         console.log('Successfully signed in:', user);
+  //       } catch (error: any) {
+  //         const errorCode = error.code;
+  //         const errorMessage = error.message;
+  //         console.error(`Error: ${errorMessage}`);
+  //       }
+  //     }
+  //   };
 
-    completeSignIn();
-  }, []); // Run only once when the component mounts
+  //   completeSignIn();
+  // }, []); // Run only once when the component mounts
 
   return (
     <div>
