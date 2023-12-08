@@ -1,5 +1,9 @@
+'use client'
+import { useState } from "react";
 import CategoriesBox from "./CategoriesBox";
 import { EducationIcon, HomeIcon, HospitalIcon, HotelIcon, RentIcon, SpaIcon } from "./Icons";
+import Modal from "./Modal";
+import AuthenticationModal from "./AuthenticationModal";
 
 const Categories = () => {
   // const categoriesList = [
@@ -22,6 +26,10 @@ const Categories = () => {
   //   "Courier Service",
   //   "Travel",
   // ];
+  const [isOpen, setIsOpen] = useState(false)
+  const onClose=()=>{
+    setIsOpen(false);
+  }
   return (
     <div className="w-full flex justify-center items-center my-5">
       <div className="w-3/4 mx-auto flex flex-col justify-between">
@@ -84,6 +92,8 @@ const Categories = () => {
          
         </div>
       </div>
+      <button onClick={()=>setIsOpen(true)} className="m-5">click to open modal</button>
+      <AuthenticationModal isOpen={isOpen} onClose={onClose} />
     </div>
   );
 };
