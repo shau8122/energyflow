@@ -1,15 +1,22 @@
 "use client";
 import Image from "next/image";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../../../components/ui/input";
+import { Button } from "../../../components/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import firebase_app from "@/firebase/config";
+import { get } from "http";
+import { User, getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 interface CustomLinkProps {
   href: string;
   title: string;
   className?: string;
 }
 const CustomLink: React.FC<CustomLinkProps> = ({ href, title, className }) => {
+  
+
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -35,6 +42,17 @@ const CustomLink: React.FC<CustomLinkProps> = ({ href, title, className }) => {
 };
 
 const Navbar = () => {
+  const auth = getAuth(firebase_app);
+
+  const router=useRouter()
+  console.log(auth.currentUser)
+  const handleSignOut=async()=>{
+    await auth.signOut().then(()=>{
+      console.log("signed out")
+      toast.success("Signed out successfully")
+      router.refresh()
+    })
+  }
   return (
     <div className="w-full">
       <div className="w-3/4 max-w-[1080px] mx-auto h-28 flex md:flex-row flex-col  ">
@@ -60,13 +78,21 @@ const Navbar = () => {
           >
             Search
           </Button>
-          <Button
+          {
+            !auth.currentUser===null ?
+            <Button
             className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
             variant="outline"
           >
             <Link href="/auth/sign-in
             ">Sign In</Link>
+          </Button>:
+          <Button onClick={handleSignOut} variant="outline" className="rounded-xl bg-[#50b8e7] text-white text-[16px]">
+            Sign Out
           </Button>
+            
+          }
+    
         </div>
       </div>
     </div>

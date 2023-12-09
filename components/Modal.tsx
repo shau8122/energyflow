@@ -92,19 +92,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                     className="
                       rounded-lg
                       bg-[#edf7fc]
-                      text-gray-400 
+                      text-[#50b8e7]
                       hover:text-gray-500 
                       focus:outline-none 
                       focus:ring-2 
-                      focus:ring-indigo-500 
                       focus:ring-offset-2
-                    "
+                      "
+                      // focus:ring-indigo-500 
                     onClick={onClose}
                   >
                     <span className="sr-only">Close</span>
-                    
                       <CloseIcon/>
-                   
                   </button>
                 </div>
                 {children}
