@@ -4,10 +4,7 @@ import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import firebase_app from "@/firebase/config";
-import { get } from "http";
-import { User, getAuth } from "firebase/auth";
-import { useEffect, useState } from "react";
+
 import toast from "react-hot-toast";
 interface CustomLinkProps {
   href: string;
@@ -42,16 +39,10 @@ const CustomLink: React.FC<CustomLinkProps> = ({ href, title, className }) => {
 };
 
 const Navbar = () => {
-  const auth = getAuth(firebase_app);
+
 
   const router=useRouter()
-  console.log(auth.currentUser)
   const handleSignOut=async()=>{
-    await auth.signOut().then(()=>{
-      console.log("signed out")
-      toast.success("Signed out successfully")
-      router.refresh()
-    })
   }
   return (
     <div className="w-full">
@@ -79,7 +70,7 @@ const Navbar = () => {
             Search
           </Button>
           {
-            !auth.currentUser===null ?
+            true?
             <Button
             className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
             variant="outline"
@@ -89,10 +80,8 @@ const Navbar = () => {
           </Button>:
           <Button onClick={handleSignOut} variant="outline" className="rounded-xl bg-[#50b8e7] text-white text-[16px]">
             Sign Out
-          </Button>
-            
+          </Button> 
           }
-    
         </div>
       </div>
     </div>
