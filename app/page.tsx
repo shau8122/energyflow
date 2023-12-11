@@ -1,6 +1,7 @@
 
 import Categories from '@/app/_components/categories/Categories'
 import LogoComponent from '@/app/_components/logocomponents/LogoComponent'
+import AboutHomePage from './_components/about/AboutHomePage'
 
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
     <div>
      <LogoComponent/>
      <Categories/>
-    
+     <AboutHomePage/>
     </div>
   )
 }

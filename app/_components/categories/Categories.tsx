@@ -36,13 +36,12 @@ const Categories = () => {
   ];
   
   return (
-    <div className="w-full flex justify-center items-center my-5">
-      
-      <div className="w-3/4 mx-auto flex flex-col justify-between">
+    <div className="max-w-[1080px] mx-auto w-full flex justify-center items-center my-5">
+      <div className="w-full mx-auto flex flex-col justify-between">
         <h1 className="text-3xl font-semibold mb-2 mt-5 text-start text-blue-500">
           Categories
         </h1>
-        <div className="w-full gap-2 grid grid-cols-3 lg:grid-cols-9 md:grid-cols-5 justify-between items-center">
+        <div className="w-full mt-2 gap-2 grid grid-cols-3 lg:grid-cols-9 md:grid-cols-5 justify-between items-center">
           {categoriesList.map((category, index) => (
             <CategoriesBox key={index} name={category.name}>
               {category.icon}
