@@ -1,18 +1,31 @@
 // components/GoogleAuthButton.js
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import firebase_app from '@/firebase/config';
+import { firebase_app } from '@/firebase/config';
 
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
-const GoogleAuthButton = () => {
-  // const auth = getAuth(firebase_app);
+interface GoogleAuthButtonProps {
+  onClose?: () => void;
+}
 
+const GoogleAuthButton:React.FC<GoogleAuthButtonProps> = ({
+  onClose,
+}) => {
+  const auth = getAuth(firebase_app);
+  const router = useRouter()
   const signInWithGoogle = async () => {
     try {
-      // const result = await signInWithPopup(auth, new GoogleAuthProvider());
-      // const user = result.user;
-      console.log('Successfully signed in with Google:');
+      const result = await signInWithPopup(auth, new GoogleAuthProvider());
+      const user = result.user;
+      sessionStorage.setItem('user', JSON.stringify(user));
+      toast.success('Login successfully!');
+      router.push('/')
+      window.location.reload();
+      if(onClose)
+      onClose()
     } catch (error:any) {
       console.error('Error signing in with Google:', error.message);
     }

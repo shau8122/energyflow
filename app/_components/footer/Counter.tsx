@@ -6,7 +6,7 @@ const Counter = () => {
       <h1 className="text-3xl text-[#02006c] font-semibold mb-5 ">Our Statistics</h1>
       <div className="w-full  flex mx-auto justify-between text-blue-950">
         <div className="flex flex-col items-end justify-center">
-          <span className="inline-block text-3xl md:text-5xl font-bold">
+          <span className="inline-block text-xl md:text-5xl font-bold">
             <AnimatedNumbers value={50} />+
           </span>
           <h2 className="text-xl font-medium  capitalize text-dark/75">
@@ -14,7 +14,7 @@ const Counter = () => {
           </h2>
         </div>
         <div className="flex flex-col items-end justify-center">
-          <span className="inline-block text-3xl md:text-5xl font-bold">
+          <span className="inline-block text-xl md:text-5xl font-bold">
             <AnimatedNumbers value={500} />+ 
           </span>
           <h2 className="text-xl font-medium capitalize text-dark/75">
@@ -22,7 +22,7 @@ const Counter = () => {
           </h2>
         </div>
         <div className="flex flex-col items-end justify-center">
-          <span className="inline-block text-3xl md:text-5xl font-bold">
+          <span className="inline-block text-xl md:text-5xl font-bold">
             <AnimatedNumbers value={30} />+
           </span>
           <h2 className="text-xl font-medium capitalize text-dark/75">

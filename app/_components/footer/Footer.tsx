@@ -4,12 +4,20 @@ import React, { useEffect,useState } from 'react';
 import Counter from './Counter';
 import AuthenticationModal from '@/components/AuthenticationModal';
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
-import firebase_app from '@/firebase/config';
+import { useRouter } from 'next/navigation';
+
 
 const Footer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [authenticatedUser, setAuthenticatedUser] = useState<User | null>(null);
-  
+  const router = useRouter()
+  useEffect(() => {
+    const user = sessionStorage.getItem('user');
+    const isAlreadyOpen = sessionStorage.getItem('isAlreadyOpen');
+    if (!user && !isAlreadyOpen) {
+      setIsOpen(true);
+      sessionStorage.setItem('isAlreadyOpen', 'true');
+    }
+  }, [])
   
   const onClose = () => {
     setIsOpen(false);

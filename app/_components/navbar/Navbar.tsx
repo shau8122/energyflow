@@ -4,16 +4,15 @@ import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
 interface CustomLinkProps {
   href: string;
   title: string;
   className?: string;
 }
 const CustomLink: React.FC<CustomLinkProps> = ({ href, title, className }) => {
-  
-
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -39,25 +38,30 @@ const CustomLink: React.FC<CustomLinkProps> = ({ href, title, className }) => {
 };
 
 const Navbar = () => {
-
-
-  const router=useRouter()
-  const handleSignOut=async()=>{
+  
+  const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    setUser(sessionStorage.getItem("user"));
+  }, [])
+  const handleClick=()=>{
+      sessionStorage.removeItem("user")
+      toast.success("Logout successfully!")
+      window.location.reload();
   }
   return (
     <div className="w-full">
-      <div className="w-3/4 max-w-[1080px] mx-auto h-28 flex md:flex-row flex-col  ">
-        <div className="md:w-1/4 w-full flex justify-center items-center">
+      <div className="w-3/4 max-w-[1080px] mx-auto h-28 flex lg:flex-row flex-col  ">
+        <div className="lg:w-1/4 w-full flex justify-center items-center">
           <Image src="/MainLogo2.png" width={200} height={200} alt={"logo"} />
         </div>
-        <nav className="md:w-2/4 w-full px-10 flex justify-between items-center">
+        <nav className="lg:w-2/4 w-full lg:px-10 mx-auto flex lg:justify-between justify-around items-center">
           <CustomLink title="Home" href="/" className="mr-4" />
           <CustomLink title="About" href="/about" className="mx-4" />
           <CustomLink title="Admin" href="/admin" className="mx-4" />
           <CustomLink title="Explore" href="/explore" className="ml-4" />
         </nav>
 
-        <div className="flex gap-2 justify-center items-center">
+        <div className="flex w-full gap-2 justify-around mt-2 md:justify-center items-center">
           <Input
             className="text-[16px] text-[#50b8e7]/75"
             type="text"
@@ -70,18 +74,21 @@ const Navbar = () => {
             Search
           </Button>
           {
-            true?
-            <Button
+            user ? <Button
+            className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
+            variant="outline"
+            onClick={handleClick}
+          >
+            Sign Out
+          </Button> : <Button
             className="rounded-xl bg-[#50b8e7] text-white text-[16px]"
             variant="outline"
           >
-            <Link href="/auth/sign-in
+            <Link href="/auth
             ">Sign In</Link>
-          </Button>:
-          <Button onClick={handleSignOut} variant="outline" className="rounded-xl bg-[#50b8e7] text-white text-[16px]">
-            Sign Out
-          </Button> 
+          </Button>
           }
+            
         </div>
       </div>
     </div>

@@ -1,10 +1,10 @@
 "use client";
 
-import Modal from "./Modal";
+
 
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import GoogleAuthButton from "./GoogleAuthButton";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 import Image from "next/image";
 import { CircleDashedIcon } from "lucide-react";
 import OtpInput from "react-otp-input";
@@ -20,15 +20,9 @@ import toast from "react-hot-toast";
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-interface AuthenticationModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
-  isOpen,
-  onClose,
-}) => {
+
+const Home = () => {
   // const auth = getAuth(firebase_app);
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
@@ -39,8 +33,6 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
   const [verificationId, setVerificationId] = useState(null as any);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter()
- 
-  
   const handleSendCode = () => {
     setLoading(true);
     const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('send-code-button', {
@@ -71,22 +63,50 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
     firebase.auth().signInWithCredential(credential)
       .then((userCredential) => {
         // User signed in successfully
-        console.log(userCredential);
         sessionStorage.setItem('user', JSON.stringify(userCredential.user))
         setLoading(false);
         toast.success("OTP verified successfully!");
         router.push('/')
-        window.location.reload();
-        onClose()
       })
       .catch((err) => {
         console.error(err);
         setError(err.message || 'Failed to verify code.');
       });
   };
+  useEffect(() => {
+    const user = sessionStorage.getItem('user');
+    if (user && router) {
+      router.replace('/')
+    }
+  }, [router])
   
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <div className="flex justify-around items-center h-[80vh] mt-10 ">
+      <div className="hidden w-1/2 h-full  lg:flex justify-center items-center">
+      <Image
+            src="/bottleMain.jpg"
+            width={1000}
+            height={500}
+            alt={"bottle1"}
+      />
+      </div>
+      <div className="
+      rounded-xl
+  
+      bg-[#edf7fc]
+      px-4 
+      pb-4
+      pt-5 
+      text-left 
+      shadow-md
+      transition-all
+      w-full
+      sm:my-8 
+      sm:w-full 
+      sm:max-w-lg 
+      sm:p-6
+      ">
+
       <div className="w-full bg-[#edf7fc] text-[#50b8e7] p-2">
         <h1 className="text-2xl text-center font-semibold">
           {"Sign in "}
@@ -94,7 +114,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
         </h1>
         <div className="w-full mt-4 flex justify-between gap-2">
         <div className="w-1/2 ">
-          <GoogleAuthButton onClose={onClose} />
+          <GoogleAuthButton/>
         </div>
         <div className="w-1/2">
           <button className=" w-full mt-4 font-semibold">
@@ -193,8 +213,9 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
           )}
         </div>
       </div>
-    </Modal>
+      </div>
+    </div>
   );
 };
 
-export default AuthenticationModal;
+export default Home;

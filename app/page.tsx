@@ -1,7 +1,6 @@
 
 import Categories from '@/app/_components/categories/Categories'
 import LogoComponent from '@/app/_components/logocomponents/LogoComponent'
-import PhoneAuthentication from '@/components/PhoneAuthentication'
 
 
 export default function Home() {
@@ -10,7 +9,7 @@ export default function Home() {
     <div>
      <LogoComponent/>
      <Categories/>
-     {/* <PhoneAuthentication/> */}
+    
     </div>
   )
 }
