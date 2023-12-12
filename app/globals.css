@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+
 /* 
  #03002e	
  #010048	
@@ -25,7 +27,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lobster', cursive;
+  /* font-family: 'Lobster', cursive; */
+  font-family: 'Roboto Slab', serif;
 }
 ::webkit-scrollbar {
   z-index: 9999; /* Adjust the z-index as needed */
