@@ -25,4 +25,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Lobster', cursive;
+}
+::webkit-scrollbar {
+  z-index: 9999; /* Adjust the z-index as needed */
 }

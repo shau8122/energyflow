@@ -1,6 +1,6 @@
 const AboutHomePage = () => {
   return ( 
-    <div className="p-3 w-full max-w-[1080px] mx-auto mt-5 flex flex-col justify-center items-start my-5">
+    <div className="p-3 w-full max-w-[1080px] mx-auto mt-5 flex flex-col justify-center items-start ">
       <h1 className="text-3xl w-full font-semibold mb-2 mt-5 text-start text-blue-500">
         About Us
         </h1>

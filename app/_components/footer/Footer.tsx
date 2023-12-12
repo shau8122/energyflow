@@ -5,13 +5,16 @@ import Counter from './Counter';
 import AuthenticationModal from '@/components/AuthenticationModal';
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import Hamburger from '@/components/Hamburger';
 
 
 const Footer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
   const router = useRouter()
   useEffect(() => {
     const user = sessionStorage.getItem('user');
+
     const isAlreadyOpen = sessionStorage.getItem('isAlreadyOpen');
     if (!user && !isAlreadyOpen) {
       setIsOpen(true);

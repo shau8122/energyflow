@@ -2,6 +2,7 @@
 import { motion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import LiIcon from "@/components/LiIcons";
+import Image from "next/image";
 interface DetailsProps {
   title: string;
   description: string;
@@ -15,25 +16,25 @@ const Details: React.FC<DetailsProps> = ({
   return (
     <li
       ref={ref}
-      className="my-8 first:mt-0 last:mb-0 w-[60%] mx-auto flex flex-col items-center justify-between"
+      className="my-4 first:mt-0 last:mb-0  w-[70%]  md:ml-32 mx-auto flex flex-col items-center justify-between"
     >
       <LiIcon referance={ref} />
       <motion.div
-        initial={{ y: 50 }}
-        whileInView={{ y: 0 }}
+        initial={{ y: 50,opacity:0 }}
+        whileInView={{ y: 0,opacity:1 }}
         transition={{ duration: 1, type: "spring" }}
       >
-        <h3 className="capitalize font-bold text-[#50b8e7] text-2xl">
+        <h3 className="capitalize font-bold text-[#0084CB] text-2xl">
           {title}&nbsp;
         </h3>
-        <span className=" font-medium text-lg text-dark/75 mt-4">
+        <p className=" font-medium text-justify text-sm sm:text-lg text-dark/75 mt-4">
           {description}
-        </span>
+        </p>
       </motion.div>
     </li>
   );
 };
-const ExperianceDetails = [
+const AboutDetails = [
   {
     title:"Who We Are:",
     description:"Enerzyflow is not just a company; we are a team of passionate professionals dedicated to transforming ordinary bottles into captivating brand ambassadors. With a focus on innovation, creativity, and sustainability, we bring a fresh perspective to the world of branded merchandise.",
@@ -71,17 +72,19 @@ const AboutComponents = () => {
   });
   return (
     <div className="my-10">
-      <div ref={ref} className=" w-[75%] mx-auto relative">
+      {/* <Image alt="" src="/bottle1.jpg" width={1000} height={500} layout="responsive" /> */}
+      <div ref={ref} className="w-full md:w-[75%] mx-auto relative">
         <motion.div
-          style={{ scaleY: scrollYProgress }}
-          className="absolute left-9 top-0 w-[4px] h-full bg-gray-900 origin-top"
-        />
-        <ul className="w-full flex flex-col items-start justify-between ml-4">
-          {ExperianceDetails.map((item, index) => {
-            return <Details key={index} {...item} />;
-          })}
+          style={{scaleY:scrollYProgress}}
+        className="absolute left-6 top-[-4] w-[4px] h-full bg-black origin-top"/>
+        <ul className="w-full flex flex-col items-start justify-between">
+          {
+            AboutDetails.map((item,index)=>{
+              return <Details key={index} {...item}/>
+            })
+          }
         </ul>
-      </div>
+      I</div>
     </div>
   );
 };

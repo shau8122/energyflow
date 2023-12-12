@@ -36,9 +36,9 @@ const Categories = () => {
   ];
   
   return (
-    <div className="max-w-[1080px] mx-auto w-full flex justify-center items-center my-5">
+    <div className="max-w-[1080px] mx-auto w-full flex justify-center  items-center my-5">
       <div className="w-full mx-auto flex flex-col justify-between">
-        <h1 className="text-3xl font-semibold mb-2 mt-5 text-start text-blue-500">
+        <h1 className="text-3xl mx-2 font-semibold mb-2 mt-5 text-start text-blue-500">
           Categories
         </h1>
         <div className="w-full mt-2 gap-2 grid grid-cols-3 lg:grid-cols-9 md:grid-cols-5 justify-between items-center">

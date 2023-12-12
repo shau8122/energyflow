@@ -13,8 +13,8 @@ const CategoriesBox: React.FC<CategoriesBoxProps> = ({ children, name }) => {
 
 
     <motion.div
-    initial={{y:50}}
-    whileInView={{y:0}}
+    initial={{y:50,opacity:0}}
+    whileInView={{y:0,opacity:1}}
     transition={{duration:1, type:"spring"}}
      className="w-24 h-24 flex justify-between items-center flex-col p-2">
       <div className="w-1/2 hover:w-[60%] transition-all">{children}</div>

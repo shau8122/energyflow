@@ -21,12 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} min-h-[100vh] flex flex-col bg-[#edf7fc]`}
+        className={`${inter.className}   h-screen   flex flex-col relative min-h-screen bg-cover bg-center`}
+        style={{ backgroundImage: 'url("/bg1.jpeg")' }}
       >
-        <ToastProvider/>
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <ToastProvider />
+         <div className="top-0 left-0 w-full h-full relative bg-transparent z-10 overflow-auto">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
