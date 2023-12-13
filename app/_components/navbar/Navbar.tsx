@@ -52,7 +52,10 @@ const Navbar = () => {
     window.location.reload();
   };
   return (
-    <div className="w-full sticky pt-2 bg-[#b9e2f5]/95  top-0 z-50">
+    <div className="w-full sticky pt-2
+    bg-white
+    top-0 z-50">
+       {/* //  bg-[#b9e2f5]/95   */}
       <div className="w-full mx-auto max-w-screen-2xl  flex lg:flex-row flex-col ">
         <div className="lg:w-[35%]  w-full mx-auto  flex justify-center items-center">
           <Image
@@ -109,7 +112,7 @@ const Navbar = () => {
           <div className="w-[70%] gap-2 flex justify-around items-center">
             <CustomLink title="Home" href="/" className="mr-4" />
             <CustomLink title="About Us" href="/about" className="mx-4" />
-            <CustomLink title="Admin" href="/admin" className="mx-4" />
+            <CustomLink title="Admin" href="/dashboard" className="mx-4" />
             <CustomLink title="Our Store" href="/store" className="ml-4" />
             
             {user ? (

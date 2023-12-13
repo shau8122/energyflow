@@ -1,9 +1,11 @@
-import AnimatedText from "../_components/logocomponents/AnimatedText";
+import AnimatedText from "../../_components/logocomponents/AnimatedText";
 import AboutComponents from "./AboutContent";
 
 const About = () => {
   return ( 
-    <div className="w-full bg-[#b9e2f5]/75">
+    <div className="w-full
+    ">
+       {/* //  bg-[#b9e2f5]/75 */}
 
     <div className="w-full max-w-[1080px] flex flex-col mt-20 sm:mt-0 items-center mx-auto  ">
       <AnimatedText text="About us" className="!text-6xl mt-10 lg:mt-0 text-[#0084CB] mb-5 md:mb-10" />

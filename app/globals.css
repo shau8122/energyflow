@@ -28,8 +28,11 @@
   padding: 0;
   box-sizing: border-box;
   /* font-family: 'Lobster', cursive; */
-  font-family: 'Roboto Slab', serif;
+  /* font-family: 'Roboto Slab', serif; */
 }
 ::webkit-scrollbar {
   z-index: 9999; /* Adjust the z-index as needed */
+}
+#image-scroll-upload::-webkit-scrollbar {
+  display: none;
 }
