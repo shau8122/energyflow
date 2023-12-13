@@ -111,7 +111,7 @@ const Home = () => {
       sm:p-6
       "
       >
-        <div className="w-full bg-[#edf7fc] text-[#50b8e7] p-2">
+        <div className="w-full bg-[#edf7fc] text-[#0084CB] p-2">
           <h1 className="text-2xl text-center font-semibold">
             {"Sign in "}
             to Enerzyflow
@@ -136,7 +136,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="line bg-[#50b8e7] h-1 w-full my-9 relative">
+          <div className="line bg-[#0084CB] h-1 w-full my-9 relative">
             <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#edf7fc] px-3">
               Or
             </span>
@@ -156,7 +156,7 @@ const Home = () => {
                   onChange={setOtp}
                   numInputs={6}
                   renderSeparator={
-                    <span className="p-3 text-[#50b8e7]">-</span>
+                    <span className="p-3 text-[#0084CB]">-</span>
                   }
                   renderInput={(props) => <input {...props} />}
                   inputStyle={{
@@ -171,7 +171,7 @@ const Home = () => {
                 />
                 <Button
                   onClick={handleVerifyCode}
-                  className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-2.5 text-white rounded-xl"
+                  className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-2.5 text-white rounded-xl"
                 >
                   {loading && (
                     <CircleDashedIcon size={20} className="mt-1 animate-spin" />
@@ -181,7 +181,7 @@ const Home = () => {
               </>
             ) : (
               <>
-                <h2 className="text-xl text-center text-[#50b8e7] font-semibold">
+                <h2 className="text-xl text-center text-[#0084CB] font-semibold">
                   Sign in with phone number
                 </h2>
                 <PhoneInput
@@ -204,7 +204,7 @@ const Home = () => {
                 <Button
                   onClick={handleSendCode}
                   id="send-code-button"
-                  className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"
+                  className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"
                 >
                   {loading && (
                     <>

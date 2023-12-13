@@ -24,11 +24,11 @@ const Home = () => {
       </div>
       <div className="col-span-4 bg-red-700 rounded-xl h-[40vh]">2</div>
       <div className="col-span-4 bg-red-700 rounded-xl h-[40vh]">3</div>
-      <div className=" col-span-12 flex  bg-red-700 rounded-xl h-[40vh]">
+      <div id="image-scroll-upload" className=" col-span-12 flex overflow-x-auto bg-red-700 rounded-xl h-[40vh]">
         <div className="w-auto h-full">
           <DropzoneComponent />
         </div>
-        <div id="image-scroll-upload" className="flex gap-3 w-full  overflow-x-auto  h-full">
+        <div  className="flex gap-3 w-full   h-full">
           {slides.map((slide, index) => (
             <div key={index} className="relative aspect-square my-2">
               <Image

@@ -30,9 +30,19 @@
   /* font-family: 'Lobster', cursive; */
   /* font-family: 'Roboto Slab', serif; */
 }
-::webkit-scrollbar {
-  z-index: 9999; /* Adjust the z-index as needed */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: brown;
+  display: none;
 }
 #image-scroll-upload::-webkit-scrollbar {
   display: none;
+}
+#sidebar::-webkit-scrollbar {
+  display: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

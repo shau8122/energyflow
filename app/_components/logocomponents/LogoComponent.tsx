@@ -32,7 +32,7 @@ const LogoComponent = () => {
          
       
       <div className="grid grid-cols-12 justify-between items-center gap-2 w-full h-auto md:h-full">
-        <div className="relative h-[60vh] md:h-full col-span-12 md:col-span-6">
+        <div className="relative h-[50vh] md:h-full col-span-12 md:col-span-6">
           <Image
             src="/bottleMain.jpg"
             fill

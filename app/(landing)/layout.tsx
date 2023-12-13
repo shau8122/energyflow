@@ -19,10 +19,12 @@ const DashboardLayout=async({
         className={`  h-screen   flex flex-col relative min-h-screen bg-cover bg-center`}
         // style={{ backgroundImage: 'url("/bg1.jpeg")' }}
       >
-       
-         <div className="top-0 left-0 w-full h-full relative bg-transparent z-10 overflow-auto">
+         <div className="top-0 flex flex-col left-0 w-full h-full relative bg-transparent z-10 overflow-auto">
           <Navbar />
+          <div className="flex-1">
+
           {children}
+          </div>
           <Footer />
         </div>
       </div>
