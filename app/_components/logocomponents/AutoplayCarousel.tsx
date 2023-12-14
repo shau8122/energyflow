@@ -1,6 +1,6 @@
 // AutoplayCarousel.js
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -11,6 +11,7 @@ interface AutoplayCarouselProps {
 
 const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,7 +24,7 @@ const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
   return (
  
     <Carousel
-    className="w-full mx-auto"
+    className="w-full h-full"
     infiniteLoop
     showThumbs={false}
     showArrows={false}
@@ -33,15 +34,14 @@ const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
     interval={3000}
   >
     {items.map((item, index) => (
-      <div className="relative w-full h-[60vh]" key={index}>
+      <div className="relative w-full h-full" key={index}>
         <Image
           key={index}
          fill
-          onClick={() => console.log("clicked")}
+         sizes="100%"
           style={{
             objectFit: "cover",
-            cursor: "pointer",
-        
+           
           }}
           src={item}
           alt={`Slide ${index + 1}`}

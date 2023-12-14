@@ -54,6 +54,7 @@ const Navbar = () => {
   return (
     <div className="w-full sticky pt-2
     bg-white
+    shadow-md
     top-0 z-50">
        {/* //  bg-[#b9e2f5]/95   */}
       <div className="w-full mx-auto max-w-screen-2xl  flex lg:flex-row flex-col ">
