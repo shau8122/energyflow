@@ -33,13 +33,16 @@ const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
     interval={3000}
   >
     {items.map((item, index) => (
-      <div className="relative" key={index}>
+      <div className="relative w-full h-[60vh]" key={index}>
         <Image
           key={index}
-          width={500}
-          height={500}
+         fill
           onClick={() => console.log("clicked")}
-          className="object-cover"
+          style={{
+            objectFit: "cover",
+            cursor: "pointer",
+        
+          }}
           src={item}
           alt={`Slide ${index + 1}`}
         />

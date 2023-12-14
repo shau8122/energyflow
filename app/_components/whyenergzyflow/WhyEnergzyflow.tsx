@@ -49,7 +49,6 @@ const WhyEnerzyflow = () => {
       {
         WhyEnerzyflowDetails.map((detail, index) => (
           <div key={index}>
-            
             <WhyEnerzyflowCard isFirst={index===0}  isLast={index===WhyEnerzyflowDetails.length-1} {...detail} />
           </div>
         ))

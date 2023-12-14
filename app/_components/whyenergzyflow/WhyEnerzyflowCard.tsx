@@ -1,4 +1,6 @@
+'use client'
 import Image, { StaticImageData } from "next/image";
+import { motion } from "framer-motion";
 
 interface WhyEnerzyflowCardProps{
   img: StaticImageData,
@@ -18,7 +20,11 @@ const WhyEnerzyflowCard:React.FC<WhyEnerzyflowCardProps> = ({
   isLast,
 }) => {
   return ( 
-    <li className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-10 bg-gray-50 shadow-md ${isLast && "md:rounded-b-3xl"} ${isFirst && "md:rounded-t-3xl"} `}>
+    <motion.li 
+    initial={{ y: 100,opacity:0 }}
+    whileInView={{ y: 0,opacity:1 }}
+    transition={{ duration: 1, type: "spring" }}
+    className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-10 bg-gray-50 shadow-md ${isLast && "md:rounded-b-3xl"} ${isFirst && "md:rounded-t-3xl"} `}>
           <div className={`w-full h-full flex flex-col  gap-8 items-center ${left ? "md:flex-row":"md:flex-row-reverse"} `}>
         <div className="w-full h-[300px] md:h-full relative md:w-1/4 flex justify-center items-center">
           <Image
@@ -37,7 +43,7 @@ const WhyEnerzyflowCard:React.FC<WhyEnerzyflowCardProps> = ({
           </p>
         </div>
       </div>
-    </li>
+    </motion.li>
    );
 }
  

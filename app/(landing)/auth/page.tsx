@@ -15,6 +15,7 @@ import "firebase/compat/auth";
 import { firebaseConfig } from "@/firebase/config";
 import MainBottle from "@/public/bottleMain.jpg";
 import toast from "react-hot-toast";
+import signinbg from '@/public/signinbg.jpg'
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -88,15 +89,22 @@ const Home = () => {
   }, [router]);
 
   return (
-    <div className="flex justify-around items-center h-[80vh] mt-10 ">
-      <div className="hidden w-1/2 h-full  relative  lg:flex justify-center items-center">
-        <Image src={MainBottle} alt={"bottle1"} fill style={{
+    <div className="flex justify-end items-center h-[80vh] px-4 "
+    style={{
+      backgroundImage: 'url("/signinbg.jpg")',
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: 'center' ,
+    }}
+    >
+      {/* <div className="hidden w-1/2 h-full  relative  lg:flex justify-center items-center">
+        <Image src={signinbg} alt={"signinbg.jpg"} fill style={{
             objectFit: 'cover', // cover, contain, none
           }}  />
-      </div>
+      </div> */}
       <div
+      // rounded-xl
         className="
-      rounded-xl
       bg-[#edf7fc]
       px-4 
       pb-4
