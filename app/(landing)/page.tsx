@@ -3,8 +3,10 @@ import LogoComponent from "@/app/_components/logocomponents/LogoComponent";
 import AboutHomePage from "../_components/about/AboutHomePage";
 
 import WhatsAppLink from "@/components/WhatsappIcon";
-import Testimonials from "../_components/testimonials/Testimonials";
+
 import WhyEnerzyflow from "../_components/whyenergzyflow/WhyEnergzyflow";
+import Testimonials from "../_components/testimonials/Testimonials";
+import Collaborators from "../_components/collaborators/Collaborators";
 
 
 
@@ -14,10 +16,11 @@ const Home = () => {
       <LogoComponent />
       <Categories />
       <AboutHomePage />
-     
       <WhatsAppLink />
       <WhyEnerzyflow/>
+      <Collaborators/>
       <Testimonials/>
+
  </>
   );
 };

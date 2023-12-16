@@ -4,7 +4,7 @@ const VideoBg = () => {
   return (
     <div className='main relative w-full '>
         {/* <div className="overlay"></div> */}
-        <video src="/v2.mp4" className='' autoPlay loop muted />
+        <video src="/E-1.mp4" className='' autoPlay loop muted />
         {/* <div className="content">
             <h1>Welcome</h1>
             <p>To my site.</p>

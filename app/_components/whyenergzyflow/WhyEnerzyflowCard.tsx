@@ -1,17 +1,16 @@
-'use client'
 import Image, { StaticImageData } from "next/image";
-import { motion } from "framer-motion";
 
-interface WhyEnerzyflowCardProps{
-  img: StaticImageData,
-  title: string,
-  description: string,
-  left: boolean,
-  isFirst:boolean,
-  isLast:boolean,
+
+interface WhyEnerzyflowCardProps {
+  img: StaticImageData;
+  title: string;
+  description: string;
+  left: boolean;
+  isFirst?: boolean;
+  isLast?: boolean;
 }
 
-const WhyEnerzyflowCard:React.FC<WhyEnerzyflowCardProps> = ({
+const WhyEnerzyflowCard: React.FC<WhyEnerzyflowCardProps> = ({
   img,
   title,
   description,
@@ -19,32 +18,31 @@ const WhyEnerzyflowCard:React.FC<WhyEnerzyflowCardProps> = ({
   isFirst,
   isLast,
 }) => {
-  return ( 
-    <motion.li 
-    initial={{ y: 100,opacity:0 }}
-    whileInView={{ y: 0,opacity:1 }}
-    transition={{ duration: 1, type: "spring" }}
-    className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-10 bg-gray-50 shadow-md ${isLast && "md:rounded-b-3xl"} ${isFirst && "md:rounded-t-3xl"} `}>
-          <div className={`w-full h-full flex flex-col  gap-8 items-center ${left ? "md:flex-row":"md:flex-row-reverse"} `}>
+  return (
+    <li
+      className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-10 bg-gray-50 shadow-md ${
+        isLast && "md:rounded-b-3xl"
+      } ${isFirst && "md:rounded-t-3xl"} `}
+    >
+      <div
+        className={`w-full h-full flex flex-col  gap-8 items-center ${
+          left ? "md:flex-row" : "md:flex-row-reverse"
+        } `}
+      >
         <div className="w-full h-[300px] md:h-full relative md:w-1/4 flex justify-center items-center">
-          <Image
-            src={img}
-            alt="whyenergzyflow"
-            className="w-full"
-            fill
-          />
+          <Image src={img} alt="whyenergzyflow" className="w-full" fill />
         </div>
         <div className="w-full h-full md:w-3/4 gap-3 flex flex-col justify-start ">
-          <h1 className="text-start font-semibold text-2xl text-blue-500">
+          <h1 className="text-start font-semibold text-2xl text-[#0084CB]">
             {title}
           </h1>
           <p className=" text-justify flex-1 text-lg text-slate-500 mt-2 font-medium mb-5">
-            {description} 
+            {description}
           </p>
         </div>
       </div>
-    </motion.li>
-   );
-}
- 
+    </li>
+  );
+};
+
 export default WhyEnerzyflowCard;

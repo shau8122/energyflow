@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 
 interface CategoriesBoxProps {
-  children: React.ReactNode;
+  icon:string,
   name: string;
 }
 
-const CategoriesBox: React.FC<CategoriesBoxProps> = ({ children, name }) => {
+const CategoriesBox: React.FC<CategoriesBoxProps> = ({ icon, name }) => {
   return (
 
 
@@ -16,9 +16,9 @@ const CategoriesBox: React.FC<CategoriesBoxProps> = ({ children, name }) => {
     initial={{y:50,opacity:0}}
     whileInView={{y:0,opacity:1}}
     transition={{duration:1, type:"spring"}}
-     className="w-24 h-24 flex justify-between items-center flex-col p-2">
-      <div className="w-1/2 hover:w-[60%] transition-all">{children}</div>
-      <h1 className="text-sm text-center text-blue-900 font-semibold">{name}</h1>
+     className=" h-32 flex justify-around sm:justify-between items-center flex-row sm:flex-col p-4 my-3 shadow-md rounded-xl">
+      <h1 className="text-4xl text-center">{icon}</h1>
+      <h1 className="text-sm text-center text-blue-900 font-semibold">{name.slice(0,25)}</h1>
     </motion.div>
     
   );

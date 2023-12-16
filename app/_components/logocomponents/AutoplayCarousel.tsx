@@ -27,9 +27,10 @@ const AutoplayCarousel: React.FC<AutoplayCarouselProps> = ({ items }) => {
     className="w-full h-full"
     infiniteLoop
     showThumbs={false}
-    showArrows={false}
+    showArrows
     showStatus={false}
     selectedItem={currentIndex}
+    swipeable={false}
     autoPlay
     interval={3000}
   >
