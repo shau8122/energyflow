@@ -30,7 +30,7 @@ const WhyEnerzyflowCard: React.FC<WhyEnerzyflowCardProps> = ({
         } `}
       >
         <div className="w-full h-[300px] md:h-full relative md:w-1/4 flex justify-center items-center">
-          <Image src={img} alt="whyenergzyflow" className="w-full" fill />
+          <Image src={img} alt="whyenergzyflow" className="w-full" sizes="100" fill />
         </div>
         <div className="w-full h-full md:w-3/4 gap-3 flex flex-col justify-start ">
           <h1 className="text-start font-semibold text-2xl text-[#0084CB]">

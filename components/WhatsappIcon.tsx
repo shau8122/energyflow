@@ -15,7 +15,7 @@ const WhatsappIcon = () => {
 
     >
       <Link
-        href="https://wa.me/917654831436?text=I'm%20interested%20in%20your%20car%20for%20sale"
+        href="https://wa.me/919002520720?text=I'm%20interested%20in%20your%20business%20idea%20to%20collaborate"
         target="_blank"
       >
         <motion.div

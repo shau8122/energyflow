@@ -61,7 +61,6 @@ const Navbar = () => {
         <div className="lg:w-[35%]  w-full mx-auto  flex justify-center items-center">
           <Image
             src="/MainLogo3.png"
-            className=""
             width={200}
             height={200}
             alt={"logo"}
