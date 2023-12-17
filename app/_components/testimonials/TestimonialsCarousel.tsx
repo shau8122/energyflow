@@ -9,7 +9,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { images } from "@/libs/Image";
+import { images } from "@/lib/Image";
 import TestimonialsCard from "./TestimonialsCard";
 
 const TestimonialsCarousel = () => {

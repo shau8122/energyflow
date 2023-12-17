@@ -7,7 +7,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   // const apiLimitCount = await getApiLimitCount()
 
   return (
-    <div className="h-full min-h-screen flex flex-col relative bg-red-900">
+    <div className="h-full min-h-screen flex flex-col relative">
       <Navbar/>
       <div className="flex-1">
       {children}

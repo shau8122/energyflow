@@ -47,7 +47,7 @@ const WhyEnerzyflowDetails = [
 const WhyEnerzyflow = () => {
   return (
     <div className="max-w-[1080px] px-4 lg:px-0 lg:mx-auto w-full flex flex-col justify-center   items-center">
-      <h1 className="text-center  text-5xl my-6 text-[#0084CB]">
+      <h1 className="text-center  text-4xl my-6 text-[#0084CB]">
         Why <span className="font-bold">Enerzyflow</span>
       </h1>
       <ul className="w-full flex-col flex mt-3">

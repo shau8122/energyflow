@@ -22,7 +22,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 // import FreeCounter from "./FreeCounter";
-import { cn } from "@/libs/utils";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const montserrat = Montserrat({

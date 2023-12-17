@@ -40,7 +40,7 @@ export default async function SearchPage({
       {/* {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))} */}
-      <div className="text-center">No products found</div>
+      <div className="text-center">No products found for {query}</div>
       <ProductCard/>
     </div>
   );

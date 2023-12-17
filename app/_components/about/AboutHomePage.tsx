@@ -1,7 +1,7 @@
 const AboutHomePage = () => {
   return ( 
     <div className="p-3 w-full max-w-[1080px] mx-auto mt-5 flex flex-col justify-center items-start ">
-      <h1 className="text-3xl w-full font-semibold mb-2 mt-5 text-start text-blue-500">
+      <h1 className="text-3xl w-full font-semibold mb-2 mt-5 text-start text-[#0084CB]">
         About Us
         </h1>
         <h2 className="text-xl w-full font-semibold  mt-3 text-start text-blue-500">Welcome to Enerzyflow – Where Your Brand Finds Fluidity and Quality!</h2>

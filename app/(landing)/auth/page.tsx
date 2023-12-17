@@ -16,6 +16,7 @@ import { firebaseConfig } from "@/firebase/config";
 import MainBottle from "@/public/bottleMain.jpg";
 import toast from "react-hot-toast";
 import signinbg from '@/public/signinbg.jpg'
+import facebookIcon from '@/public/FacebookIcon.svg'
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -130,12 +131,12 @@ const Home = () => {
             </div>
             <div className="w-1/2">
               <button className=" w-full mt-4 font-semibold">
-                <div className="flex  bg-blue-500 text-white justify-center border-2 p-2  rounded-xl border-blue-300 items-center">
+                <div className="flex  justify-center border-2 p-2  gap-3 rounded-xl border-blue-300 items-center">
                   <Image
-                    width={25}
-                    height={25}
+                    width={30}
+                    height={30}
                     className="mr-2"
-                    src="/google.png"
+                    src={facebookIcon}
                     alt="google"
                   />
                   <p className="text-lg">Facebook</p>
