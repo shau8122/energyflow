@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { Autoplay } from "swiper/modules";
+
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,8 +14,13 @@ import second from '@/public/bottle2.jpg'
 import third from '@/public/bottle3.jpg'
 import fourth from '@/public/bottle4.jpg'
 
+interface ProductCarouselProps {
+  imageUrls: string[];
+}
 
-const ProductCarousel = () => {
+const ProductCarousel:React.FC<ProductCarouselProps> = ({
+  imageUrls
+}) => {
   const images = [first, second, third, fourth];
   return (
     <Swiper
@@ -23,16 +28,16 @@ const ProductCarousel = () => {
       spaceBetween={10}
       slidesPerView={1}
       loop={true} // Enable the infinite loop
-      autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay settings
-      modules={[Navigation, Autoplay]}
+     
+      modules={[Navigation]}
       // onSwiper={(swiper) => console.log(swiper)}
       scrollbar={{ draggable: true }}
-      className="w-full full rounded-lg"
+      className="w-full rounded-xl "
     >
       {
-        images.map((image, index) => (
-          <SwiperSlide key={index} className="w-full h-full">
-            <div className="w-full h-[280px]  relative flex items-center justify-center">
+        imageUrls.map((image, index) => (
+          <SwiperSlide key={index}>
+            <div className="w-full h-[268px] relative flex items-center justify-center">
               <Image src={image} fill alt="testimonials" className="rounded-lg object-cover" />
             </div>
           </SwiperSlide>

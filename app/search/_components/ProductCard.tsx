@@ -1,37 +1,88 @@
+import { Button } from "@/components/ui/button";
 import ProductCarousel from "./ProductCarousel";
+import { formatPrice } from "@/lib/format";
+interface ProductCardProps {
+    Name: string;
+  Address: string;
+  Distance: number;
+  OpenClose: string;
+  Rating: number;
+  RatingDescription: string;
+  Facilities: string[];
+  OriginalPricing: number;
+  OffPricePercentage: number;
+  NetPrice: number;
+  Tax: number;
+  ImageURLs: string[];
+}
 
-const ProductCard = () => {
+const ProductCard:React.FC<ProductCardProps> = ({
+  Name,
+  Address,
+  Distance,
+  OpenClose,
+  Rating,
+  RatingDescription,
+  Facilities,
+  OriginalPricing,
+  OffPricePercentage,
+  NetPrice,
+  Tax,
+  ImageURLs
+}) => {
   return (
-    <div className="w-full h-[300px] bg-gray-900">
-      <div className="W-full flex h-full ">
-        <div className="w-[40%] h-full my-2">
-          <ProductCarousel />
+    <div className="w-full  h-auto border sm:h-[300px]  shadow-sm hover:shadow-xl p-4  rounded-xl">
+      <div className="W-full flex sm:flex-row flex-col items-center h-full ">
+        <div className="w-full sm:w-[40%] m-auto rounded-xl">
+          <ProductCarousel imageUrls={ImageURLs}/>
         </div>
-        <div className="flex-1 pt-2 pl-5 h-full bg-red-200">
-          <div>
-            <h1 className="text-2xl font-bold">OYO Flagship Hotel Gour</h1>
-            <p className="text-sm font-semibold">
-              Near Axis Bank,Complex, Kharagpur
-              <span className="text-xs text-red-400"> 0.0 km</span>
+        <div className="flex-1 mt-5 sm:mt-0 gap-4 sm:gap-0 flex justify-between items-start flex-col sm:ml-5 h-full">
+          <div className=" w-full">
+            <h1 className="sm:text-2xl text-xl font-bold text-slate-900">
+              {Name || "Hotel Name"}
+            </h1>
+            <p className="text-sm font-semibold text-slate-800">
+              {Address || "Address"}
+              <span className="text-xs text-red-400"> {Distance || 0} km</span>
             </p>
-            <h4 className="bg-green-200 text-green-700 inline-block p-2 text-xl font-bold">
-              open now
-            </h4>
-            <div className="flex">
-              <p className="text-sm bg-green-50 px-2 py-1 mr-2">3.4 &#9733;</p>
-              <p className="text-sm">Fair</p>
-            </div>
           </div>
-          <div>
-            <div>
-              <p>₹811</p>
-              <p>₹3688</p>
-              <p>74% off</p>
-              <p>+ ₹137 taxes & fees · per room per night</p>
+          <div className="flex flex-col w-full">
+            <h4 className=" text-lime-600  text-lg font-semibold">Now {OpenClose || "Close"}</h4>
+            <div className="flex items-center ">
+              <p className="text-sm  px-2 py-1 mr-2">{Rating || 5} &#9733;</p>
+              <p className="text-[16px]">{RatingDescription}</p>
             </div>
-            <div>
-              <button>View Details</button>
-              <button>Book Now</button>
+            <ul className="flex  pl-4 gap-7 list-disc">
+              {
+                Facilities.map((facility, index) => (
+                  <li className="text-sm text-slate-900" key={index}>{facility}</li>
+                ))
+              }
+            </ul>
+          </div>
+          <div className="flex flex-col justify-between gap-2 w-full md:flex-row">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <p className="text-xl text-slate-900 font-semibold">{formatPrice(NetPrice)}</p>
+                <p className="text-[16px] line-through text-slate-700">{formatPrice(OriginalPricing)}</p>
+                <p className="text-[16px] font-semibold text-orange-500">
+                  {OffPricePercentage}% off
+                </p>
+              </div>
+              <p className="text-sm text-slate-900">
+                + {formatPrice(Tax)} taxes & fees · per room per night
+              </p>
+            </div>
+            <div className="flex sm:w-auto w-full justify-between items-center gap-2">
+              <Button
+                variant={"outline"}
+                className="rounded-xl font-semibold text-[16px]"
+              >
+                View Details
+              </Button>
+              <Button className="rounded-xl font-semibold text-[16px] hover:bg-black text-white bg-[#0084CB] ">
+                Book Now
+              </Button>
             </div>
           </div>
         </div>

@@ -100,8 +100,7 @@ const CardStore: React.FC<CardStoreProps> = ({
           </div>
         </div>
         <Button
-          className="w-full mt-2 rounded-xl bg-[#0084CB] text-white"
-          variant={"outline"}
+          className="w-full mt-2 rounded-xl font-semibold text-[16px] hover:bg-black text-white bg-[#0084CB] "
         >
           <h1 className="text-lg mx-2">Add to Cart</h1>
           <svg
