@@ -17,14 +17,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+type Location = {
+  label: string;
+  value: string;
+}
 interface LocationFilterProps {
-  location: string[];
+  locations: Location[];
+  setCity: (city: string) => void;
+  city: string;
 }
 
-const LocationFilter: React.FC<LocationFilterProps> = ({ location }) => {
+const LocationFilter: React.FC<LocationFilterProps> = ({ locations
+  ,
+  setCity,
+  city,
+ }) => {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,34 +44,33 @@ const LocationFilter: React.FC<LocationFilterProps> = ({ location }) => {
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value
-            ? location.findIndex((item) => item === value) !== -1
-              ? "Location found!"
-              : "Location not found"
-            : "Select location..."}
+          {city
+            ? locations.find((location) => location.value.toLocaleLowerCase() === city)?.label
+            : "Select framework..."}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full bg-white p-0">
         <Command>
           <CommandInput placeholder="Search location..." />
           <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
-            {location.map((framework) => (
+          <CommandGroup className=" max-h-64 overflow-auto">
+            {locations.map((location) => (
               <CommandItem
-                key={framework}
-                value={framework}
+                key={location.label}
+                value={location.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
+                  setCity(currentValue === city ? "" : currentValue)
+                  console.log(currentValue)
+                  setOpen(false)
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework ? "opacity-100" : "opacity-0"
+                    city === location.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {framework}
+                {location.label}
               </CommandItem>
             ))}
           </CommandGroup>

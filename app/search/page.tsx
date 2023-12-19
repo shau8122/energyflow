@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ProductCard from "./_components/ProductCard";
 import LocationFilter from "./_components/LocationFilter";
+import SearchResults from "./_components/SearchResults";
 
 interface SearchPageProps {
   searchParams: { query: string };
@@ -255,6 +256,187 @@ const products = [
       "https://picsum.photos/id/1079/200/300",
     ],
   },
+  {
+    Name: "Downtown Suites",
+    Address: "567 Main Street, Green Valley",
+    Distance: 6.5,
+    OpenClose: "Open",
+    Rating: 4.5,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Wi-Fi", "City View Rooms", "Fitness Center"],
+    OriginalPricing: 180,
+    OffPricePercentage: 20,
+    NetPrice: 144,
+    Tax: 11.52,
+    ImageURLs: [
+      "https://picsum.photos/id/1080/200/300",
+      "https://picsum.photos/id/1081/200/300",
+      "https://picsum.photos/id/1082/200/300",
+      "https://picsum.photos/id/1083/200/300",
+      "https://picsum.photos/id/1084/200/300",
+    ],
+  },
+  {
+    Name: "City Center Hotel",
+    Address: "789 Elm Avenue, Green Valley",
+    Distance: 3.8,
+    OpenClose: "Open",
+    Rating: 4.2,
+    RatingDescription: "Good",
+    Facilities: ["Free Parking", "Conference Rooms", "Restaurant"],
+    OriginalPricing: 150,
+    OffPricePercentage: 15,
+    NetPrice: 127.5,
+    Tax: 10.2,
+    ImageURLs: [
+      "https://picsum.photos/id/1085/200/300",
+      "https://picsum.photos/id/1086/200/300",
+      "https://picsum.photos/id/1087/200/300",
+      "https://picsum.photos/id/1088/200/300",
+      "https://picsum.photos/id/1089/200/300",
+    ],
+  },
+  {
+    Name: "Hillside Retreat",
+    Address: "234 Oak Lane, Green Valley",
+    Distance: 5.0,
+    OpenClose: "Open",
+    Rating: 4.7,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Cancellation", "Hiking Trails", "Mountain Views"],
+    OriginalPricing: 200,
+    OffPricePercentage: 25,
+    NetPrice: 150,
+    Tax: 12,
+    ImageURLs: [
+      "https://picsum.photos/id/1090/200/300",
+      "https://picsum.photos/id/1091/200/300",
+      "https://picsum.photos/id/1092/200/300",
+      "https://picsum.photos/id/1093/200/300",
+      "https://picsum.photos/id/1094/200/300",
+    ],
+  },
+
+  {
+    Name: "Sunset Haven Inn",
+    Address: "123 Ocean Drive, Beachtown",
+    Distance: 4.0,
+    OpenClose: "Open",
+    Rating: 4.3,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Wi-Fi", "Beachfront Views", "Pool"],
+    OriginalPricing: 180,
+    OffPricePercentage: 15,
+    NetPrice: 153,
+    Tax: 12.24,
+    ImageURLs: [
+      "https://picsum.photos/id/1100/200/300",
+      "https://picsum.photos/id/1101/200/300",
+      "https://picsum.photos/id/1102/200/300",
+      "https://picsum.photos/id/1103/200/300",
+      "https://picsum.photos/id/1104/200/300",
+    ],
+  },
+  {
+    Name: "Mountain View Lodge",
+    Address: "456 Summit Road, Mountain Village",
+    Distance: 8.5,
+    OpenClose: "Open",
+    Rating: 4.6,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Cancellation", "Scenic Views", "Hiking Trails"],
+    OriginalPricing: 200,
+    OffPricePercentage: 20,
+    NetPrice: 160,
+    Tax: 12.8,
+    ImageURLs: [
+      "https://picsum.photos/id/1105/200/300",
+      "https://picsum.photos/id/1106/200/300",
+      "https://picsum.photos/id/1107/200/300",
+      "https://picsum.photos/id/1108/200/300",
+      "https://picsum.photos/id/1109/200/300",
+    ],
+  },
+  {
+    Name: "City Lights Suites",
+    Address: "789 Broadway Avenue, Metropolitan City",
+    Distance: 2.5,
+    OpenClose: "Close",
+    Rating: 3.9,
+    RatingDescription: "Good",
+    Facilities: ["Free Parking", "City Skyline Views", "Business Center"],
+    OriginalPricing: 160,
+    OffPricePercentage: 12,
+    NetPrice: 140.8,
+    Tax: 11.2,
+    ImageURLs: [
+      "https://picsum.photos/id/1110/200/300",
+      "https://picsum.photos/id/1111/200/300",
+      "https://picsum.photos/id/1112/200/300",
+      "https://picsum.photos/id/1113/200/300",
+      "https://picsum.photos/id/1114/200/300",
+    ],
+  },
+  {
+    Name: "Metropolitan Grand Hotel",
+    Address: "345 Downtown Boulevard, Metropolitan City",
+    Distance: 1.2,
+    OpenClose: "Open",
+    Rating: 4.8,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Wi-Fi", "Luxury Suites", "Rooftop Lounge"],
+    OriginalPricing: 250,
+    OffPricePercentage: 20,
+    NetPrice: 200,
+    Tax: 16,
+    ImageURLs: [
+      "https://picsum.photos/id/1120/200/300",
+      "https://picsum.photos/id/1121/200/300",
+      "https://picsum.photos/id/1122/200/300",
+      "https://picsum.photos/id/1123/200/300",
+      "https://picsum.photos/id/1124/200/300",
+    ],
+  },
+  {
+    Name: "City View Suites",
+    Address: "567 Skyline Avenue, Metropolitan City",
+    Distance: 2.0,
+    OpenClose: "Open",
+    Rating: 4.5,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Parking", "City Skyline Views", "Fitness Center"],
+    OriginalPricing: 180,
+    OffPricePercentage: 15,
+    NetPrice: 153,
+    Tax: 12.24,
+    ImageURLs: [
+      "https://picsum.photos/id/1125/200/300",
+      "https://picsum.photos/id/1126/200/300",
+      "https://picsum.photos/id/1127/200/300",
+      "https://picsum.photos/id/1128/200/300",
+      "https://picsum.photos/id/1129/200/300",
+    ],
+  },
+  {
+    Name: "Metropolitan Residences",
+    Address: "789 Main Street, Metropolitan City",
+    Distance: 1.5,
+    OpenClose: "Open",
+    Rating: 4.7,
+    RatingDescription: "Excellent",
+    Facilities: ["Free Cancellation", "Concierge Service", "Spa"],
+    OriginalPricing: 200,
+    OffPricePercentage: 18,
+    NetPrice: 164,
+    Tax: 13.12,
+    ImageURLs: [
+      "https://picsum.photos/id/1130/200/300",
+      "https://picsum.photos/id/1131/200/300",
+      "https://picsum.photos/id/1132/200/300",
+      "https://picsum.photos/id/1133/200/300",
+      "https://picsum.photos/id/1134/200/300",
+    ],
+  },
 ];
 
 export default async function SearchPage({
@@ -273,14 +455,6 @@ export default async function SearchPage({
   // if (products.length === 0) {
   //   return <div className="text-center">No products found</div>;
   // }
-  const ProductsLocation = products.map((product) => {
-    return product.Address;
-  });
-  const cities = ProductsLocation.map((address) => {
-    // Split the address by comma and get the last part (assuming city is always the last part)
-    const parts = address.split(', ');
-    return parts[parts.length - 1];
-  });
   return (
     // grid grid-cols-1
     <div
@@ -288,20 +462,7 @@ export default async function SearchPage({
     max-w-[1080px] mx-auto 
     "
     >
-      <h1 className="text-3xl font-semibold text-start mb-4">
-        Search results for: <span className="text-[#0084CB]">{query}</span>
-      </h1>
-      <LocationFilter location={cities}/>
-      {/* // gap-4 md:grid-cols-2 xl:grid-cols-3 */}
-      <div className="flex flex-col my-4 gap-4">
-        {products.map((product, index) => (
-          <ProductCard {...product} key={index} />
-        ))}
-      </div>
-      {/* {products.map((product) => (
-        <ProductCard product={product} key={product.id} />
-      ))} */}
-      {/* <div className="text-center">No products found for {query}</div> */}
+      <SearchResults products={products} query={query} />
     </div>
   );
 }
