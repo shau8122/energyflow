@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} `}
+        className={`${inter.className}  `}
         // style={{ backgroundImage: 'url("/bg1.jpeg")' }}
       >
         <ToastProvider />

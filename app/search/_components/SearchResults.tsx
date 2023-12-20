@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { RatingFilter } from "./RatingFilter";
 import PriceFilter from "./PriceFilter";
 
-type Product = {
+export type Product = {
   Name: string;
   Address: string;
   Distance: number;
@@ -97,7 +97,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ products,query }) => {
           </div>
         )}
         {filteredProducts.map((product, index) => (
-          <ProductCard {...product} key={index} />
+          <ProductCard product={product} key={index} />
         ))}
       </div>
       {/* {products.map((product) => (

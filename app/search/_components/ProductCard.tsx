@@ -1,82 +1,84 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import ProductCarousel from "./ProductCarousel";
 import { formatPrice } from "@/lib/format";
+import { useRouter } from "next/navigation";
+import { Product } from "./SearchResults";
+import Link from "next/link";
+
 interface ProductCardProps {
-    Name: string;
-  Address: string;
-  Distance: number;
-  OpenClose: string;
-  Rating: number;
-  RatingDescription: string;
-  Facilities: string[];
-  OriginalPricing: number;
-  OffPricePercentage: number;
-  NetPrice: number;
-  Tax: number;
-  ImageURLs: string[];
+  product: Product;
 }
 
-const ProductCard:React.FC<ProductCardProps> = ({
-  Name,
-  Address,
-  Distance,
-  OpenClose,
-  Rating,
-  RatingDescription,
-  Facilities,
-  OriginalPricing,
-  OffPricePercentage,
-  NetPrice,
-  Tax,
-  ImageURLs
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const router = useRouter();
+  
+  const handleClick = () => {
+    router.push(
+      `/product/${product.Name.replace(/\s/g, "-")}?data=${JSON.stringify(
+        product
+      )}`
+    )
+  };
   return (
     <div className="w-full  h-auto border sm:h-[300px]  shadow-sm hover:shadow-xl p-4  rounded-xl">
       <div className="W-full flex sm:flex-row flex-col items-center h-full ">
         <div className="w-full sm:w-[40%] m-auto rounded-xl">
-          <ProductCarousel imageUrls={ImageURLs}/>
+          <ProductCarousel imageUrls={product.ImageURLs} />
         </div>
         <div className="flex-1 mt-5 sm:mt-0 gap-4 sm:gap-0 flex justify-between items-start flex-col sm:ml-5 h-full">
           <div className=" w-full">
             <h1 className="sm:text-2xl text-xl font-bold text-slate-900">
-              {Name || "Hotel Name"}
+              {product.Name || "Hotel Name"}
             </h1>
             <p className="text-sm font-semibold text-slate-800">
-              {Address || "Address"}
-              <span className="text-xs text-red-400"> {Distance || 0} km</span>
+              {product.Address || "Address"}
+              <span className="text-xs text-red-400">
+                {" "}
+                {product.Distance || 0} km
+              </span>
             </p>
           </div>
           <div className="flex flex-col w-full">
-            <h4 className=" text-lime-600  text-lg font-semibold">Now {OpenClose || "Close"}</h4>
+            <h4 className=" text-lime-600  text-lg font-semibold">
+              Now {product.OpenClose || "Close"}
+            </h4>
             <div className="flex items-center ">
-              <p className="text-sm  px-2 py-1 mr-2">{Rating || 5} &#9733;</p>
-              <p className="text-[16px]">{RatingDescription}</p>
+              <p className="text-sm  px-2 py-1 mr-2">
+                {product.Rating || 5} &#9733;
+              </p>
+              <p className="text-[16px]">{product.RatingDescription}</p>
             </div>
             <ul className="flex  pl-4 gap-7 list-disc">
-              {
-                Facilities.map((facility, index) => (
-                  <li className="text-sm text-slate-900" key={index}>{facility}</li>
-                ))
-              }
+              {product.Facilities.map((facility, index) => (
+                <li className="text-sm text-slate-900" key={index}>
+                  {facility}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="flex flex-col justify-between gap-2 w-full md:flex-row">
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <p className="text-xl text-slate-900 font-semibold">{formatPrice(NetPrice)}</p>
-                <p className="text-[16px] line-through text-slate-700">{formatPrice(OriginalPricing)}</p>
+                <p className="text-xl text-slate-900 font-semibold">
+                  {formatPrice(product.NetPrice)}
+                </p>
+                <p className="text-[16px] line-through text-slate-700">
+                  {formatPrice(product.OriginalPricing)}
+                </p>
                 <p className="text-[16px] font-semibold text-orange-500">
-                  {OffPricePercentage}% off
+                  {product.OffPricePercentage}% off
                 </p>
               </div>
               <p className="text-sm text-slate-900">
-                + {formatPrice(Tax)} taxes & fees · per room per night
+                + {formatPrice(product.Tax)} taxes & fees · per room per night
               </p>
             </div>
             <div className="flex sm:w-auto w-full justify-between items-center gap-2">
               <Button
-                variant={"outline"}
+               variant={"outline"}
                 className="rounded-xl font-semibold text-[16px]"
+                onClick={handleClick}
               >
                 View Details
               </Button>
@@ -84,6 +86,7 @@ const ProductCard:React.FC<ProductCardProps> = ({
                 Book Now
               </Button>
             </div>
+          
           </div>
         </div>
       </div>
