@@ -11,14 +11,15 @@ import OtpInput from "react-otp-input";
 import PhoneInput from "react-phone-input-2";
 import { useRouter } from "next/navigation";
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import firebase from "firebase/compat/app";
 
+import "firebase/compat/auth";
+import facebookIcon from "@/public/FacebookIcon.svg";
 import { firebaseConfig } from "@/firebase/config";
 import toast from "react-hot-toast";
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig);
 
 interface AuthenticationModalProps {
   isOpen: boolean;
@@ -35,22 +36,26 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
 
-  const [verificationCode, setVerificationCode] = useState('');
+  const [verificationCode, setVerificationCode] = useState("");
   const [verificationId, setVerificationId] = useState(null as any);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter()
- 
-  
+  const router = useRouter();
+
   const handleSendCode = () => {
     setLoading(true);
-    const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('send-code-button', {
-      size: 'invisible',
-    });
+    const recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "send-code-button",
+      {
+        size: "invisible",
+      }
+    );
 
     const formatPh = "+" + ph;
-    firebase.auth().signInWithPhoneNumber(formatPh, recaptchaVerifier)
+    firebase
+      .auth()
+      .signInWithPhoneNumber(formatPh, recaptchaVerifier)
       .then((vid) => {
-        console.log(vid)
+        console.log(vid);
         setVerificationId(vid.verificationId);
         setError(null);
         setLoading(false);
@@ -59,32 +64,37 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
       })
       .catch((err) => {
         console.error(err);
-        setError(err.message || 'Failed to send verification code.');
+        setError(err.message || "Failed to send verification code.");
         setLoading(false);
-      })
+      });
   };
 
   const handleVerifyCode = () => {
     setLoading(true);
-    const credential = firebase.auth.PhoneAuthProvider.credential(verificationId!, otp);
+    const credential = firebase.auth.PhoneAuthProvider.credential(
+      verificationId!,
+      otp
+    );
 
-    firebase.auth().signInWithCredential(credential)
+    firebase
+      .auth()
+      .signInWithCredential(credential)
       .then((userCredential) => {
         // User signed in successfully
         console.log(userCredential);
-        sessionStorage.setItem('user', JSON.stringify(userCredential.user))
+        sessionStorage.setItem("user", JSON.stringify(userCredential.user));
         setLoading(false);
         toast.success("OTP verified successfully!");
-        router.push('/')
+        router.push("/");
         window.location.reload();
-        onClose()
+        onClose();
       })
       .catch((err) => {
         console.error(err);
-        setError(err.message || 'Failed to verify code.');
+        setError(err.message || "Failed to verify code.");
       });
   };
-  
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-full bg-[#edf7fc] text-[#50b8e7] p-2">
@@ -93,25 +103,25 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
           to Enerzyflow
         </h1>
         <div className="w-full mt-4 flex justify-between gap-2">
-        <div className="w-1/2 ">
-          <GoogleAuthButton onClose={onClose} />
+          <div className="w-1/2 ">
+            <GoogleAuthButton onClose={onClose} />
+          </div>
+          <div className="w-1/2">
+            <button className=" w-full mt-4 font-semibold">
+              <div className="flex    justify-center border-2 p-2  rounded-xl border-blue-300 items-center">
+                <Image
+                  width={30}
+                  height={30}
+                  className="mr-2"
+                  src={facebookIcon}
+                  alt="google"
+                />
+                <p className="text-lg">Facebook</p>
+              </div>
+            </button>
+          </div>
         </div>
-        <div className="w-1/2">
-          <button className=" w-full mt-4 font-semibold">
-            <div className="flex  bg-blue-500 text-white justify-center border-2 p-2  rounded-xl border-blue-300 items-center">
-              <Image
-                width={25}
-                height={25}
-                className="mr-2"
-                src="/google.png"
-                alt="google"
-              />
-              <p className="text-lg">Facebook</p>
-            </div>
-          </button>
-        </div>
-        </div>
-        
+
         <div className="line bg-[#50b8e7] h-1 w-full my-9 relative">
           <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#edf7fc] px-3">
             Or
@@ -126,23 +136,23 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
               >
                 Enter your OTP
               </label>
-             
+
               <OtpInput
-                  value={otp}
-                  onChange={setOtp}
-                  numInputs={6}
-                  renderSeparator={<span className="p-3 text-[#50b8e7]">-</span>}
-                  renderInput={(props) => <input  {...props} />}
-                  inputStyle={{
-                    width: "100%",
-                    border: "1px solid #ccc",
-                    padding: "6px",
-                    borderRadius: "12px",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                    outline: "none",
-                    transition: "border-color 0.3s ease-in-out",
-                  }}
-                />
+                value={otp}
+                onChange={setOtp}
+                numInputs={6}
+                renderSeparator={<span className="p-3 text-[#50b8e7]">-</span>}
+                renderInput={(props) => <input {...props} />}
+                inputStyle={{
+                  width: "100%",
+                  border: "1px solid #ccc",
+                  padding: "6px",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  outline: "none",
+                  transition: "border-color 0.3s ease-in-out",
+                }}
+              />
               <Button
                 onClick={handleVerifyCode}
                 className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-2.5 text-white rounded-xl"
@@ -155,9 +165,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
             </>
           ) : (
             <>
-              <h2
-                className="text-xl text-center text-[#50b8e7] font-semibold"
-              >
+              <h2 className="text-xl text-center text-[#50b8e7] font-semibold">
                 Sign in with phone number
               </h2>
               <PhoneInput

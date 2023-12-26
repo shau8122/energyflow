@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { RatingFilter } from "./RatingFilter";
 import PriceFilter from "./PriceFilter";
 
-export type Product = {
+export type ProductType = {
   Name: string;
   Address: string;
   Distance: number;
@@ -21,7 +21,7 @@ export type Product = {
 };
 
 interface SearchResultsProps {
-  products: Product[];
+  products: ProductType[];
   query: string;
 }
 
@@ -47,7 +47,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ products,query }) => {
     label: address,
     value: address,
   }));
-  const searchAndSortedProductList = (products: Product[], search: string) => {
+  const searchAndSortedProductList = (products: ProductType[], search: string) => {
     return products
       .filter((product) => {
         return product.Address.toLowerCase().includes(search.toLowerCase());
@@ -75,18 +75,26 @@ const SearchResults: React.FC<SearchResultsProps> = ({ products,query }) => {
       {filteredProducts.length} search result for: <span className="text-[#0084CB]">{query}</span>
       </h1>
       </div>
+      <div className="flex gap-5 items-center justify-between">
+        <div className="w-[20%]">
+
       <LocationFilter
         setCity={setCity}
         city={city}
         locations={ProductsLocation}
       />
+        </div>
       <RatingFilter setSelectedRating={setSelectedRating} />
+      <div className="flex-1">
+
       <PriceFilter
         minValue={minPrice}
         maxValue={maxPrice}
         value={price}
         setValue={setPrice}
       />
+      </div>
+      </div>
       {/* // gap-4 md:grid-cols-2 xl:grid-cols-3 */}
       <div className="flex flex-col my-4 gap-4">
         {filteredProducts.length === 0 && (

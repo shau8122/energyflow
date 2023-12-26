@@ -15,8 +15,10 @@ import "firebase/compat/auth";
 import { firebaseConfig } from "@/firebase/config";
 import MainBottle from "@/public/bottleMain.jpg";
 import toast from "react-hot-toast";
-import signinbg from '@/public/signinbg.jpg'
-import facebookIcon from '@/public/FacebookIcon.svg'
+import signinbg from "@/public/signinbg.jpg";
+import facebookIcon from "@/public/FacebookIcon.svg";
+import Carousel from "@/components/Carousel";
+import AuthCarousel from "./_components/AuthCarousel";
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -90,143 +92,147 @@ const Home = () => {
   }, [router]);
 
   return (
-    <div className="flex justify-end items-center h-[80vh] px-4 "
-    style={{
-      backgroundImage: 'url("/signinbg.jpg")',
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: 'center' ,
-    }}
+    <div
+      className="relative w-full mt-4 mb-64"
+      // style={{
+      //   backgroundImage: 'url("/signinbg.jpg")',
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat",
+      //   backgroundPosition: "center",
+      // }}
     >
       {/* <div className="hidden w-1/2 h-full  relative  lg:flex justify-center items-center">
         <Image src={signinbg} alt={"signinbg.jpg"} fill style={{
             objectFit: 'cover', // cover, contain, none
           }}  />
       </div> */}
-      <div
-      // rounded-xl
-        className="
-      bg-[#edf7fc]
-      px-4 
-      pb-4
-      pt-5 
-      text-left 
-      shadow-md
-      transition-all
-      w-full
-      sm:my-8 
-      sm:w-full 
-      sm:max-w-lg 
-      sm:p-6
-      "
-      >
-        <div className="w-full bg-[#edf7fc] text-[#0084CB] p-2">
-          <h1 className="text-2xl text-center font-semibold">
-            {"Sign in "}
-            to Enerzyflow
-          </h1>
-          <div className="w-full mt-4 flex justify-between gap-2">
-            <div className="w-1/2 ">
-              <GoogleAuthButton />
-            </div>
-            <div className="w-1/2">
-              <button className=" w-full mt-4 font-semibold">
-                <div className="flex  justify-center border-2 p-2  gap-3 rounded-xl border-blue-300 items-center">
-                  <Image
-                    width={30}
-                    height={30}
-                    className="mr-2"
-                    src={facebookIcon}
-                    alt="google"
-                  />
-                  <p className="text-lg">Facebook</p>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <div className="line bg-[#0084CB] h-1 w-full my-9 relative">
-            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#edf7fc] px-3">
-              Or
-            </span>
-          </div>
-          <div className="w-full flex flex-col gap-6 h-auto">
+      <div className="">
+        <AuthCarousel />
+      </div>
+      <div className="w-[90%] md:w-[70%] rounded-xl flex flex-col gap-3 p-4 absolute   text-[#0084CB] -translate-y-[50%] z-10 left-[50%] -translate-x-[50%] items-center bg-white shadow-xl border  px-4">
+        <h1 className="text-2xl text-center font-semibold">
+          {"Sign in "}
+          to Enerzyflow
+        </h1>
+        <div className="w-full flex flex-col lg:flex-row gap-2">
+          <div className="w-full lg:w-1/2  flex flex-col items-center justify-center p-2 gap-3">
             {showOTP ? (
               <>
-                <label
-                  htmlFor="otp"
-                  className="font-semibold text-xl text-center"
-                >
-                  Enter your OTP
-                </label>
-
-                <OtpInput
-                  value={otp}
-                  onChange={setOtp}
-                  numInputs={6}
-                  renderSeparator={
-                    <span className="p-3 text-[#0084CB]">-</span>
-                  }
-                  renderInput={(props) => <input {...props} />}
-                  inputStyle={{
-                    width: "100%",
-                    border: "1px solid #ccc",
-                    padding: "6px",
-                    borderRadius: "12px",
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                    outline: "none",
-                    transition: "border-color 0.3s ease-in-out",
-                  }}
-                />
-                <Button
-                  onClick={handleVerifyCode}
-                  className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-2.5 text-white rounded-xl"
-                >
-                  {loading && (
-                    <CircleDashedIcon size={20} className="mt-1 animate-spin" />
-                  )}
-                  <span className="text-lg">Verify OTP</span>
-                </Button>
+                <div className="w-full flex flex-col gap-6 h-auto">
+                  <label
+                    htmlFor="otp"
+                    className="font-semibold text-xl text-center"
+                  >
+                    Enter your OTP
+                  </label>
+                  <div className="flex items-center md:flex-row flex-col   gap-2 justify-center ">
+                    <OtpInput
+                      value={otp}
+                      onChange={setOtp}
+                      numInputs={6}
+                      renderSeparator={
+                        <span className="p-3 text-[#0084CB]">-</span>
+                      }
+                      renderInput={(props) => <input {...props} />}
+                      inputStyle={{
+                        width: "100%",
+                        border: "1px solid #ccc",
+                        padding: "6px",
+                        borderRadius: "12px",
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                        outline: "none",
+                        transition: "border-color 0.3s ease-in-out",
+                      }}
+                    />
+                    <Button
+                      onClick={handleVerifyCode}
+                      className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-4 text-white rounded-xl"
+                    >
+                      {loading && (
+                        <CircleDashedIcon
+                          size={20}
+                          className="mt-1 animate-spin"
+                        />
+                      )}
+                      <span className="text-lg">Verify OTP</span>
+                    </Button>
+                  </div>
+                </div>
               </>
             ) : (
               <>
-                <h2 className="text-xl text-center text-[#0084CB] font-semibold">
-                  Sign in with phone number
-                </h2>
-                <PhoneInput
-                  inputProps={{
-                    style: {
-                      width: "100%",
-                      border: "1px solid #ccc",
-                      padding: "8px",
-                      borderRadius: "12px",
-                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                      outline: "none",
-                      transition: "border-color 0.3s ease-in-out",
-                    },
-                  }}
-                  country={"in"}
-                  value={ph}
-                  onChange={setPh}
-                />
+                <div className="w-full flex md:flex-row flex-col justify-between gap-2">
+                  <div className="w-full  md:w-1/2 ">
+                    <GoogleAuthButton />
+                  </div>
+                  <div className="w-full  md:w-1/2 ">
+                    <button className=" w-full  font-semibold">
+                      <div className="flex  justify-center border-2 p-2  gap-3 rounded-xl border-blue-300 items-center">
+                        <Image
+                          width={30}
+                          height={30}
+                          className="mr-2"
+                          src={facebookIcon}
+                          alt="google"
+                        />
+                        <p className="text-lg">Facebook</p>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className="line bg-[#0084CB] h-1 w-full my-2 relative">
+                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-3">
+                    Or
+                  </span>
+                </div>
+             
+                  <div className="flex w-full md:flex-row flex-col items-center gap-2 justify-around ">
+                    <PhoneInput
+                      inputProps={{
+                        style: {
+                          width: "100%",
+                          border: "1px solid #ccc",
+                          padding: "8px",
+                          borderRadius: "12px",
+                          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                          outline: "none",
+                          transition: "border-color 0.3s ease-in-out",
+                        },
+                      }}
+                      country={"in"}
+                      value={ph}
+                      onChange={setPh}
+                    />
 
-                <Button
-                  onClick={handleSendCode}
-                  id="send-code-button"
-                  className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"
-                >
-                  {loading && (
-                    <>
-                      <CircleDashedIcon
-                        size={20}
-                        className="mt-1 animate-spin"
-                      />
-                    </>
-                  )}
-                  <span className="text-lg">Send code via SMS</span>
-                </Button>
+                    <Button
+                      onClick={handleSendCode}
+                      id="send-code-button"
+                      className="bg-[#0084CB] w-1/2 mt-6 hover:text-[#0084CB] hover:border-2 border-[#0084CB]  flex gap-1 items-center justify-center py-3 text-white rounded-xl"
+                    >
+                      {loading && (
+                        <>
+                          <CircleDashedIcon
+                            size={20}
+                            className="mt-1 animate-spin"
+                          />
+                        </>
+                      )}
+                      <span className="text-lg">Send OTP</span>
+                    </Button>
+                  </div>
+              
               </>
             )}
+          </div>
+          <div className="w-full hidden lg:block lg:w-1/2 h-[30vh]  relative">
+            <Image
+              alt=""
+              src={signinbg}
+              fill
+              style={{
+                objectFit: "cover", // cover, contain, none
+              }}
+            />
           </div>
         </div>
       </div>

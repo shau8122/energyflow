@@ -69,7 +69,7 @@ export function ShoppingCartButton() {
       
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-64 bg-slate-100 rounded-xl mr-4">
+      <DropdownMenuContent className="w-64 bg-white rounded-xl mr-4">
         <DropdownMenuLabel>My Cart</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

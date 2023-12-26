@@ -32,7 +32,7 @@ const GoogleAuthButton:React.FC<GoogleAuthButtonProps> = ({
   };
 
   return (
-    <button className="w-full mt-4 font-semibold" onClick={signInWithGoogle}>
+    <button className="w-full  font-semibold" onClick={signInWithGoogle}>
       <div className="flex justify-center border-2 p-2 rounded-xl border-blue-300 items-center">
         <Image width={25} height={25} className="mr-2" src="/google.png" alt="google" />
         <p className="text-lg">Google</p>

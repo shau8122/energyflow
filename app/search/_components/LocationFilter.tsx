@@ -46,13 +46,13 @@ const LocationFilter: React.FC<LocationFilterProps> = ({ locations
         >
           {city
             ? locations.find((location) => location.value.toLocaleLowerCase() === city)?.label
-            : "Select framework..."}
+            : "Select location..."}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full bg-white p-0">
         <Command>
           <CommandInput placeholder="Search location..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandEmpty>No location found.</CommandEmpty>
           <CommandGroup className=" max-h-64 overflow-auto">
             {locations.map((location) => (
               <CommandItem

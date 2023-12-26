@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import ProductCarousel from "./ProductCarousel";
 import { formatPrice } from "@/lib/format";
 import { useRouter } from "next/navigation";
-import { Product } from "./SearchResults";
+import { ProductType } from "./SearchResults";
 import Link from "next/link";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductType;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
