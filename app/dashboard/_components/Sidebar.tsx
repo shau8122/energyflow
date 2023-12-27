@@ -20,6 +20,7 @@ import {
   Languages,
   LogOut,
   HelpCircle,
+  
 } from "lucide-react";
 // import FreeCounter from "./FreeCounter";
 import { cn } from "@/lib/utils";
@@ -79,10 +80,10 @@ const routes = [
     color: "text-green-700",
   },
 ];
-interface SidebarProps {
-  apiLimitCount: number;
-}
-const Sidebar = ({ apiLimitCount }: SidebarProps) => {
+// interface SidebarProps {
+//   apiLimitCount: number;
+// }
+const Sidebar = () => {
   const pathname = usePathname();
   return (
     <div
@@ -96,6 +97,9 @@ const Sidebar = ({ apiLimitCount }: SidebarProps) => {
         <div className="space-y-2">
           {routes.map((route) => (
             <Button
+            onClick={()=>{
+              window.location.href=route.href
+            }}
               key={route.href}
               className={cn(
                 "text-lg group flex p-6 w-full justify-start font-medium cursor-pointer hover:text-[#0084CB] hover:bg-gray-300 rounded-xl transition",

@@ -16,11 +16,11 @@ const DashboardLayout=async({
   const apiLimitCount = 5
   return(
      <div className="h-full relative ">
-    <div className="hidden h-full md:flex md:w-80 md:flex-col md:fixed md:inset-y-0  bg-gray-900 ">
-      <Sidebar apiLimitCount={apiLimitCount}/>
+    <div className="hidden h-full lg:flex lg:w-80 lg:flex-col lg:fixed lg:inset-y-0  bg-gray-900 ">
+      <Sidebar/>
     </div>
-    <main className=" md:ml-80">
-      <Navbar apiLimitCount={apiLimitCount}/>
+    <main className="relative lg:ml-80">
+      <Navbar />
       {children}
     </main>
   </div>
