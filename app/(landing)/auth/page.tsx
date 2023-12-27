@@ -109,7 +109,7 @@ const Home = () => {
       <div className="">
         <AuthCarousel />
       </div>
-      <div className="w-[90%] md:w-[70%] rounded-xl flex flex-col gap-3 p-4 absolute   text-[#0084CB] -translate-y-[50%] z-10 left-[50%] -translate-x-[50%] items-center bg-white shadow-xl border  px-4">
+      <div className="w-[90%] md:w-[70%] rounded-xl flex flex-col gap-3 p-4 absolute   text-[#0084CB] -translate-y-[50%] z-10 left-[50%] -translate-x-[50%] items-center bg-white/50 shadow-xl border  px-4">
         <h1 className="text-2xl text-center font-semibold">
           {"Sign in "}
           to Enerzyflow

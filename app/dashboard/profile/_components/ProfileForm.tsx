@@ -141,21 +141,21 @@ export const ProfileForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-12 gap-x-4 gap-y-8 mt-4  px-1 md:px-3 "
+        className="grid grid-cols-12 gap-x-4 gap-y-8 mt-4  px-1 md:px-3"
       >
         <FormField
           control={form.control}
           name="customerType"
           render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
+            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 ">
               <FormLabel>select customer type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
+              <Select  onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl className="rounded-[8px]">
                   <SelectTrigger>
                     <SelectValue placeholder="Select a customer type" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-100 text-slate-900">
+                <SelectContent className="bg-white text-slate-900 rounded-[8px] ">
                   <SelectItem value="individual">Individual</SelectItem>
                   <SelectItem value="organisation">Organisation</SelectItem>
                 </SelectContent>
@@ -174,8 +174,8 @@ export const ProfileForm = () => {
             name="organisationName"
             render={({ field }) => (
               <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-                <FormLabel>Organisation Name*</FormLabel>
-                <FormControl>
+                <FormLabel >Organisation Name*</FormLabel>
+                <FormControl className="rounded-[8px]">
                   <Input
                     {...field}
                     type="text"
@@ -196,7 +196,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>Name*</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="text" placeholder="Enter your name" />
               </FormControl>
               {/* <FormDescription>
@@ -212,7 +212,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>Email</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="email" placeholder="Enter your email" />
               </FormControl>
               {/* <FormDescription>
@@ -228,7 +228,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>Mobile No</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="text" placeholder="Enter mobile no" />
               </FormControl>
               {/* <FormDescription>
@@ -246,7 +246,7 @@ export const ProfileForm = () => {
               <FormLabel>State</FormLabel>
               <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
-                  <FormControl>
+                  <FormControl className="rounded-[8px]">
                     <Button
                       variant="outline"
                       role="combobox"
@@ -264,7 +264,7 @@ export const ProfileForm = () => {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-full bg-white">
+                <PopoverContent className="w-full rounded-[8px] bg-white">
                   <Command>
                     <CommandInput placeholder="Search state..." />
                     <CommandEmpty>No language found.</CommandEmpty>
@@ -306,7 +306,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>City</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="text" placeholder="Enter your city" />
               </FormControl>
               {/* <FormDescription>
@@ -322,7 +322,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>Zip Code</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="text" placeholder="Enter zip code" />
               </FormControl>
               {/* <FormDescription>
@@ -338,7 +338,7 @@ export const ProfileForm = () => {
           render={({ field }) => (
             <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
               <FormLabel>Landmark</FormLabel>
-              <FormControl>
+              <FormControl className="rounded-[8px]">
                 <Input {...field} type="text" placeholder="Enter landmark" />
               </FormControl>
               {/* <FormDescription>

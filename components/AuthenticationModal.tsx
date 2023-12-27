@@ -107,7 +107,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
             <GoogleAuthButton onClose={onClose} />
           </div>
           <div className="w-1/2">
-            <button className=" w-full mt-4 font-semibold">
+            <button className=" w-full  font-semibold">
               <div className="flex    justify-center border-2 p-2  rounded-xl border-blue-300 items-center">
                 <Image
                   width={30}

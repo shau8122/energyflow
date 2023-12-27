@@ -10,25 +10,29 @@ const cardDetails = [
     name: "Approved Order",
     count: 0,
     icon: InboxIcon,
-    color: "green-500",
+    color: "bg-green-500",
+    textColor: "text-green-500",
   },
   {
     name: "Pending Order",
     count: 0,
     icon: LucidePieChart,
-    color: "yellow-500",
+    color: "bg-yellow-500",
+    textColor: "text-yellow-500",
   },
   {
     name: "Rejected Order",
     count: 0,
     icon: BarChart3,
-    color: "red-500",
+    color: "bg-red-500",
+    textColor: "text-red-500",
   },
   {
     name: "Completed Order",
     count: 0,
     icon: BarChart,
-    color: "blue-500",
+    color: "bg-blue-500",
+    textColor: "text-blue-500",
   },
 ];
 
@@ -56,7 +60,7 @@ const Home = () => {
           cardDetails.map((card, index) => (
             <div
               key={index}
-              className={`col-span-12 sm:col-span-6 lg:col-span-3 bg-${card.color} text-white rounded-xl  h-[150px] p-3`}
+              className={`col-span-12 sm:col-span-6 lg:col-span-3 ${card.color}  text-white rounded-xl  h-[150px] p-3`}
             >
               <div className="flex flex-col justify-between  h-full w-full">
                 <div className="flex justify-between items-center">
@@ -65,7 +69,7 @@ const Home = () => {
                     <h2 className="text-lg font-bold ">{card.count}</h2>
                   </div>
                   <div className="w-14 h-14 bg-white rounded-full flex justify-center items-center">
-                    <card.icon className={`h-8 w-8 text-${card.color}`} />
+                    <card.icon className={`h-8 w-8 ${card.textColor}`} />
                   </div>
                 </div>
                 <div className=" self-end ">
@@ -97,7 +101,7 @@ const Home = () => {
           ))}
         </div>
       </div> */}
-      <div className="col-span-12 bg-gray-200 h-[400px] p-10">
+      <div className="col-span-12 bg-gray-200 h-[400px] rounded-xl p-10">
         <h2 className="text-slate-900 text-xl font-semibold">Search Order</h2>
         <div className="w-full  flex">
         <Input className="bg-white outline-none text-gray-300 rounded-xl mt-4" type="text" placeholder="Search Order" />
