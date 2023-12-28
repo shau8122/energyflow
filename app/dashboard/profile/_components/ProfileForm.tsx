@@ -1,68 +1,53 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import * as z from "zod";
-
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Check, ChevronsUpDown } from "lucide-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import { cn } from "@/lib/utils";
-import toast from "react-hot-toast";
-import { useState } from "react";
+import Link from "next/link";
+import FormFieldInput from "../../_components/FormFieldInput";
+import FormFieldSelect from "../../_components/FormFieldSelect";
+import FormFieldCommand from "../../_components/FormFieldCommand";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  customerType: z.enum(["individual", "organisation"]),
-  organisationName: z.string(),
-  email: z.string().email(),
-  mobileNo: z.string().min(10, {
-    message: "Mobile number must be at least 10 characters.",
+  name: z
+    .string()
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .trim(),
+  customerType: z.enum(["individual", "organization"]),
+  email: z.string().email().trim(),
+  mobileNo: z.string().refine((value) => value.length === 10, {
+    message: "Mobile number must be exactly 10 characters.",
   }),
   state: z.string().min(2, {
-    message: "please select a state",
+    message: "Please select a state.",
   }),
-  city: z.string().min(2, {
-    message: "Please enter your city name.",
+  city: z
+    .string()
+    .min(2, {
+      message: "Please enter your city name.",
+    })
+    .trim(),
+  zipCode: z.string().refine((value) => value.length === 6, {
+    message: "Zip code must be exactly 6 characters.",
   }),
-  zipCode: z.string().min(6, {
-    message: "Zip code must be at least 6 characters.",
-  }),
-  landmark: z.string().min(2, {
-    message: "Please enter your landmark.",
-  }),
+  landmark: z
+    .string()
+    .min(2, {
+      message: "Please enter your landmark.",
+    })
+    .trim(),
 });
+const extendedSchema = formSchema.extend({
+  organizationName: z.string().min(2, {
+    message: "Please enter your organization name.",
+  })
+});
+
 const states = [
   { label: "Andhra Pradesh", value: "Andhra Pradesh" },
   { label: "Arunachal Pradesh", value: "Arunachal Pradesh" },
@@ -107,12 +92,16 @@ const states = [
   { label: "Jammu and Kashmir", value: "Jammu and Kashmir" },
   { label: "Ladakh", value: "Ladakh" },
 ] as const;
+const customerTypes = [
+  { label: "Individual", value: "individual" },
+  { label: "Organization", value: "organization" },
+] as const;
+
 export const ProfileForm = () => {
-  const [open, setOpen] = useState(false);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-
+  const [customerTypeValue, setCustomerTypeValue] = useState("individual");
+  const mainSchema = customerTypeValue === "organization" ? extendedSchema : formSchema;
+  const form = useForm<z.infer<typeof mainSchema>>({
+    resolver: zodResolver(mainSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -122,11 +111,21 @@ export const ProfileForm = () => {
       city: "",
       zipCode: "",
       landmark: "",
+      
     },
   });
+  
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const { isSubmitting, isValid } = form.formState;
+  function onSubmit(values: z.infer<typeof mainSchema>) {
     console.log(values);
+    // try {
+    //   const response = await axios.post("/api/courses", values);
+    //   router.push(`/teacher/courses/${response.data.id}`);
+    //   toast.success("Course created");
+    // } catch {
+    //   toast.error("Something went wrong");
+    // }
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -136,228 +135,102 @@ export const ProfileForm = () => {
     //   ),
     // })
   }
-
+  const customerType = form.watch('customerType');
+  useEffect(() => {
+    setCustomerTypeValue(customerType);
+   
+  }, [customerType]);
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-12 gap-x-4 gap-y-8 mt-4  px-1 md:px-3"
       >
-        <FormField
-          control={form.control}
+        <FormFieldSelect
+          formControl={form.control}
           name="customerType"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 ">
-              <FormLabel>select customer type</FormLabel>
-              <Select  onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl className="rounded-[8px]">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a customer type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-white text-slate-900 rounded-[8px] ">
-                  <SelectItem value="individual">Individual</SelectItem>
-                  <SelectItem value="organisation">Organisation</SelectItem>
-                </SelectContent>
-              </Select>
-              {/* <FormDescription>
-                You can manage email addresses in your{" "}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Select a customer type"
+          label="select customer type"
+          isSubmitting={isSubmitting}
+          selectItems={customerTypes}
         />
-        {form.getValues("customerType") === "organisation" && (
-          <FormField
-            control={form.control}
-            name="organisationName"
-            render={({ field }) => (
-              <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-                <FormLabel >Organisation Name*</FormLabel>
-                <FormControl className="rounded-[8px]">
-                  <Input
-                    {...field}
-                    type="text"
-                    placeholder="Enter organisation name"
-                  />
-                </FormControl>
-                {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-                <FormMessage />
-              </FormItem>
-            )}
+        {form.getValues("customerType") === "organization" && (
+          <FormFieldInput
+            formControl={form.control}
+            name="organizationName"
+            placeholder="Enter your organization name"
+            label="Organization Name*"
+            type="text"
+            isSubmitting={isSubmitting}
           />
         )}
-        <FormField
-          control={form.control}
+
+        <FormFieldInput
+          formControl={form.control}
           name="name"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>Name*</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="text" placeholder="Enter your name" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your name"
+          label="Name*"
+          type="text"
+          isSubmitting={isSubmitting}
         />
-        <FormField
-          control={form.control}
+        <FormFieldInput
+          formControl={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>Email</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="email" placeholder="Enter your email" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your email"
+          label="Email*"
+          type="email"
+          isSubmitting={isSubmitting}
         />
-        <FormField
-          control={form.control}
+        <FormFieldInput
+          formControl={form.control}
           name="mobileNo"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>Mobile No</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="text" placeholder="Enter mobile no" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your mobile number"
+          label="Mobile Number*"
+          type="number"
+          isSubmitting={isSubmitting}
         />
-        <FormField
-          control={form.control}
+        <FormFieldCommand
+          form={form}
           name="state"
-          render={({ field }) => (
-            <FormItem className="flex flex-col col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl mt-[10px] ">
-              <FormLabel>State</FormLabel>
-              <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild>
-                  <FormControl className="rounded-[8px]">
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={open}
-                      className={cn(
-                        "w-full justify-between",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value
-                        ? states.find((state) => state.value === field.value)
-                            ?.label
-                        : "Select state"}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-full rounded-[8px] bg-white">
-                  <Command>
-                    <CommandInput placeholder="Search state..." />
-                    <CommandEmpty>No language found.</CommandEmpty>
-                    <CommandGroup>
-                      {states.map((state) => (
-                        <CommandItem
-                          value={state.label}
-                          key={state.value}
-                          onSelect={() => {
-                            form.setValue("state", state.value);
-                            setOpen(false);
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              state.value === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {state.label}
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              {/* <FormDescription>
-                This is the language that will be used in the dashboard.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="state"
+          isSubmitting={isSubmitting}
+          label="State"
+          selectItems={states}
         />
-        <FormField
-          control={form.control}
+        <FormFieldInput
+          formControl={form.control}
           name="city"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>City</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="text" placeholder="Enter your city" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your city"
+          label="City*"
+          type="text"
+          isSubmitting={isSubmitting}
         />
-        <FormField
-          control={form.control}
+        <FormFieldInput
+          formControl={form.control}
           name="zipCode"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>Zip Code</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="text" placeholder="Enter zip code" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your zip code"
+          label="Zip Code*"
+          type="number"
+          isSubmitting={isSubmitting}
         />
-        <FormField
-          control={form.control}
+        <FormFieldInput
+          formControl={form.control}
           name="landmark"
-          render={({ field }) => (
-            <FormItem className="col-span-12 sm:col-span-6 lg:col-span-4 rounded-xl ">
-              <FormLabel>Landmark</FormLabel>
-              <FormControl className="rounded-[8px]">
-                <Input {...field} type="text" placeholder="Enter landmark" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
+          placeholder="Enter your landmark"
+          label="Landmark*"
+          type="text"
+          isSubmitting={isSubmitting}
         />
         <div className="col-span-12 flex justify-end">
-          <Button
-            variant="outline"
-            className="mr-2 rounded-xl bg-black text-white hover:bg-gray-700 hover:text-white "
-          >
-            Cancel
-          </Button>
+          <Link href="/dashboard">
+            <Button type="button" variant="ghost">
+              Cancel
+            </Button>
+          </Link>
           <Button
             className="bg-blue-500 text-white hover:bg-black rounded-xl"
             type="submit"
+            disabled={isSubmitting}
           >
             Submit
           </Button>

@@ -54,7 +54,7 @@ const Navbar = () => {
           <Link
             key={detail.icon}
             href={detail.endpoint}
-            className={`flex flex-col items-center justify-center text-sm  ${detail.endpoint===pathname ? "text-emerald-500 " : "text-slate-900"}}`}
+            className={`flex flex-col items-center justify-center text-sm  ${detail.endpoint===pathname ? "text-blue-500 " : "text-slate-900"}}`}
           >
             <div className="w-10 h-10 text-2xl  rounded-full">{detail.icon}</div>
             <p className="text-sm font-semibold">{detail.description}</p>
