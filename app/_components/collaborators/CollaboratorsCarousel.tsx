@@ -17,7 +17,7 @@ const CollaboratorsCarousel = () => {
       spaceBetween={20}
       slidesPerView={1}
       breakpoints={{
-        320: {
+        640: {
           slidesPerView: 2,
           spaceBetween: 20,
         },
@@ -35,7 +35,7 @@ const CollaboratorsCarousel = () => {
       pagination={{ clickable: true }}
       modules={[Autoplay,Pagination]}
       scrollbar={{ draggable: true }}
-      className="w-full rounded-lg h-[150px]"
+      className="w-full rounded-lg h-[250px] md:h-[150px] "
     >
       <SwiperSlide>
         <CollaboratorsCard />

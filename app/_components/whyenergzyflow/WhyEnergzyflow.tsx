@@ -47,7 +47,7 @@ const WhyEnerzyflowDetails = [
 const WhyEnerzyflow = () => {
   return (
     <div className="max-w-[1080px] px-4 lg:px-0 lg:mx-auto w-full flex flex-col justify-center   items-center">
-      <h1 className="text-center  text-4xl my-6 text-[#0084CB]">
+      <h1 className="text-center  text-4xl my-6 text-mainColor">
         Why <span className="font-bold">Enerzyflow</span>
       </h1>
       <ul className="w-full flex-col flex mt-3">
@@ -79,7 +79,7 @@ const WhyEnerzyflow = () => {
           />
         </div>
         <WhyEnerzyflowCard {...WhyEnerzyflowDetails[3]} />
-        <div className="w-[80%] hidden md:block mx-auto h-16 relative">
+        <div className="w-[80%]  md:block mx-auto h-16 relative">
           <Image
             src="/dashed2.svg"
             alt="dashed"

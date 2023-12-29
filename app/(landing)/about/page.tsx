@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div
       className="w-full
-    bg-[#0084CB]/20
+    bg-mainColor/20
     md:pt-10
     
     "
@@ -13,11 +13,11 @@ const About = () => {
       <div className="w-full max-w-[1080px]  flex flex-col  items-center mx-auto  ">
         <AnimatedText
           text="About us"
-          className="!text-6xl mt-10 lg:mt-0 text-[#0084CB] mb-5 md:mb-10"
+          className="!text-6xl mt-10 lg:mt-0 text-mainColor mb-5 md:mb-10"
         />
         <AnimatedText
           text="Welcome to Enerzyflow – Where Your Brand Finds Fluidity and Quality!"
-          className="!text-3xl mx-3 text-[#0084CB] mb-5"
+          className="!text-3xl mx-3 text-mainColor mb-5"
         />
         <p className="text-xl mx-3 text-justify text-gray-700">
           At Enerzyflow, we specialize in elevating your brand presence through

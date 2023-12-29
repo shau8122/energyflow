@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <p>
-          &copy; {new Date().getFullYear()} Energyflow. All rights reserved.
+          &copy; {new Date().getFullYear()} Enerzyflow. All rights reserved.
         </p>
     </footer>
   );

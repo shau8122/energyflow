@@ -109,7 +109,7 @@ const Home = () => {
       <div className="">
         <AuthCarousel />
       </div>
-      <div className="w-[90%] md:w-[70%] rounded-xl flex flex-col gap-3 p-4 absolute   text-[#0084CB] -translate-y-[50%] z-10 left-[50%] -translate-x-[50%] items-center bg-white/50 shadow-xl border  px-4">
+      <div className="w-[90%] md:w-[70%] rounded-xl flex flex-col gap-3 p-4 absolute   text-white -translate-y-[50%] z-10 left-[50%] -translate-x-[50%] items-center bg-mainColor/20 shadow-xl border  px-4">
         <h1 className="text-2xl text-center font-semibold">
           {"Sign in "}
           to Enerzyflow
@@ -131,7 +131,7 @@ const Home = () => {
                       onChange={setOtp}
                       numInputs={6}
                       renderSeparator={
-                        <span className="p-3 text-[#0084CB]">-</span>
+                        <span className="p-3 text-mainColor">-</span>
                       }
                       renderInput={(props) => <input {...props} />}
                       inputStyle={{
@@ -146,7 +146,7 @@ const Home = () => {
                     />
                     <Button
                       onClick={handleVerifyCode}
-                      className="bg-[#0084CB] hover:text-[#0084CB] hover:border-2 border-[#0084CB] w-full flex gap-1 items-center justify-center py-4 text-white rounded-xl"
+                      className="bg-mainColor hover:text-mainColor hover:border-2 border-mainColor w-full flex gap-1 items-center justify-center py-4 text-white rounded-xl"
                     >
                       {loading && (
                         <CircleDashedIcon
@@ -180,8 +180,8 @@ const Home = () => {
                     </button>
                   </div>
                 </div>
-                <div className="line bg-[#0084CB] h-1 w-full my-2 relative">
-                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-3">
+                <div className="line bg-mainColor h-1 w-full my-2 relative">
+                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-mainColor rounded-xl px-3">
                     Or
                   </span>
                 </div>
@@ -193,6 +193,7 @@ const Home = () => {
                           width: "100%",
                           border: "1px solid #ccc",
                           padding: "8px",
+                          color:"black",
                           borderRadius: "12px",
                           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                           outline: "none",
@@ -207,7 +208,7 @@ const Home = () => {
                     <Button
                       onClick={handleSendCode}
                       id="send-code-button"
-                      className="bg-[#0084CB] w-1/2 mt-6 hover:text-[#0084CB] hover:border-2 border-[#0084CB]  flex gap-1 items-center justify-center py-3 text-white rounded-xl"
+                      className="bg-mainColor/80 w-1/2 mt-6 hover:text-mainColor hover:border-2 border-mainColor  flex gap-1 items-center justify-center py-3 text-white rounded-xl"
                     >
                       {loading && (
                         <>

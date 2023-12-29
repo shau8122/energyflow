@@ -12,7 +12,7 @@ const Collaborators = () => {
       // }}
     
     >
-      <h1 className="text-center  text-4xl my-6 text-[#0084CB]">
+      <h1 className="text-center  text-4xl my-6 text-mainColor">
         Our <span className="font-bold">Collaborators</span>
       </h1>
       <div className="w-full max-w-[1080px] bg-gray-50  rounded-2xl shadow-md mx-auto h-[350px] flex flex-col items-center justify-center">

@@ -10,7 +10,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           <Navbar />
         </div>
    
-      <div className="md:pt-[105px] overflow-hidden pt-28 h-full w-screen min-h-screen">
+      <div className="sm:pt-[105px] overflow-hidden pt-16 h-full w-screen min-h-screen">
         {children}
         <Footer />
       </div>

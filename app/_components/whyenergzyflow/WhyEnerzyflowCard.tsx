@@ -20,7 +20,7 @@ const WhyEnerzyflowCard: React.FC<WhyEnerzyflowCardProps> = ({
 }) => {
   return (
     <li
-      className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-10 bg-gray-50 shadow-md ${
+      className={` w-full list-none rounded-xl md:rounded-none  md:h-[250px] p-5 md:p-10 bg-gray-50 shadow-md ${
         isLast && "md:rounded-b-3xl"
       } ${isFirst && "md:rounded-t-3xl"} `}
     >
@@ -33,10 +33,10 @@ const WhyEnerzyflowCard: React.FC<WhyEnerzyflowCardProps> = ({
           <Image src={img} alt="whyenergzyflow" className="w-full" sizes="100" fill />
         </div>
         <div className="w-full h-full md:w-3/4 gap-3 flex flex-col justify-start ">
-          <h1 className="text-start font-semibold text-2xl text-[#0084CB]">
+          <h1 className="text-start font-semibold text-2xl text-mainColor">
             {title}
           </h1>
-          <p className=" text-justify flex-1 text-lg text-slate-500 mt-2 font-medium mb-5">
+          <p className=" text-justify flex-1 text-lg text-slate-600 mt-2 font-medium mb-5">
             {description}
           </p>
         </div>

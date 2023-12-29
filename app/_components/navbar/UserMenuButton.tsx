@@ -64,7 +64,7 @@ export function UserMenuButton() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            className="inline-block h-5 w-5 stroke-blue-600"
+            className="inline-block h-5 w-5 stroke-mainColor"
           >
             <path
               strokeLinecap="round"
@@ -85,7 +85,7 @@ export function UserMenuButton() {
             <span>Profile</span> */}
             {user ? (
              <Button
-             className="rounded-xl bg-[#0084CB] text-white text-xl"
+             className="rounded-xl bg-mainColor text-white text-xl"
              variant="outline"
              onClick={handleClick}
            >

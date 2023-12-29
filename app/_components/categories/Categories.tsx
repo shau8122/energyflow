@@ -126,7 +126,7 @@ const Categories = () => {
   return (
     <div className="max-w-[1080px] lg:mx-auto w-full flex justify-center px-4  items-center my-5">
       <div className="w-full mx-auto flex flex-col justify-between">
-        <h1 className="text-3xl mx-2 font-semibold mb-2 mt-5 text-start text-blue-500">
+        <h1 className="text-3xl mx-2 font-semibold mb-2 mt-5 text-start text-mainColor">
           Categories
         </h1>
         <div className="w-full mt-2 gap-2 grid grid-cols-2 lg:grid-cols-8 md:grid-cols-4 justify-between items-center">
@@ -144,7 +144,7 @@ const Categories = () => {
       </div>
       <CategoriesModal isOpen={showMore} onClose={handleClose}>
         <div className="w-full mx-auto flex flex-col relative justify-between">
-          <h1 className="text-3xl mx-2 font-semibold mb-2 mt-5 text-start text-blue-500">
+          <h1 className="text-3xl mx-2 font-semibold mb-2 mt-5 text-start text-mainColor">
             Categories
           </h1>
           <input

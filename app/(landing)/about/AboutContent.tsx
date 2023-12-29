@@ -21,10 +21,10 @@ const Details: React.FC<DetailsProps> = ({ title, description }) => {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, type: "spring" }}
       >
-        <h3 className="font-bold text-[#0084CB] text-xl">
+        <h3 className="font-bold text-mainColor text-xl">
           {title}&nbsp;
         </h3>
-        <p className="  text-justify text-sm sm:text-lg text-dark/75 mt-4">
+        <p className="  text-justify text-sm sm:text-lg text-slate-800 mt-4">
           {description}
         </p>
       </motion.div>

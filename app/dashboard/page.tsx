@@ -105,7 +105,7 @@ const Home = () => {
         <h2 className="text-slate-900 text-xl font-semibold">Search Order</h2>
         <div className="w-full  flex">
         <Input className="bg-white outline-none text-gray-300 rounded-xl mt-4" type="text" placeholder="Search Order" />
-        <Button className="bg-blue-500 text-white text-xl font-semibold rounded-xl mt-4 ml-2">Search</Button>
+        <Button className="bg-blue-500 hover:bg-blue-400 text-white text-xl font-semibold rounded-xl mt-4 ml-2">Search</Button>
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ const CardStore: React.FC<CardStoreProps> = ({
               }}
             />
           </div>
-          <h1 className="text-lg  text-[#0084CB] font-semibold text-justify mt-2">
+          <h1 className="text-lg  text-mainColor font-semibold text-justify mt-2">
             {/* 750ml Alkaline Mineral Water Drink (Glass Bottle) */}
             {title}
           </h1>
@@ -100,7 +100,7 @@ const CardStore: React.FC<CardStoreProps> = ({
           </div>
         </div>
         <Button
-          className="w-full mt-2 rounded-xl font-semibold text-[16px] hover:bg-black text-white bg-[#0084CB] "
+          className="w-full mt-2 rounded-xl font-semibold text-[16px] hover:bg-black text-white bg-mainColor "
         >
           <h1 className="text-lg mx-2">Add to Cart</h1>
           <svg

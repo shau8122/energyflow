@@ -17,8 +17,7 @@ const config: Config = {
         lobster: ['Lobster', 'cursive'],
       },
       colors: {
-        primary:"#0084CB",
-        
+        mainColor:"#0084CB",
       },
       keyframes: {
         "accordion-down": {

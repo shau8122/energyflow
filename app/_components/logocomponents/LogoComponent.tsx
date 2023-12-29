@@ -22,7 +22,7 @@ const LogoComponent = () => {
     >
       <AnimatedText
         text="we create emotion for your  promotion,"
-        className=" !text-center font-semibold text-[#0084CB]"
+        className=" !text-center font-semibold text-mainColor "
       />
 
       <div className="grid grid-cols-12 justify-between items-center gap-2 w-full">
@@ -58,7 +58,7 @@ const LogoComponent = () => {
       </div>
       <AnimatedText
         text={`"Connect your brand to consumers Hand"`}
-        className=" !text-center font-semibold text-[#0084CB]"
+        className=" !text-center font-semibold text-mainColor"
       />
     </div>
   );

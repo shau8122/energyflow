@@ -89,7 +89,7 @@ export default function Hamburger(
 								initial="hide"
 								animate="show"
 								exit="hide"
-								className="fixed top-16 inset-0 bg-[#b9e2f5]  flex flex-col pt-20 p-10 space-y-10 lg:hidden"
+								className="fixed top-0 inset-0 bg-mainColorLight  flex flex-col pt-20 p-10 space-y-10 lg:hidden"
 							>
 								<motion.ul
 									variants={{
