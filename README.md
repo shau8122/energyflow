@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Name : Enerzyflow
+![Project Version](https://img.shields.io/badge/version-0.1.0-blue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Getting Started
+## Description
 
-First, run the development server:
+The Enerzyflow project is a The enerzyflow project is a private application that incorporates various technologies for building a dynamic web application with features such as authentication, UI components, animation, and more. It utilizes Firebase for image and video storage and Twilio for OTP verification.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Setup](#setup)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Scripts](#scripts)
+- [Dependencies](#dependencies)
+  - [Main Dependencies](#main-dependencies)
+  - [UI and Styling](#ui-and-styling)
+  - [Utility and Functionality](#utility-and-functionality)
+  - [Development Dependencies](#development-dependencies)
+- [Additional Notes](#additional-notes)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Installation
 
-## Learn More
+1. Ensure Node.js is installed.
+2. Run `npm install` to install project dependencies.
 
-To learn more about Next.js, take a look at the following resources:
+### Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Create a `.env` file and set up the necessary environment variables for
+- Firebase
+- Twilio
+- Database
+- Google and Facebook auth client
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Scripts
 
-## Deploy on Vercel
+- `npm run dev`: Start the development server with Next.js.
+- `npm run build`: Build the application with Next.js.
+- `npm start`: Start the application in production mode.
+- `npm run lint`: Run linting checks.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Dependencies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Main Dependencies
+
+- **Next.js:** Framework for building React applications.
+- **Prisma:** Database toolkit for TypeScript and Node.js.
+- **Firebase:** Platform for building web and mobile applications.
+- **Next-auth:** Authentication library for Next.js.
+- **Twilio:** Cloud communications platform.
+
+### UI and Styling
+
+- **Tailwind CSS:** A utility-first CSS framework.
+- **Framer Motion: ** Animation library for React.
+- **Swiper: ** Modern touch slider.
+
+## Additional Notes
+
+- This project uses Next.js for server-side rendering and a variety of libraries for UI, animation, and data management.
+- Ensure you have the required environment variables set up, especially for services like Firebase and Twilio.
+- Firebase is used for image and video storage, and Twilio is used for OTP verification.
