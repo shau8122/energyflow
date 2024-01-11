@@ -1,4 +1,4 @@
-import { db } from "@/libs/db";
+import db  from "@/libs/db";
 
 export const getTokenByMobile= async (mobile: string) => {
   try {

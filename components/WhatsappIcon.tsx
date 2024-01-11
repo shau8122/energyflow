@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 
-import { motion, useAnimation } from "framer-motion";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import whatsappIcon from "@/public/WhatsApp_icon.png";
@@ -20,7 +20,7 @@ const WhatsappIcon = () => {
       >
         <motion.div
           animate={{
-            y: [0, -10, 0], // Vertical movement animation
+            y: [0, -10, 0],
             transition: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
           }}
           initial={{ y: 0 }}

@@ -5,24 +5,27 @@ generator client {
   provider = "prisma-client-js"
 }
 
+  // provider = "postgresql"
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 enum CustomerType {
   INDIVIDUAL
-  BUSINESS
+  ORGANISATION
 }
 
 model User {
-  id            String    @id @default(cuid())
+  // id            String    @id @default(cuid())
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   mobile        String?
   mobileVerified DateTime?
   customerType  CustomerType? @default(INDIVIDUAL)
+  organisationName String?
   state         String?
   city          String?
   pinCode       String?
@@ -30,20 +33,23 @@ model User {
   image         String?
   password      String?
   accounts      Account[]
+  label         Label[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
+  // id                 String  @id @default(cuid())
+   id     String @id @default(auto()) @map("_id") @db.ObjectId
+  // userId             
+  userId String @db.ObjectId
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String? 
+  access_token       String?  
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String?  
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -51,8 +57,17 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 model MobileVerificationToken {
-  id String @id @default(cuid())
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
   mobile String @unique
   token String
   expires DateTime
+}
+
+model Label{
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  name String
+  cdrUrl String?
+  imgUrl String?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

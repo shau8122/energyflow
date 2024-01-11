@@ -25,21 +25,18 @@ const Home = () => {
   const callbackUrl = searchParams.get("callbackUrl");
   const handleSendCode = async () => {
     setLoading(true);
-    // toast.error("this is not in use");
     const formatPh = "+" + ph;
-    await axios
+   
+    axios
       .post("/api/auth/sms", {
-        mobile: formatPh,
+        mobile:formatPh
       })
-      .then((res) => {
-        if (res.status === 200) {
-          setShowOTP(true);
-          toast.success("OTP sendt successfully!");
-        } else {
-          toast.error("Failed to send OTP!");
-        }
-      });
-    setLoading(false);
+      .then(() => {
+        toast.success("successfully sent")
+      })
+      .catch(() => toast.error("Something went wrong"))
+      .finally(() => setLoading(false));
+    
   };
 
   const handleVerifyCode = () => {

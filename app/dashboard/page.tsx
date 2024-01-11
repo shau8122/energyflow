@@ -1,4 +1,4 @@
-import DropzoneComponent from "@/components/Dropzone";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BarChart, BarChart3, InboxIcon, LucidePieChart } from "lucide-react";
@@ -46,15 +46,7 @@ const Home = () => {
   ];
   return (
     <div className="grid grid-cols-12 gap-4  m-3">
-      {/* <div className="col-span-4 flex flex-col  justify-end relative  h-[40vh]"> */}
-      {/* <div className="h-16 w-16 top-0 left-[50%] shadow-md -translate-x-[50%] bg-white absolute rounded-xl flex justify-center items-center">
-          <ThumbsUpIcon className="h-8 w-8 text-black " />
-        </div> */}
-      {/* <div className="flex flex-col shadow-md gap-5 justify-center rounded-xl bg-[#84cdee] items-center h-[90%] ">
-          <div className="text-2xl font-bold">Total Users</div>
-          <div className="text-4xl font-bold">30,000</div>
-        </div> */}
-      {/* </div> */}
+     
       <div className="grid grid-cols-12  max-w-[1300px] col-span-12 gap-4">
         {
           cardDetails.map((card, index) => (
@@ -81,26 +73,7 @@ const Home = () => {
         }
 
       </div>
-      {/* <div
-        id="image-scroll-upload"
-        className=" col-span-12 flex overflow-x-auto bg-red-700 rounded-xl h-[40vh]"
-      >
-        <div className="w-auto h-full">
-          <DropzoneComponent />
-        </div>
-        <div className="flex gap-3 w-full   h-full">
-          {slides.map((slide, index) => (
-            <div key={index} className="relative aspect-square my-2">
-              <Image
-                alt="Upload"
-                fill
-                className="object-cover rounded-xl"
-                src={slide}
-              />
-            </div>
-          ))}
-        </div>
-      </div> */}
+      
       <div className="col-span-12 bg-gray-200 h-[400px] rounded-xl p-10">
         <h2 className="text-slate-900 text-xl font-semibold">Search Order</h2>
         <div className="w-full  flex">

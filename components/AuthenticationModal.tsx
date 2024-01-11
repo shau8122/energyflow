@@ -23,7 +23,6 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  // const auth = getAuth(firebase_app);
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [otp, setOtp] = useState("");

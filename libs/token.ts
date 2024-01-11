@@ -1,7 +1,7 @@
 import crypto from "crypto";
 // import { v4 as uuidv4 } from "uuid";
 
-import { db } from "@/libs/db";
+import  db  from "@/libs/db";
 import { getTokenByMobile } from "@/data/token";
 // import { getTwoFactorTokenByEmail } from "@/data/twoFactorToken";
 // import { getPasswordResetTokenByEmail } from "@/data/passwordResetToken";
