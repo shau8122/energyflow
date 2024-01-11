@@ -5,8 +5,8 @@ import { db } from "@/libs/db";
 import { generateVerificationToken } from "@/libs/token";
 import { NextResponse } from "next/server";
 
-const accountSid = "AC4875edce452a085fd3a5cd0867064552";
-const authToken = "59874b01856cfaa8e164c78ce72e495e";
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
 
 const twilioClient = require("twilio")(accountSid, authToken);
 
