@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import Image, { StaticImageData } from "next/image";
 import bottle3 from "@/public/bottles/2 (3).jpeg";
 import { useMemo, useState } from "react";
-import { formatPrice } from "@/lib/format";
+import { formatPrice } from "@/libs/format";
 
 interface CardStoreProps {
   img: StaticImageData;

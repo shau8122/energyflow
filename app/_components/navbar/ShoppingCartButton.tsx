@@ -16,7 +16,7 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { formatPrice } from "@/lib/format"
+import { formatPrice } from "@/libs/format"
 import {
   DropdownMenu,
   DropdownMenuContent,
