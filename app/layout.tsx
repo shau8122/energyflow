@@ -30,7 +30,7 @@ export default async function RootLayout({
         className={`${inter.className}  `}
         // style={{ backgroundImage: 'url("/bg1.jpeg")' }}
       >
-        <SessionProvider session={null}>
+        <SessionProvider session={session}>
 
         <ToastProvider />
          

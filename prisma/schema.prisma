@@ -71,3 +71,7 @@ model Label{
   imgUrl String?
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Order{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}

@@ -97,14 +97,14 @@ const mobileRoutes = [
   {
     label: "Cart",
     icon: Luggage,
-    href: "/cart",
+    href: "/",
     color: "text-orange-700",
   },
 
   {
     label: "Sign In",
     icon: LogIn,
-    href: "/auth",
+    href: "/auth/login",
     color: "text-emerald-500",
   },
 ];

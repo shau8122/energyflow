@@ -6,6 +6,9 @@
 export const publicRoutes = [
   "/",
   "/auth/new-verification",
+  "/search",
+  "/about",
+  "/store",
   "/search"
 ];
 
