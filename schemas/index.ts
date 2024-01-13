@@ -48,7 +48,6 @@ export const UserOrganizationSchema = UserIndividualSchema.extend({
 })
 
 export const CustomisationOrderSchema =  z.object({
-  orderTypes: z.enum(["CUSTOMISATION", "BRANDING"]),
   bottleLabel: z.string(),
   totalQuantity: z.number().min(1, {
     message: "Total quantity must be at least 1.",
@@ -61,9 +60,6 @@ export const CustomisationOrderSchema =  z.object({
   }),
   couponCode: z.string().min(2, {
     message: "Please enter your coupon code.",
-  }),
-  marketingUrl:z.string().min(3,{
-    message:"Please enter a valid url"
   }),
   item: z.string(),
   quantity: z.number().min(1, {
@@ -78,19 +74,8 @@ export const CustomisationOrderSchema =  z.object({
   city: z.string().min(2, {
     message: "Please enter your city.",
   }),
-  zipCode: z.number().refine((data) => data.toString().length === 6, {
-    message: "Please enter your zip code.",
-  }),
-  location: z.string().min(2, {
+  pinCode: z.string(),
+  landmark: z.string().min(2, {
     message: "Please enter your location.",
   }),
 });
-
-export const BrandingOrderSchema= CustomisationOrderSchema.extend({
-  distributionArea:z.enum(['ANY','SPECIFIC'])
-})
-export const ServiceableOrderSchema=BrandingOrderSchema.extend({
-  serviceableSpace: z.string().min(2, {
-        message: "Please enter your serviceable space.",
-      }),
-})

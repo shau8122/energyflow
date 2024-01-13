@@ -23,7 +23,6 @@ export async function PATCH(
     if(!validatedFields.success ){
       return new NextResponse('Invalid field',{status:400})
     }
-    
     const updatedUser = await db.user.update({
       where:{
         id:session.user.id

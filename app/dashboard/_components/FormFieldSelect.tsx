@@ -20,7 +20,6 @@ interface FormFieldSelectProps {
   description?: string;
   isSubmitting: boolean;
   selectItems: readonly { readonly label: string; readonly value: string }[];
-  onChange?: (e: string) => void;
 }
 
 const FormFieldSelect: React.FC<FormFieldSelectProps> = ({
@@ -29,13 +28,9 @@ const FormFieldSelect: React.FC<FormFieldSelectProps> = ({
   placeholder,
   label,
   isSubmitting,
-  selectItems,
-  onChange,
+  selectItems
 }) => {
-  const handleChange=(value:string)=>{
-    console.log("value:",value)
-    if(onChange) onChange(value)
-  }
+  
   return (
     <FormField
       control={formControl}
@@ -45,7 +40,7 @@ const FormFieldSelect: React.FC<FormFieldSelectProps> = ({
           <FormLabel>{label}</FormLabel>
           <Select
             disabled={isSubmitting}
-            onValueChange={(value)=>{field.onChange(),handleChange(value)}}
+            onValueChange={field.onChange}
             defaultValue={field.value}
             
           >

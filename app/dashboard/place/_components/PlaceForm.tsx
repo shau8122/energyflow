@@ -3,28 +3,36 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import FormFieldInput from "../../_components/FormFieldInput";
 import FormFieldSelect from "../../_components/FormFieldSelect";
 import FormFieldCommand from "../../_components/FormFieldCommand";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { states } from "@/libs/constant";
+import { CustomisationOrderSchema } from "@/schemas";
 import {
-  BrandingOrderSchema,
-  CustomisationOrderSchema,
-  ServiceableOrderSchema,
-} from "@/schemas";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import toast from "react-hot-toast";
+import axios from "axios"
+import { useRouter } from "next/navigation";
 
 const orderTypeValues = [
   { label: "Customization", value: "CUSTOMISATION" },
   { label: "Branding", value: "BRANDING" },
-] as const;
-
-const bottleLabels = [
-  { label: "Yes", value: "yes" },
-  { label: "No", value: "no" },
 ] as const;
 const distributionAreas = [
   { label: "Any Location", value: "ANY" },
@@ -39,22 +47,27 @@ const items = [
   { label: "Jar", value: "jar" },
   { label: "Other", value: "other" },
 ] as const;
-
-export const PlaceForm = () => {
+interface PlaceFormProps{
+  labelNames:{
+    id:string,
+    name:string
+  }[]
+}
+export const PlaceForm = ({labelNames}:PlaceFormProps) => {
   const [orderType, setOrderType] = useState("");
-  const [distributionType, setDistributionType] = useState("ANY");
-  const primarySchema = useMemo(() => {
-    return orderType == "CUSTOMISATION"
-      ? CustomisationOrderSchema
-      : BrandingOrderSchema;
-  }, [orderType]);
-  const mainSchema = useMemo(() => {
-    return distributionType == "ANY" ? primarySchema : ServiceableOrderSchema;
-  }, [distributionType, primarySchema]);
-  const form = useForm<z.infer<typeof mainSchema>>({
-    resolver: zodResolver(mainSchema),
+  const [distributionArea, setDistributionArea] = useState("ANY");
+  const [serviceableSpace, setServiceableSpace] = useState("");
+  const router = useRouter();
+  const labels = useMemo(() => {
+    if (labelNames) {
+      return labelNames.map((labelName) => ({ label: labelName.name, value: labelName.id }));
+    }
+    return []; 
+  }, [labelNames]); 
+  
+  const form = useForm<z.infer<typeof CustomisationOrderSchema>>({
+    resolver: zodResolver(CustomisationOrderSchema),
     defaultValues: {
-      orderTypes:undefined,
       bottleLabel: "",
       totalQuantity: 1,
       totalPrice: 1,
@@ -65,30 +78,92 @@ export const PlaceForm = () => {
       price: 1,
       state: "",
       city: "",
+      landmark: "",
     },
   });
-  const { isSubmitting, isValid } = form.formState;
-  function onSubmit(values: z.infer<typeof mainSchema>) {
-    console.log(values);
+  const { isSubmitting,defaultValues } = form.formState;
+  function onSubmit(values: z.infer<typeof CustomisationOrderSchema>) {
+    let updatedValues;
+    if (orderType == "CUSTOMISATION") {
+      updatedValues = {
+        ...values,
+        orderType: orderType,
+      };
+      console.log(updatedValues);
+    } else {
+      if (distributionArea == "SPECIFIC") {
+        if (serviceableSpace == "") {
+          toast.error("please enter space name");
+        } else {
+           updatedValues = {
+            ...values,
+            orderType,
+            distributionArea,
+            serviceableSpace,
+          };
+          console.log(updatedValues);
+        }
+      } else {
+        updatedValues = {
+          ...values,
+          orderType,
+          distributionArea,
+        };
+        console.log(updatedValues);
+      }
+    }
+    console.log(updatedValues)
+
+    axios.post(`/api/auth/order`,updatedValues)
+    .then(()=>{
+      toast.success("user updated succesfully")
+      setDistributionArea("ANY")
+      setServiceableSpace("")
+      setOrderType("")
+      form.reset()
+
+    })
+    .catch((e)=>{
+      toast.error('something went wrong')
+      console.log(e)
+    })
   }
-  const onChangeLocation = (e: string) => {
-    setDistributionType(e);
-  };
+  // const onChangeLocation = (e: string) => {
+  //   setDistributionType(e);
+  // };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="">
         <div className="grid grid-cols-12 gap-x-4 gap-y-8 mt-4  px-1 md:px-3 border-b-2 mb-4 pb-4">
-          <FormFieldSelect
-            formControl={form.control}
+          <FormField
             name="orderTypes"
-            placeholder="Select a order type"
-            label="Order type"
-            onChange={(value:string)=>{
-              setOrderType(value);
-            }}
-            isSubmitting={isSubmitting}
-            selectItems={orderTypeValues}
+            render={({ field }) => (
+              <FormItem className="col-span-12 sm:col-span-6 xl:col-span-3 lg:col-span-4 ">
+                <FormLabel>Order type</FormLabel>
+                <Select
+                  disabled={isSubmitting}
+                  onValueChange={(value) => setOrderType(value)}
+                  defaultValue={orderType}
+                >
+                  <FormControl className="rounded-[8px]">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a order type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-white text-slate-900 rounded-[8px] ">
+                    {orderTypeValues.map((item, index) => (
+                      <SelectItem key={index} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <FormMessage />
+              </FormItem>
+            )}
           />
+
           {orderType === "CUSTOMISATION" && (
             <>
               <FormFieldSelect
@@ -97,7 +172,7 @@ export const PlaceForm = () => {
                 placeholder="Select a bottle label"
                 label="Bottle label"
                 isSubmitting={isSubmitting}
-                selectItems={bottleLabels}
+                selectItems={labels}
               />
               <FormFieldInput
                 formControl={form.control}
@@ -142,7 +217,7 @@ export const PlaceForm = () => {
                 placeholder="Select a bottle label"
                 label="Bottle label"
                 isSubmitting={isSubmitting}
-                selectItems={bottleLabels}
+                selectItems={labels}
               />
               <FormFieldInput
                 formControl={form.control}
@@ -169,14 +244,34 @@ export const PlaceForm = () => {
                 type="text"
                 isSubmitting={isSubmitting}
               />
-              <FormFieldSelect
-                formControl={form.control}
+
+              <FormField
                 name="distributionArea"
-                placeholder="Select a location"
-                label="Distribution Area*"
-                onChange={onChangeLocation}
-                isSubmitting={isSubmitting}
-                selectItems={distributionAreas}
+                render={({ field }) => (
+                  <FormItem className="col-span-12 sm:col-span-6 xl:col-span-3 lg:col-span-4 ">
+                    <FormLabel>Distribution Area*</FormLabel>
+                    <Select
+                      disabled={isSubmitting}
+                      onValueChange={(value) => setDistributionArea(value)}
+                      defaultValue={field.value}
+                    >
+                      <FormControl className="rounded-[8px]">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a location" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white text-slate-900 rounded-[8px] ">
+                        {distributionAreas.map((item, index) => (
+                          <SelectItem key={index} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
               <FormFieldInput
                 formControl={form.control}
@@ -186,11 +281,10 @@ export const PlaceForm = () => {
                 type="text"
                 isSubmitting={isSubmitting}
               />
-             
             </>
           )}
         </div>
-        {orderType !== "" && (
+        {orderType != "" && (
           <div className="grid grid-cols-12 gap-x-4 gap-y-8  px-1 md:px-3 border-t-2  pt-4">
             <FormFieldSelect
               formControl={form.control}
@@ -208,8 +302,7 @@ export const PlaceForm = () => {
               type="number"
               isSubmitting={isSubmitting}
             />
-            {
-                distributionType==="SPECIFIC"&&
+            {distributionArea === "SPECIFIC" && (
               <FormFieldInput
                 formControl={form.control}
                 name="serviceableSpace"
@@ -217,8 +310,8 @@ export const PlaceForm = () => {
                 label="Select Serviceable Space"
                 type="text"
                 isSubmitting={isSubmitting}
-                />
-              }
+              />
+            )}
             <FormFieldInput
               formControl={form.control}
               name="price"
@@ -245,15 +338,15 @@ export const PlaceForm = () => {
             />
             <FormFieldInput
               formControl={form.control}
-              name="zipCode"
+              name="pinCode"
               placeholder="Enter zip code"
               label="Zip Code*"
-              type="number"
+              type="text"
               isSubmitting={isSubmitting}
             />
             <FormFieldInput
               formControl={form.control}
-              name="location"
+              name="landmark"
               placeholder="Enter location"
               label="Location*"
               type="text"

@@ -5,10 +5,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
-  // provider = "postgresql"
+// provider = "postgresql"
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+enum OrderType {
+  BRANDING
+  CUSTOMISATION
 }
 
 enum CustomerType {
@@ -18,60 +23,79 @@ enum CustomerType {
 
 model User {
   // id            String    @id @default(cuid())
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  mobile        String?
-  mobileVerified DateTime?
-  customerType  CustomerType? @default(INDIVIDUAL)
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?       @unique
+  emailVerified    DateTime?
+  mobile           String?
+  mobileVerified   DateTime?
+  customerType     CustomerType? @default(INDIVIDUAL)
   organisationName String?
-  state         String?
-  city          String?
-  pinCode       String?
-  landmark      String?
-  image         String?
-  password      String?
-  accounts      Account[]
-  label         Label[]
+  image            String?
+  state            String?
+  city             String?
+  pinCode          String?
+  landmark         String?
+  password         String?
+  accounts         Account[]
+  label            Label[]
+  order            Order[]
 }
 
 model Account {
   // id                 String  @id @default(cuid())
-   id     String @id @default(auto()) @map("_id") @db.ObjectId
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
   // userId             
-  userId String @db.ObjectId
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String? 
-  access_token       String?  
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  
-  session_state      String?
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
+
 model MobileVerificationToken {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  mobile String @unique
-  token String
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  mobile  String   @unique
+  token   String
   expires DateTime
 }
 
-model Label{
-  id  String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  name String
+model Label {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId String  @db.ObjectId
+  name   String
   cdrUrl String?
   imgUrl String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Order{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+model Order {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  orderType        OrderType @default(CUSTOMISATION)
+  bottleLabel      String
+  totalQuantity    Int
+  totalPrice       Int
+  remark           String
+  distributionArea String?
+  couponCode       String?
+  item             String
+  quantity         Int
+  serviceableSpace String?
+  price            Int
+  state            String
+  city             String
+  pinCode          String
+  landmark         String
+  userId String  @db.ObjectId
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
