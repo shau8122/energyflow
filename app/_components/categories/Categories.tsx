@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import CategoriesBox from "./CategoriesBox";
 
 import CategoriesModal from "./CategoriesModal";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 export interface ServiceCategory {
   name: string;
   alt: string;
@@ -131,11 +133,16 @@ const Categories = () => {
         </h1>
         <div className="w-full mt-2 gap-2 grid grid-cols-2 lg:grid-cols-8 md:grid-cols-4 justify-between items-center">
           {trimmedCategories.map((category, index) => (
-            <CategoriesBox
+            <Link
+              href={"/search?query=" + category.name}
               key={index}
-              name={category.name}
-              icon={category.icon}
-            />
+            >
+
+              <CategoriesBox
+                name={category.name}
+                icon={category.icon}
+              />
+            </Link>
           ))}
           <button onClick={() => setShowMore(true)}>
             <CategoriesBox name="More" icon="...." />
@@ -156,11 +163,16 @@ const Categories = () => {
           />
           <div className="w-full mt-2 gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8 justify-between items-center">
             {serviceCategories.map((category, index) => (
-              <CategoriesBox
-                key={index}
-                name={category.name}
-                icon={category.icon}
-              />
+               <Link
+               href={"/search?query=" + category.name}
+               key={index}
+             >
+ 
+               <CategoriesBox
+                 name={category.name}
+                 icon={category.icon}
+               />
+             </Link>
             ))}
           </div>
         </div>

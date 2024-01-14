@@ -23,6 +23,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "@/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const mainSchema = z.object({
   name: z.string().min(3, "Too Short!").max(50, "Too Long!"),
@@ -39,6 +40,7 @@ export const LabelsForm = () => {
   const [imgFile, setImgFile] = useState<File | undefined>();
   const [cdrUrl ,setCdrUrl] = useState("");
   const [imgUrl,setImageUrl]=useState("");
+  const router = useRouter()
 
   const { isSubmitting, isValid } = form.formState;
   function onSubmit(values: z.infer<typeof mainSchema>) {
@@ -53,6 +55,7 @@ export const LabelsForm = () => {
     .then((res)=>{
       toast.success("label created successfully");
       console.log(res)
+      window.location.reload()
     }).catch((e)=>{
       toast.error("Something went wrong");
       console.log(e);

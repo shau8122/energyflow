@@ -26,16 +26,16 @@ const Home = () => {
   const handleSendCode = async () => {
     setLoading(true);
     const formatPh = "+" + ph;
-   
-    axios
-      .post("/api/auth/sms", {
-        mobile:formatPh
-      })
-      .then(() => {
-        toast.success("successfully sent")
-      })
-      .catch(() => toast.error("Something went wrong"))
-      .finally(() => setLoading(false));
+    toast.error("Please use other options. There is a server problem")
+    // axios
+    //   .post("/api/auth/sms", {
+    //     mobile:formatPh
+    //   })
+    //   .then(() => {
+    //     toast.success("successfully sent")
+    //   })
+    //   .catch(() => toast.error("Something went wrong"))
+    //   .finally(() => setLoading(false));
     
   };
 

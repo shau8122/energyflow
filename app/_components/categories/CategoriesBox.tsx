@@ -21,8 +21,8 @@ const CategoriesBox: React.FC<CategoriesBoxProps> = ({ icon, name }) => {
     setLoading(false)
   }
   return (
-    <motion.button
-      onClick={handleClick}
+    <motion.div
+      
     initial={{y:50,opacity:0}}
     whileInView={{y:0,opacity:1}}
     transition={{duration:1, type:"spring"}}
@@ -32,7 +32,7 @@ const CategoriesBox: React.FC<CategoriesBoxProps> = ({ icon, name }) => {
         
       </h1>
       <h1 className="text-sm text-center text-slate-900 font-semibold">{name.slice(0,25)}</h1>
-    </motion.button>
+    </motion.div>
     
   );
 };

@@ -32,7 +32,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
 
   const handleSendCode = async () => {
     setLoading(true);
-    toast.error("this is not in use")
+    toast.error("Please use other options. There is a server problem")
 
     const formatPh = "+" + ph;
     // await axios
@@ -147,6 +147,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
               />
 
               <Button
+              
                 onClick={handleSendCode}
                 id="send-code-button"
                 className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"
