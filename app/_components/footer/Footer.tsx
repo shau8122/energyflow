@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Counter from "./Counter";
 import AuthenticationModal from "@/components/AuthenticationModal";
-import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Hamburger from "@/components/Hamburger";
+import { Button } from "@/components/ui/button";
+import axios from "axios"
+import toast from "react-hot-toast";
 
 const Footer: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,8 +26,22 @@ const Footer: React.FC = () => {
   const onClose = () => {
     setIsOpen(false);
   };
+  const handleClick =()=>{
+    axios
+      .post("/api/auth/user", {
+        name:"Shaukat"
+      })
+      .then(() => {
+        toast.success("successfully sent")
+      })
+      .catch(() => toast.error("Something went wrong"))
+      
+  }
   return (
     <footer className="bg-[#50b8e7] p-5 text-center">
+       <Button onClick={handleClick}>
+          Click
+        </Button>
       <div className="mx-auto max-w-screen-md">
         <Counter />
       </div>

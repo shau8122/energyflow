@@ -3,23 +3,16 @@
 import Modal from "./Modal";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import GoogleAuthButton from "./GoogleAuthButton";
-import Image from "next/image";
+import { startTransition, useState } from "react";
 import { CircleDashedIcon } from "lucide-react";
 import OtpInput from "react-otp-input";
 import PhoneInput from "react-phone-input-2";
-import { useRouter } from "next/navigation";
-
-import firebase from "firebase/compat/app";
-
-import "firebase/compat/auth";
-import facebookIcon from "@/public/FacebookIcon.svg";
-import { firebaseConfig } from "@/firebase/config";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import SocialAuthButton from "./SocialAuthButton";
+import axios from "axios";
+import { login } from "@/action/login";
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
 interface AuthenticationModalProps {
   isOpen: boolean;
@@ -30,70 +23,54 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  // const auth = getAuth(firebase_app);
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl")
 
-  const [verificationCode, setVerificationCode] = useState("");
-  const [verificationId, setVerificationId] = useState(null as any);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     setLoading(true);
-    const recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      "send-code-button",
-      {
-        size: "invisible",
-      }
-    );
+    toast.error("Please use other options. There is a server problem")
 
     const formatPh = "+" + ph;
-    firebase
-      .auth()
-      .signInWithPhoneNumber(formatPh, recaptchaVerifier)
-      .then((vid) => {
-        console.log(vid);
-        setVerificationId(vid.verificationId);
-        setError(null);
-        setLoading(false);
-        setShowOTP(true);
-        toast.success("OTP sended successfully!");
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err.message || "Failed to send verification code.");
-        setLoading(false);
-      });
+    // await axios
+    //   .post("/api/auth/sms", {
+    //     mobile: formatPh,
+    //   })
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setShowOTP(true);
+    //       toast.success("OTP sendt successfully!");
+    //     } else {
+    //       toast.error("Failed to send OTP!");
+    //     }
+    //   });
+    setLoading(false);
   };
 
   const handleVerifyCode = () => {
     setLoading(true);
-    const credential = firebase.auth.PhoneAuthProvider.credential(
-      verificationId!,
-      otp
-    );
-
-    firebase
-      .auth()
-      .signInWithCredential(credential)
-      .then((userCredential) => {
-        // User signed in successfully
-        console.log(userCredential);
-        sessionStorage.setItem("user", JSON.stringify(userCredential.user));
-        setLoading(false);
-        toast.success("OTP verified successfully!");
-        router.push("/");
-        window.location.reload();
-        onClose();
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err.message || "Failed to verify code.");
-      });
+    const formatPh = "+" + ph;
+    const values = {
+      mobile: formatPh,
+      otp: otp,
+    };
+    startTransition(() => {
+      login(values, callbackUrl)
+        .then((data) => {
+          if (data?.error) {
+            setOtp("");
+            toast.error(data.error);
+          } else {
+            toast.success("Login successfully!");
+          }
+        })
+        .catch(() => toast.error("Something went wrong"));
+    });
   };
+
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -103,23 +80,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
           to Enerzyflow
         </h1>
         <div className="w-full mt-4 flex justify-between gap-2">
-          <div className="w-1/2 ">
-            <GoogleAuthButton onClose={onClose} />
-          </div>
-          <div className="w-1/2">
-            <button className=" w-full  font-semibold">
-              <div className="flex    justify-center border-2 p-2  rounded-xl border-blue-300 items-center">
-                <Image
-                  width={30}
-                  height={30}
-                  className="mr-2"
-                  src={facebookIcon}
-                  alt="google"
-                />
-                <p className="text-lg">Facebook</p>
-              </div>
-            </button>
-          </div>
+          <SocialAuthButton/>
         </div>
 
         <div className="line bg-[#50b8e7] h-1 w-full my-9 relative">
@@ -186,6 +147,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
               />
 
               <Button
+              
                 onClick={handleSendCode}
                 id="send-code-button"
                 className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"

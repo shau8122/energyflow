@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import profilePicPlaceholder from "@/public/profile-pic-placeholder.png"
 import { Button } from "@/components/ui/button"
+import { useCurrentUser } from "@/hooks/useCurrentUser"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,17 +35,16 @@ import Image from "next/image"
 import Link from "next/link"
 import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
+import { logout } from "@/action/logout"
 
 export function UserMenuButton() {
   const handleClick = () => {
-    sessionStorage.removeItem("user");
-    toast.success("Logout successfully!");
-    window.location.reload();
+    logout()
+    .then(()=>{
+      toast.success("Logged out successfully")
+    })
   };
-  const [user, setUser] = useState<string | null>(null);
-  useEffect(() => {
-    setUser(sessionStorage.getItem("user"));
-  }, []);
+  const user = useCurrentUser();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,7 +52,7 @@ export function UserMenuButton() {
         {user ? (
           <Image
             src={
-              // user?.image || 
+              user?.image || 
               profilePicPlaceholder}
             alt="Profile picture"
             width={40}

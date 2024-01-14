@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import ProductCarousel from "./ProductCarousel";
-import { formatPrice } from "@/lib/format";
+import { formatPrice } from "@/libs/format";
 import { useRouter } from "next/navigation";
 import { ProductType } from "./SearchResults";
 import Link from "next/link";

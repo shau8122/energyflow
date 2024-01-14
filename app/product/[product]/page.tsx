@@ -7,7 +7,7 @@ import PoliciesAccordium from "./_components/PoliciesAccordium";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { formatPrice } from "@/lib/format";
+import { formatPrice } from "@/libs/format";
 import { PhoneCallIcon } from "lucide-react";
 import { ProductType } from "@/app/search/_components/SearchResults";
 

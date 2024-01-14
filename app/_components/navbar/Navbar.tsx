@@ -36,6 +36,7 @@ const CustomLink: React.FC<CustomLinkProps> = ({
   icon:Icon,
   color
 }) => {
+  
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -84,7 +85,7 @@ const mobileRoutes = [
   {
     label: "Dashboard",
     icon: LayoutDashboard,
-    href: "/image",
+    href: "/dashboard",
     color: "text-pink-700",
   },
   {
@@ -96,14 +97,14 @@ const mobileRoutes = [
   {
     label: "Cart",
     icon: Luggage,
-    href: "/cart",
+    href: "/",
     color: "text-orange-700",
   },
 
   {
     label: "Sign In",
     icon: LogIn,
-    href: "/auth",
+    href: "/auth/login",
     color: "text-emerald-500",
   },
 ];

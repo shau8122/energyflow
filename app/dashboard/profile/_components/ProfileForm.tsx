@@ -10,130 +10,58 @@ import FormFieldInput from "../../_components/FormFieldInput";
 import FormFieldSelect from "../../_components/FormFieldSelect";
 import FormFieldCommand from "../../_components/FormFieldCommand";
 import { useEffect, useState } from "react";
+import { UserIndividualSchema, UserOrganizationSchema } from "@/schemas";
+import { User } from "@prisma/client";
+import axios from 'axios'
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { states } from "@/libs/constant";
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .trim(),
-  customerType: z.enum(["individual", "organization"]),
-  email: z.string().email().trim(),
-  mobileNo: z.string().refine((value) => value.length === 10, {
-    message: "Mobile number must be exactly 10 characters.",
-  }),
-  state: z.string().min(2, {
-    message: "Please select a state.",
-  }),
-  city: z
-    .string()
-    .min(2, {
-      message: "Please enter your city name.",
-    })
-    .trim(),
-  zipCode: z.string().refine((value) => value.length === 6, {
-    message: "Zip code must be exactly 6 characters.",
-  }),
-  landmark: z
-    .string()
-    .min(2, {
-      message: "Please enter your landmark.",
-    })
-    .trim(),
-});
-const extendedSchema = formSchema.extend({
-  organizationName: z.string().min(2, {
-    message: "Please enter your organization name.",
-  })
-});
 
-const states = [
-  { label: "Andhra Pradesh", value: "Andhra Pradesh" },
-  { label: "Arunachal Pradesh", value: "Arunachal Pradesh" },
-  { label: "Assam", value: "Assam" },
-  { label: "Bihar", value: "Bihar" },
-  { label: "Chhattisgarh", value: "Chhattisgarh" },
-  { label: "Goa", value: "Goa" },
-  { label: "Gujarat", value: "Gujarat" },
-  { label: "Haryana", value: "Haryana" },
-  { label: "Himachal Pradesh", value: "Himachal Pradesh" },
-  { label: "Jharkhand", value: "Jharkhand" },
-  { label: "Karnataka", value: "Karnataka" },
-  { label: "Kerala", value: "Kerala" },
-  { label: "Madhya Pradesh", value: "Madhya Pradesh" },
-  { label: "Maharashtra", value: "Maharashtra" },
-  { label: "Manipur", value: "Manipur" },
-  { label: "Meghalaya", value: "Meghalaya" },
-  { label: "Mizoram", value: "Mizoram" },
-  { label: "Nagaland", value: "Nagaland" },
-  { label: "Odisha", value: "Odisha" },
-  { label: "Punjab", value: "Punjab" },
-  { label: "Rajasthan", value: "Rajasthan" },
-  { label: "Sikkim", value: "Sikkim" },
-  { label: "Tamil Nadu", value: "Tamil Nadu" },
-  { label: "Telangana", value: "Telangana" },
-  { label: "Tripura", value: "Tripura" },
-  { label: "Uttar Pradesh", value: "Uttar Pradesh" },
-  { label: "Uttarakhand", value: "Uttarakhand" },
-  { label: "West Bengal", value: "West Bengal" },
-  {
-    label: "Andaman and Nicobar Islands",
-    value: "Andaman and Nicobar Islands",
-  },
-  { label: "Chandigarh", value: "Chandigarh" },
-  {
-    label: "Dadra and Nagar Haveli and Daman and Diu",
-    value: "Dadra and Nagar Haveli and Daman and Diu",
-  },
-  { label: "Lakshadweep", value: "Lakshadweep" },
-  { label: "Delhi", value: "Delhi" },
-  { label: "Puducherry", value: "Puducherry" },
-  { label: "Jammu and Kashmir", value: "Jammu and Kashmir" },
-  { label: "Ladakh", value: "Ladakh" },
-] as const;
 const customerTypes = [
-  { label: "Individual", value: "individual" },
-  { label: "Organization", value: "organization" },
+  { label: "Individual", value: "INDIVIDUAL" },
+  { label: "Organization", value: "ORGANISATION" },
 ] as const;
 
-export const ProfileForm = () => {
-  const [customerTypeValue, setCustomerTypeValue] = useState("individual");
-  const mainSchema = customerTypeValue === "organization" ? extendedSchema : formSchema;
+interface ProfileFormProps{
+  userDetails:User | null
+}
+
+export const ProfileForm = ({
+  userDetails
+}:ProfileFormProps) => {
+  const [customerTypeValue, setCustomerTypeValue] = useState("INDIVIDUAL");
+  const router = useRouter()
+  const mainSchema = customerTypeValue === "ORGANISATION" ? UserOrganizationSchema : UserIndividualSchema;
   const form = useForm<z.infer<typeof mainSchema>>({
     resolver: zodResolver(mainSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      customerType: "individual",
-      mobileNo: "",
-      state: "",
-      city: "",
-      zipCode: "",
-      landmark: "",
-      
+      name: userDetails?.name || "",
+      email: userDetails?.email ||    "",
+      customerType: userDetails?.customerType || "INDIVIDUAL",
+      mobile: userDetails?.mobile || "",
+      state:userDetails?.state|| "",
+      city: userDetails?.city||"",
+      pinCode:userDetails?.pinCode|| "",
+      landmark:userDetails?.landmark|| "",
+      ...(customerTypeValue === "ORGANISATION"
+      ? { organisationName: userDetails?.organisationName || "" }
+      : {}),
     },
   });
   
 
   const { isSubmitting, isValid } = form.formState;
   function onSubmit(values: z.infer<typeof mainSchema>) {
-    console.log(values);
-    // try {
-    //   const response = await axios.post("/api/courses", values);
-    //   router.push(`/teacher/courses/${response.data.id}`);
-    //   toast.success("Course created");
-    // } catch {
-    //   toast.error("Something went wrong");
-    // }
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // })
+    axios.patch(`/api/auth/user`,values)
+    .then(()=>{
+      toast.success("user updated succesfully")
+      router.refresh();
+    })
+    .catch((e)=>{
+      toast.error('something went wrong')
+      console.log(e)
+    })
   }
   const customerType = form.watch('customerType');
   useEffect(() => {
@@ -154,10 +82,10 @@ export const ProfileForm = () => {
           isSubmitting={isSubmitting}
           selectItems={customerTypes}
         />
-        {form.getValues("customerType") === "organization" && (
+        {form.getValues("customerType") === "ORGANISATION" && (
           <FormFieldInput
             formControl={form.control}
-            name="organizationName"
+            name="organisationName"
             placeholder="Enter your organization name"
             label="Organization Name*"
             type="text"
@@ -183,7 +111,7 @@ export const ProfileForm = () => {
         />
         <FormFieldInput
           formControl={form.control}
-          name="mobileNo"
+          name="mobile"
           placeholder="Enter your mobile number"
           label="Mobile Number*"
           type="number"
@@ -207,7 +135,7 @@ export const ProfileForm = () => {
         />
         <FormFieldInput
           formControl={form.control}
-          name="zipCode"
+          name="pinCode"
           placeholder="Enter your zip code"
           label="Zip Code*"
           type="number"

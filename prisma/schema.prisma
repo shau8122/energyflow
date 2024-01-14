@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// provider = "postgresql"
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderType {
+  BRANDING
+  CUSTOMISATION
+}
+
+enum CustomerType {
+  INDIVIDUAL
+  ORGANISATION
+}
+
+model User {
+  // id            String    @id @default(cuid())
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?       @unique
+  emailVerified    DateTime?
+  mobile           String?
+  mobileVerified   DateTime?
+  customerType     CustomerType? @default(INDIVIDUAL)
+  organisationName String?
+  image            String?
+  state            String?
+  city             String?
+  pinCode          String?
+  landmark         String?
+  password         String?
+  accounts         Account[]
+  label            Label[]
+  order            Order[]
+}
+
+model Account {
+  // id                 String  @id @default(cuid())
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  // userId             
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model MobileVerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  mobile  String   @unique
+  token   String
+  expires DateTime
+}
+
+model Label {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  name      String
+  cdrUrl    String?
+  imgUrl    String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order     Order[]
+}
+
+model Order {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  orderType        OrderType @default(CUSTOMISATION)
+  totalQuantity    Int
+  totalPrice       Int
+  remark           String
+  distributionArea String?
+  couponCode       String?
+  item             String
+  quantity         Int
+  serviceableSpace String?
+  price            Int
+  state            String
+  city             String
+  pinCode          String
+  landmark         String
+  userId           String    @db.ObjectId
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Label            Label?    @relation(fields: [bottleLabel], references: [id])
+  bottleLabel         String?   @db.ObjectId
+}
