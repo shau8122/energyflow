@@ -55,7 +55,7 @@ import { getTokenByMobile } from "@/data/token";
 //   return passwordResetToken;
 // }
 
-export const generateVerificationToken = async (mobile: string) => {
+export const generateVerificationToken = async (mobile: number) => {
   // const token = uuidv4();
   const token = crypto.randomInt(100_000, 1_000_000).toString();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
