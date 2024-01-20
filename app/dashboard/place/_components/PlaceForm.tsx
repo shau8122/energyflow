@@ -29,6 +29,7 @@ import {
 import toast from "react-hot-toast";
 import axios from "axios"
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/Spinner";
 
 const orderTypeValues = [
   { label: "Customization", value: "CUSTOMISATION" },
@@ -55,6 +56,7 @@ interface PlaceFormProps{
 }
 export const PlaceForm = ({labelNames}:PlaceFormProps) => {
   const [orderType, setOrderType] = useState("");
+  const [loading, setLoading] = useState(false)
   const [distributionArea, setDistributionArea] = useState("ANY");
   const [serviceableSpace, setServiceableSpace] = useState("");
   const router = useRouter();
@@ -84,6 +86,7 @@ export const PlaceForm = ({labelNames}:PlaceFormProps) => {
   const { isSubmitting,defaultValues } = form.formState;
   function onSubmit(values: z.infer<typeof CustomisationOrderSchema>) {
     let updatedValues;
+    setLoading(true)
     if (orderType == "CUSTOMISATION") {
       updatedValues = {
         ...values,
@@ -116,7 +119,7 @@ export const PlaceForm = ({labelNames}:PlaceFormProps) => {
 
     axios.post(`/api/auth/order`,updatedValues)
     .then(()=>{
-      toast.success("user updated succesfully")
+      toast.success("Oreder confirm succesfully")
       setDistributionArea("ANY")
       setServiceableSpace("")
       setOrderType("")
@@ -126,7 +129,7 @@ export const PlaceForm = ({labelNames}:PlaceFormProps) => {
     .catch((e)=>{
       toast.error('something went wrong')
       console.log(e)
-    })
+    }).finally(()=>setLoading(false))
   }
   // const onChangeLocation = (e: string) => {
   //   setDistributionType(e);
@@ -364,7 +367,7 @@ export const PlaceForm = ({labelNames}:PlaceFormProps) => {
                 type="submit"
                 disabled={isSubmitting}
               >
-                Submit
+                {loading ? <Spinner/>:"Submit"}
               </Button>
             </div>
           </div>

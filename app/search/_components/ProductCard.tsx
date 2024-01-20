@@ -4,7 +4,6 @@ import ProductCarousel from "./ProductCarousel";
 import { formatPrice } from "@/libs/format";
 import { useRouter } from "next/navigation";
 import { ProductType } from "./SearchResults";
-import Link from "next/link";
 
 interface ProductCardProps {
   product: ProductType;

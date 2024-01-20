@@ -15,28 +15,30 @@ import {
   Info,
   LayoutDashboard,
   LogIn,
+  LogOut,
   LucideIcon,
   Luggage,
   Store,
 } from "lucide-react";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { logout } from "@/action/logout";
 
 interface CustomLinkProps {
   href: string;
   title: string;
   className?: string;
   mobile?: boolean;
-  icon?: LucideIcon,
-  color?:string
+  icon?: LucideIcon;
+  color?: string;
 }
 const CustomLink: React.FC<CustomLinkProps> = ({
   href,
   title,
   className,
   mobile,
-  icon:Icon,
-  color
+  icon: Icon,
+  color,
 }) => {
-  
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -45,9 +47,9 @@ const CustomLink: React.FC<CustomLinkProps> = ({
           mobile ? "text-3xl" : "text-lg"
         } text-mainColor font-semibold`}
       >
-        {
-          Icon && <Icon size={40} className={`${color} inline-block mr-8 text-lg`}/>
-        }
+        {Icon && (
+          <Icon size={40} className={`${color} inline-block mr-8 text-lg`} />
+        )}
         {title}
       </p>
       <span
@@ -100,17 +102,11 @@ const mobileRoutes = [
     href: "/",
     color: "text-orange-700",
   },
-
-  {
-    label: "Sign In",
-    icon: LogIn,
-    href: "/auth/login",
-    color: "text-emerald-500",
-  },
 ];
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
+  const user = useCurrentUser();
 
   const handleSearch = () => {
     if (search.length === 0) return;
@@ -119,6 +115,12 @@ const Navbar = () => {
   {
     /* //  bg-[#b9e2f5]/95   */
   }
+  const handleClick = () => {
+    logout()
+    .then(()=>{
+      toast.success("Logged out successfully")
+    })
+  };
   return (
     <div className="w-full mx-auto max-w-screen-2xl  flex lg:flex-row flex-col ">
       <div className="lg:w-[35%]  hidden w-full mx-auto  lg:flex justify-center items-center">
@@ -126,6 +128,7 @@ const Navbar = () => {
           <Image
             src="/MainLogo3.png"
             fill
+            priority
             style={{
               objectFit: "contain",
             }}
@@ -181,6 +184,30 @@ const Navbar = () => {
                 color={route.color}
               />
             ))}
+            {user?.id ? (
+              <Button className="p-0 text-emrald-500" onClick={handleClick}>
+                <p
+                  className={`text-3xl text-mainColor font-semibold`}
+                >
+                    <LogOut
+                      size={40}
+                      className={`text-emerald-500 inline-block mr-8 text-lg`}
+                    />
+                  
+                Log out
+                </p>
+
+              </Button>
+            ) : (
+              <CustomLink
+                title="Sign In"
+                mobile
+                href={"/auth/login"}
+                className="mr-4"
+                icon={LogIn}
+                color="text-emerald-500"
+              />
+            )}
           </Hamburger>
         </div>
       </div>

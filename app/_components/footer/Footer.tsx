@@ -4,44 +4,41 @@ import React, { useEffect, useState } from "react";
 import Counter from "./Counter";
 import AuthenticationModal from "@/components/AuthenticationModal";
 import { useRouter } from "next/navigation";
-import Hamburger from "@/components/Hamburger";
 import { Button } from "@/components/ui/button";
 import axios from "axios"
 import toast from "react-hot-toast";
+import { Facebook, FacebookIcon, Instagram, InstagramIcon, Linkedin, LinkedinIcon, Twitter, TwitterIcon } from "lucide-react";
+import Link from "next/link";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const Footer: React.FC = () => {
+  const user = useCurrentUser();
   const [isOpen, setIsOpen] = useState(false);
 
-  const router = useRouter();
   useEffect(() => {
-    const user = sessionStorage.getItem("user");
-
     const isAlreadyOpen = sessionStorage.getItem("isAlreadyOpen");
-    if (!user && !isAlreadyOpen) {
-      setIsOpen(true);
-      sessionStorage.setItem("isAlreadyOpen", "true");
-    }
-  }, []);
+
+    const timeoutId = setTimeout(() => {
+      if (!user && !isAlreadyOpen) {
+        setIsOpen(true);
+        sessionStorage.setItem("isAlreadyOpen", "true");
+      }
+    }, 5000);
+
+    // Clear the timeout to avoid unnecessary side effects
+    return () => clearTimeout(timeoutId);
+
+    // Add 'user' to the dependency array if it's used inside the effect
+  }, [user]);
+
 
   const onClose = () => {
     setIsOpen(false);
   };
-  const handleClick =()=>{
-    axios
-      .post("/api/auth/user", {
-        name:"Shaukat"
-      })
-      .then(() => {
-        toast.success("successfully sent")
-      })
-      .catch(() => toast.error("Something went wrong"))
-      
-  }
+ 
   return (
     <footer className="bg-[#50b8e7] p-5 text-center">
-       <Button onClick={handleClick}>
-          Click
-        </Button>
+   
       <div className="mx-auto max-w-screen-md">
         <Counter />
       </div>
@@ -67,6 +64,28 @@ const Footer: React.FC = () => {
             <a className="text-blue-500 hover:text-blue-700">Terms of use</a>
             <a className="text-blue-500 hover:text-blue-700">Privacy policy</a>
             <a className="text-blue-500 hover:text-blue-700">Cookie policy</a>
+          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-4 my-1 max-w-xs mx-auto w-[90%] text-[2em] text-blue-700  ">
+          <div className="hover:translate-y-[-10px] flex justify-center items-center text-lg bg-white px-1 py-2 rounded-xl  transition-all ease-in-out duration-150">
+            <Link href="http://facebook.com" className="bg-white">
+              <Facebook size={30} />
+            </Link>
+          </div>
+          <div className="hover:translate-y-[-10px] flex justify-center items-center text-lg bg-white px-1 py-2 rounded-xl  transition-all ease-in-out duration-150">
+            <Link href="http://twitter.com" className="bg-white">
+              <Twitter size={30} />
+            </Link>
+          </div>
+          <div className="hover:translate-y-[-10px] flex justify-center items-center text-lg bg-white px-1 py-2 rounded-xl  transition-all ease-in-out duration-150">
+            <Link href="https://www.instagram.com/enerzyflow/?igsh=MTRiZzkwMGs1dHNvNQ%3D%3D" target="_blank" className="bg-white">
+              <Instagram size={30} />
+            </Link>
+          </div>
+          <div className="hover:translate-y-[-10px] flex justify-center items-center text-lg bg-white px-1 py-2 rounded-xl  transition-all ease-in-out duration-150">
+            <Link href="http://linkedin.com" className="bg-white">
+              <Linkedin size={30} />
+            </Link>
           </div>
         </div>
         <p>

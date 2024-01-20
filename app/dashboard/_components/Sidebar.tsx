@@ -22,9 +22,10 @@ import {
   HelpCircle,
   
 } from "lucide-react";
-// import FreeCounter from "./FreeCounter";
 import { cn } from "@/libs/utils";
 import { Button } from "@/components/ui/button";
+import { logout } from "@/action/logout";
+import toast from "react-hot-toast";
 
 const montserrat = Montserrat({
   weight: "600",
@@ -67,12 +68,8 @@ const routes = [
     href: "/music",
     color: "text-emerald-500",
   },
-  {
-    label: "Logout",
-    icon: LogOut,
-    href: "/code",
-    color: "text-green-700",
-  },
+
+  
   {
     label: "Help",
     icon: HelpCircle,
@@ -80,11 +77,15 @@ const routes = [
     color: "text-green-700",
   },
 ];
-// interface SidebarProps {
-//   apiLimitCount: number;
-// }
+
 const Sidebar = () => {
   const pathname = usePathname();
+  const handleLogout=()=>{
+    logout()
+    .then(()=>{
+      toast.success("Logged out successfully")
+    })
+  }
   return (
     <div
       id="sidebar"
@@ -92,7 +93,7 @@ const Sidebar = () => {
     >
       <div className="px-3 py-2 flex-1">
         <Link href="/dashboard" className="flex mx-12 items-center p-2 mb-10">
-          <Image alt="logo" src={MainLogo} />
+          <Image priority alt="logo" src={MainLogo} />
         </Link>
         <div className="space-y-2">
           {routes.map((route) => (
@@ -114,11 +115,21 @@ const Sidebar = () => {
               </div>
             </Button>
           ))}
+          <Button
+          onClick={handleLogout}
+              
+              className={cn(
+                "text-lg group flex p-6 w-full justify-start font-medium cursor-pointer hover:text-mainColor hover:bg-gray-300 rounded-xl transition text-zinc-400"
+              )}
+            >
+              <div className="flex items-center flex-1">
+                <LogOut className={cn("h-8 w-8 mr-3 text-green-700")} />
+                Log Out
+              </div>
+          </Button>
         </div>
       </div>
-      {/* <FreeCounter
-        apiLimitCount={apiLimitCount}
-      /> */}
+      
     </div>
   );
 };

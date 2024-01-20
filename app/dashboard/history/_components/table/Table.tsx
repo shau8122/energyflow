@@ -2,8 +2,13 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -16,9 +21,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 // import { FileType } from "@/typing";
-import { Delete, PencilIcon, TrashIcon } from "lucide-react";
+import { Delete, PencilIcon, PlusCircle, TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Order } from "@prisma/client";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { DeleteModal } from "../DeleteModal";
 // import { useAppStore } from "@/store";
 // import { DeleteModal } from "../Deletemodal";
 // import { RenameModal } from "../RenameModal";
@@ -32,41 +41,55 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [isDeletedModalOpen,setIsDeleteModalOpen]= useState(false)
+  const [fileId, setFileId] = useState("");
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+    },
   });
-  // const [
-  //   fileId,
-  //   setFileId,
-  //   filename,
-  //   setFilename,
-  //   isDeleteModalOpen,
-  //   setIsDeleteModalOpen,
-  //   isRenameModalOpen,
-  //   setIsRenameModalOpen,
-  // ] = useAppStore((state) => [
-  //   state.fileId,
-  //   state.setFileId,
-  //   state.filename,
-  //   state.setFilename,
-  //   state.isDeleteModalOpen,
-  //   state.setIsDeleteModalOpen,
-  //   state.isRenameModalOpen,
-  //   state.setIsRenameModalOpen,
-  // ]);
   const openDeleteModal = (fileId: string) => {
-    // setFileId(fileId);
-    // setIsDeleteModalOpen(true);
+    setFileId(fileId)
   };
-  const openRenameModal = (fileId: string, filename: string) => {
-    // setFileId(fileId);
-    // setFilename(filename);
-    // setIsRenameModalOpen(true);
-  };
+  
+  useEffect(() => {
+
+    if(fileId!==""){
+      setIsDeleteModalOpen(true)
+    }
+    
+  }, [fileId])
 
   return (
+    <div>
+      <DeleteModal isDeleteModalOpen={isDeletedModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen} fileId={fileId} />
+       <div className="flex items-center py-4 justify-between">
+        <Input
+          placeholder="Filter order..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm rounded-xl ml-4"
+        />
+        <Link href="/dashboard/place">
+          <Button>
+            <PlusCircle className="h-4 w-4 mr-2" />
+            New order
+          </Button>
+        </Link>
+      </div>
     <div className="rounded-md border">
       
       <Table>
@@ -95,32 +118,13 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
-                {/* <DeleteModal />
-                <RenameModal/> */}
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    {/* {cell.column.id === "timestamp" ? (
+                    {cell.column.id==="name" ? (
                       <div className="flex flex-col">
-                        <div className="text-sm">
-                          {(cell.getValue() as Date).toLocaleDateString()}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {(cell.getValue() as Date).toLocaleTimeString()}
-                        </div>
-                      </div>
-                    ) : cell.column.id === "filename" ? (
-                      <p
-                        onClick={() => {
-                          openRenameModal((row.original as FileType).id, (row.original as FileType).filename)
-                        }}
-                        className="underline flex items-center to-blue-500 hover:cursor-pointer"
-                      >
-                        {cell.getValue() as string}{" "}
-                        <PencilIcon size={15} className="ml-2 inline-block" />
-                      </p>
-                    ) : ( */}
-                     { flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    {/* )} */}
+                      {cell.getValue() as string ===undefined ? <p className="text-red-500 font-semibold">Label Deleted</p>:cell.getValue() as string}
+                    </div>
+                    ):(flexRender(cell.column.columnDef.cell, cell.getContext()))}
                   </TableCell>
                 ))}
                 <TableCell key={(row.original as Order).id}>
@@ -138,12 +142,33 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                You have No Files
+                You have No Order history
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
+    </div>
+    <div className="flex items-center  justify-end space-x-2 py-4 mx-2">
+        <Button
+          variant="outline"
+          size="sm"
+          className="rounded-xl"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          className="rounded-xl px-4"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import ProductCard from "./_components/ProductCard";
-import LocationFilter from "./_components/LocationFilter";
 import SearchResults from "./_components/SearchResults";
 
 interface SearchPageProps {
