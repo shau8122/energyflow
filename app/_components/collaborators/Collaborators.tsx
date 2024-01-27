@@ -1,5 +1,4 @@
 import Collab from "./Collab";
-import CollaboratorsCarousel from "./CollaboratorsCarousel";
 
 const Collaborators = () => {
   return (
