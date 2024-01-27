@@ -1,19 +1,4 @@
-import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  Users,
-} from "lucide-react"
+
 
 import { Button } from "@/components/ui/button"
 import { formatPrice } from "@/libs/format"
@@ -31,15 +16,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Image from "next/image"
+
 import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
+
+import { useStore } from "@/store/store"
 
 export function ShoppingCartButton() {
   
   const handleCart=()=>{
-    // window.location.href = "/cart"
+    window.location.href = "store/cart"
   }
+  const orderQuantity = useStore((state)=>state.store.totalOrder)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -61,10 +48,8 @@ export function ShoppingCartButton() {
           </svg>
           <Badge className="absolute top-0 text-mainColor right-0 p-[2px]">
           {
-            // cart?.size 
-
-            // || 
-            0}
+            
+            0 || orderQuantity}
           </Badge>
       
         </Button>
@@ -76,8 +61,8 @@ export function ShoppingCartButton() {
           <DropdownMenuItem>
           <div className="flex flex-col justify-center gap-2 ">
           <span className="text-lg font-bold">
-            {/* {cart?.size || 0}  */}
-           0 Items</span>
+          
+          {0 || orderQuantity} Items</span>
           <span className="text-sm">
             Subtotal: {formatPrice(
               // cart?.subtotal 
@@ -95,78 +80,11 @@ export function ShoppingCartButton() {
             </Button>
           
         </div>
-            {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+            
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Keyboard className="mr-2 h-4 w-4" />
-            <span>Keyboard shortcuts</span>
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem> */}
+        
         </DropdownMenuGroup>
-        {/* <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>Team</span>
-          </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <UserPlus className="mr-2 h-4 w-4" />
-              <span>Invite users</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>
-                  <Mail className="mr-2 h-4 w-4" />
-                  <span>Email</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  <span>Message</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <PlusCircle className="mr-2 h-4 w-4" />
-                  <span>More...</span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuItem>
-            <Plus className="mr-2 h-4 w-4" />
-            <span>New Team</span>
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Github className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <LifeBuoy className="mr-2 h-4 w-4" />
-          <span>Support</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <Cloud className="mr-2 h-4 w-4" />
-          <span>API</span>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem> */}
+      
       </DropdownMenuContent>
     </DropdownMenu>
   )

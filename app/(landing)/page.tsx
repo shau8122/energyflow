@@ -7,6 +7,9 @@ import WhatsAppLink from "@/components/WhatsappIcon";
 import WhyEnerzyflow from "../_components/whyenergzyflow/WhyEnergzyflow";
 import Testimonials from "../_components/testimonials/Testimonials";
 import Collaborators from "../_components/collaborators/Collaborators";
+import Collab from "../_components/collaborators/Collab";
+import QueryIcon from "@/components/QueryIcon";
+
 
 
 
@@ -17,7 +20,9 @@ const Home = () => {
       <Categories />
       <AboutHomePage />
       <WhatsAppLink />
+      <QueryIcon/>
       <WhyEnerzyflow/>
+      {/* <Collab/> */}
       <Collaborators/>
       <Testimonials/>
 

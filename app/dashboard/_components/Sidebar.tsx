@@ -89,7 +89,7 @@ const Sidebar = () => {
   return (
     <div
       id="sidebar"
-      className="space-y-4 py-4 flex flex-col h-full overflow-auto bg-gray-50 text-mainColor"
+      className="space-y-4 py-4 flex flex-col h-full overflow-auto bg-slate-200 shadow-md text-mainColor"
     >
       <div className="px-3 py-2 flex-1">
         <Link href="/dashboard" className="flex mx-12 items-center p-2 mb-10">

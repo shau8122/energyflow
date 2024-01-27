@@ -5,6 +5,7 @@ import UploadForm from "./UploadForm";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
+import Link from "next/link";
 interface BussinessProps {
   bussinessDetails: Bussiness | null;
 }
@@ -23,6 +24,15 @@ const Bussiness: React.FC<BussinessProps> = ({ bussinessDetails }) => {
             Your Business
           </h1>
         </div>
+        {
+bussinessDetails &&
+        <Link href={`/product/${bussinessDetails.id}`}>
+        <Button variant={"outline"} className="text-xl rounded-xl font-semibold text-white ml-2">
+           
+          Go to your bussiness
+          </Button>
+        </Link>
+        }
         <Button className="text-white" onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Done</>

@@ -38,7 +38,8 @@ const Footer: React.FC = () => {
  
   return (
     <footer className="bg-[#50b8e7] p-5 text-center">
-   
+      <div className="max-w-7xl mx-auto">
+
       <div className="mx-auto max-w-screen-md">
         <Counter />
       </div>
@@ -91,6 +92,7 @@ const Footer: React.FC = () => {
         <p>
           &copy; {new Date().getFullYear()} Enerzyflow. All rights reserved.
         </p>
+      </div>
     </footer>
   );
 };

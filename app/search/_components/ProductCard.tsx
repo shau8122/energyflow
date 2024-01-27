@@ -7,17 +7,24 @@ import { ProductType } from "./SearchResults";
 
 interface ProductCardProps {
   product: ProductType;
+  isId?:boolean;
+  id?:string
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product,id,isId }) => {
   const router = useRouter();
-  
+
   const handleClick = () => {
-    router.push(
-      `/product/${product.Name.replace(/\s/g, "-")}?data=${JSON.stringify(
-        product
-      )}`
-    )
+    if(id){
+      router.push(`/product/${id}?data=id`)
+    }else{
+
+      router.push(
+        `/product/${product.Name.replace(/\s/g, "-")}?data=${JSON.stringify(
+          product
+        )}`
+      )
+    }
   };
   return (
     <div className="w-full  h-auto border sm:h-[300px]  shadow-sm hover:shadow-xl p-4  rounded-xl">

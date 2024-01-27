@@ -9,27 +9,27 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import Image, { StaticImageData } from "next/image";
-import bottle3 from "@/public/bottles/2 (3).jpeg";
+
 import { useMemo, useState } from "react";
 import { formatPrice } from "@/libs/format";
+import { useStore } from "@/store/store";
 
 interface CardStoreProps {
   img: StaticImageData;
   title: string;
   price: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  quantity: number;
 }
 
 const CardStore: React.FC<CardStoreProps> = ({
   img,
   title,
   price,
-  quantity,
-  setQuantity,
+  
 }) => {
+  const [quantity,setQuantity] = useState(1);
+  const addOrder = useStore((state)=>state.addOrder)
   const [inputValue, setInputValue] = useState<string>(String(quantity));
   const FormattedPrice= useMemo(() => formatPrice(price), [price]);
   const inc = () => {
@@ -48,9 +48,17 @@ const CardStore: React.FC<CardStoreProps> = ({
     setInputValue(value);
     setQuantity(parseInt(value, 10) || 0);
   };
-
+  const handleOrder=()=>{
+    const newOrder = {
+      title:title,
+      quantity:quantity,
+      price:price,
+      img:img
+    }
+    addOrder(newOrder)
+  }
   return (
-    <Card className="w-[400px] shadow-lg rounded-xl">
+    <Card className="w-[400px] bg-[#ddd] shadow-lg rounded-xl">
       <CardContent>
         <div>
           <div className="h-[300px] w-full relative ">
@@ -100,6 +108,7 @@ const CardStore: React.FC<CardStoreProps> = ({
           </div>
         </div>
         <Button
+          onClick={handleOrder}
           className="w-full mt-2 rounded-xl font-semibold text-[16px] hover:bg-black text-white bg-mainColor "
         >
           <h1 className="text-lg mx-2">Add to Cart</h1>

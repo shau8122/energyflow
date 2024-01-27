@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import SearchResults from "./_components/SearchResults";
-
+import db from '@/libs/db'
 interface SearchPageProps {
   searchParams: { query: string };
 }
@@ -12,7 +12,7 @@ export function generateMetadata({
   };
 }
 
-const products = [
+const productsDetails = [
   {
     Name: "Cozy Inn",
     Address: "123 Main Street, Cityville",
@@ -440,19 +440,20 @@ const products = [
 export default async function SearchPage({
   searchParams: { query },
 }: SearchPageProps) {
-  // const products = await prisma.product.findMany({
-  //   where: {
-  //     OR: [
-  //       { name: { contains: query, mode: "insensitive" } },
-  //       { description: { contains: query, mode: "insensitive" } },
-  //     ],
-  //   },
-  //   orderBy: { id: "desc" },
-  // });
 
   // if (products.length === 0) {
   //   return <div className="text-center">No products found</div>;
   // }
+  const products = await db.bussiness.findMany({
+    where:{
+      OR:[
+        {title:{contains:query, mode:"insensitive"}},
+        {about:{contains:query,mode:"insensitive"}}
+      ]
+    },
+    orderBy:{id:"desc"},
+  })
+  console.log(products)
   return (
     // grid grid-cols-1
     <div
@@ -460,7 +461,7 @@ export default async function SearchPage({
     max-w-[1080px] mx-auto 
     "
     >
-      <SearchResults products={products} query={query} />
+      <SearchResults products={productsDetails} prod={products} query={query} />
     </div>
   );
 }
