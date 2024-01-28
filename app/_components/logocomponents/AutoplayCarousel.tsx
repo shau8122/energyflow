@@ -1,8 +1,8 @@
-// AutoplayCarousel.js
+
 "use client";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import "swiper/css";
 import "swiper/css/pagination";
 

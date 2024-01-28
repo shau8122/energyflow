@@ -47,7 +47,6 @@
     "react-intersection-observer": "^9.5.3",
     "react-otp-input": "^3.1.0",
     "react-phone-input-2": "^2.15.1",
-    "react-responsive-carousel": "^3.2.23",
     "sharp": "^0.33.1",
     "swiper": "^11.0.5",
     "tailwind-merge": "^2.0.0",

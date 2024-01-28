@@ -163,7 +163,7 @@ const Navbar = () => {
             With our enerZy Sip
           </h1>
         </div>
-        <div className="w-[70%] bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
+        <div className="w-[70%] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
             <div className="flex justify-center items-center">
               <Button onClick={()=>setIsSearchOpen(true)}>
                 <MapPin />
@@ -212,7 +212,7 @@ const Navbar = () => {
       </div>
       <nav className="lg:w-[70%] hidden w-full mx-auto lg:flex lg:justify-between justify-around items-center">
         <div className="w-full gap-2 flex justify-around items-center">
-          <div className="w-[250px] bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
+          <div className="w-[250px] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
             <div className="flex justify-center items-center">
               <Button onClick={()=>setIsSearchOpen(true)}>
                 <MapPin />
