@@ -20,7 +20,7 @@ export const getUserById = async (id: string ) => {
   }
 };
 
-export const getUserByMobile= async (mobile: string) => {
+export const getUserByMobile= async (mobile: number) => {
   try {
     const user = await db.user.findFirst(
         { where: { mobile } }

@@ -1,6 +1,4 @@
 
-
-
 'use client'
 import { Button } from "@/components/ui/button";
 import MobileSidebar from "./MobileSidebar";
@@ -36,7 +34,7 @@ const Navbar = () => {
   const router = useRouter();
  
   return (
-    <div className="flex sticky top-0 items-center p-4  bg-gray-50 ">
+    <div className="flex sticky z-50 top-0 items-center p-4  bg-slate-200 shadow-md ">
       <MobileSidebar />
       <div className="flex w-full items-center justify-between">
         <Button

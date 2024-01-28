@@ -41,9 +41,9 @@ const Home = () => {
 
   const handleVerifyCode = () => {
     setLoading(true);
-    const formatPh = "+" + ph;
+  
     const values = {
-      mobile: formatPh,
+      mobile: parseInt(ph),
       otp: otp,
     };
     startTransition(() => {

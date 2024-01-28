@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import Hamburger from "@/components/Hamburger";
 import { Input } from "@/components/ui/input";
@@ -15,28 +15,33 @@ import {
   Info,
   LayoutDashboard,
   LogIn,
+  LogOut,
   LucideIcon,
   Luggage,
+  MapPin,
+  SearchIcon,
   Store,
 } from "lucide-react";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { logout } from "@/action/logout";
+import SearchModal from "./SearchModal";
 
 interface CustomLinkProps {
   href: string;
   title: string;
   className?: string;
   mobile?: boolean;
-  icon?: LucideIcon,
-  color?:string
+  icon?: LucideIcon;
+  color?: string;
 }
 const CustomLink: React.FC<CustomLinkProps> = ({
   href,
   title,
   className,
   mobile,
-  icon:Icon,
-  color
+  icon: Icon,
+  color,
 }) => {
-  
   const pathname = usePathname();
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -45,9 +50,9 @@ const CustomLink: React.FC<CustomLinkProps> = ({
           mobile ? "text-3xl" : "text-lg"
         } text-mainColor font-semibold`}
       >
-        {
-          Icon && <Icon size={40} className={`${color} inline-block mr-8 text-lg`}/>
-        }
+        {Icon && (
+          <Icon size={40} className={`${color} inline-block mr-8 text-lg`} />
+        )}
         {title}
       </p>
       <span
@@ -100,32 +105,31 @@ const mobileRoutes = [
     href: "/",
     color: "text-orange-700",
   },
-
-  {
-    label: "Sign In",
-    icon: LogIn,
-    href: "/auth/login",
-    color: "text-emerald-500",
-  },
 ];
 const Navbar = () => {
-  const [search, setSearch] = useState("");
-  const router = useRouter();
+ 
+  const [isSearchOpen,setIsSearchOpen]=useState(false);
+  
+  const user = useCurrentUser();
 
-  const handleSearch = () => {
-    if (search.length === 0) return;
-    router.push("/search?query=" + search);
+ 
+  
+  const handleClick = () => {
+    logout().then(() => {
+      toast.success("Logged out successfully");
+    });
   };
-  {
-    /* //  bg-[#b9e2f5]/95   */
+  const onClose=()=>{
+    setIsSearchOpen(false)
   }
   return (
     <div className="w-full mx-auto max-w-screen-2xl  flex lg:flex-row flex-col ">
-      <div className="lg:w-[35%]  hidden w-full mx-auto  lg:flex justify-center items-center">
+      <div className="lg:w-[30%]  hidden w-full mx-auto  lg:flex justify-center items-center">
         <div className="w-[100px] h-[50px] md:w-[200px] md:h-[100px] relative">
           <Image
             src="/MainLogo3.png"
             fill
+            priority
             style={{
               objectFit: "contain",
             }}
@@ -159,15 +163,17 @@ const Navbar = () => {
             With our enerZy Sip
           </h1>
         </div>
-        <form action={handleSearch} className="flex-1 mx-4 relative">
-          <Input
-            className="text-[16px]  p-3 text-mainColor/75"
-            type="text"
-            placeholder="Find your interest"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </form>
+        <div className="w-[70%] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
+            <div className="flex justify-center items-center">
+              <Button onClick={()=>setIsSearchOpen(true)}>
+                <MapPin />
+              </Button>
+              <p className="text-lg">Kharagpur</p>
+            </div>
+            <Button onClick={()=>setIsSearchOpen(true)}>
+              <SearchIcon />
+            </Button>
+          </div>
         <div className="pr-4">
           <Hamburger>
             {mobileRoutes.map((route) => (
@@ -181,15 +187,48 @@ const Navbar = () => {
                 color={route.color}
               />
             ))}
+            {user?.id ? (
+              <Button className="p-0 text-emrald-500" onClick={handleClick}>
+                <p className={`text-3xl text-mainColor font-semibold`}>
+                  <LogOut
+                    size={40}
+                    className={`text-emerald-500 inline-block mr-8 text-lg`}
+                  />
+                  Log out
+                </p>
+              </Button>
+            ) : (
+              <CustomLink
+                title="Sign In"
+                mobile
+                href={"/auth/login"}
+                className="mr-4"
+                icon={LogIn}
+                color="text-emerald-500"
+              />
+            )}
           </Hamburger>
         </div>
       </div>
-      <nav className="lg:w-[65%] hidden w-full mx-auto lg:flex lg:justify-between justify-around items-center">
-        <div className="w-[70%] gap-2 flex justify-around items-center">
+      <nav className="lg:w-[70%] hidden w-full mx-auto lg:flex lg:justify-between justify-around items-center">
+        <div className="w-full gap-2 flex justify-around items-center">
+          <div className="w-[250px] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
+            <div className="flex justify-center items-center">
+              <Button onClick={()=>setIsSearchOpen(true)}>
+                <MapPin />
+              </Button>
+              <p className="text-lg">Kharagpur</p>
+            </div>
+            <Button onClick={()=>setIsSearchOpen(true)}>
+              <SearchIcon />
+            </Button>
+          </div>
           <CustomLink title="Home" href="/" className="mr-4" />
           <CustomLink title="About Us" href="/about" className="mx-4" />
           <CustomLink title="Admin" href="/dashboard" className="mx-4" />
           <CustomLink title="Our Store" href="/store" className="ml-4" />
+          <ShoppingCartButton />
+          <UserMenuButton />
         </div>
         {/* <div className="w-[30%] relative mr-2">
             <Input
@@ -202,13 +241,13 @@ const Navbar = () => {
             <button type="submit"  onClick={handleSearch} className="absolute top-1/2 right-2 transform -translate-y-1/2">
 
             <Search
-             
+
               size={24}
               className=" text-[#0084CB]"
             />
             </button>
           </div> */}
-        <form action={handleSearch} className="w-[30%] relative mr-2">
+        {/* <form action={handleSearch} className="w-[30%] relative mr-2">
           <Input
             className="text-[16px] p-3 min-w-[100px] text-[#0084CB]/75"
             type="text"
@@ -216,10 +255,9 @@ const Navbar = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-        </form>
-        <ShoppingCartButton />
-        <UserMenuButton />
+        </form> */}
       </nav>
+      <SearchModal isOpen={isSearchOpen} onClose={onClose} />
     </div>
   );
 };

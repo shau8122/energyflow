@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 import CarouselImage from "./CarouselImage";
 
 interface TopCarouselProps {
-  imagesList: string[];
+  imagesList: string[] | undefined;
 }
 
 const TopCarousel:React.FC<TopCarouselProps> = ({
@@ -36,7 +36,7 @@ const TopCarousel:React.FC<TopCarouselProps> = ({
       scrollbar={{ draggable: true }}
       className="w-full rounded-lg "
     >
-      {
+      { imagesList &&
         imagesList.map((item, index) => {
           return (
             <SwiperSlide key={index}>

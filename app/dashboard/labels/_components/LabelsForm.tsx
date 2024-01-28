@@ -24,12 +24,14 @@ import { db, storage } from "@/firebase/config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/Spinner";
 
 const mainSchema = z.object({
   name: z.string().min(3, "Too Short!").max(50, "Too Long!"),
 });
 
 export const LabelsForm = () => {
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof mainSchema>>({
     resolver: zodResolver(mainSchema),
     defaultValues: {
@@ -38,28 +40,32 @@ export const LabelsForm = () => {
   });
   const [cdrFile, setCdrFile] = useState<File | undefined>();
   const [imgFile, setImgFile] = useState<File | undefined>();
-  const [cdrUrl ,setCdrUrl] = useState("");
-  const [imgUrl,setImageUrl]=useState("");
   const router = useRouter()
 
   const { isSubmitting, isValid } = form.formState;
-  function onSubmit(values: z.infer<typeof mainSchema>) {
-    if(cdrUrl==="" || imgUrl ===""){
-      return;
+  async function onSubmit(values: z.infer<typeof mainSchema>) {
+    setLoading(true)
+    if(cdrFile && imgFile){
+      const imgUrl =await uploadPost(imgFile)
+      const cdrUrl = await uploadPost(cdrFile)
+      if(imgUrl && cdrUrl){
+        const valuesWithUrl = {
+          name:values.name,
+          cdrUrl,imgUrl
+        }
+        axios.post( `/api/auth/label`,valuesWithUrl)
+        .then((res)=>{
+          toast.success("label created successfully");
+          console.log(res)
+          window.location.reload()
+        }).catch((e)=>{
+          toast.error("Something went wrong");
+          console.log(e);
+        }).finally(()=>setLoading(false))
+      }
+    }else{
+      toast.error("please select all input")
     }
-    const valuesWithUrl = {
-      name:values.name,
-      cdrUrl,imgUrl
-    }
-    axios.post( `/api/auth/label`,valuesWithUrl)
-    .then((res)=>{
-      toast.success("label created successfully");
-      console.log(res)
-      window.location.reload()
-    }).catch((e)=>{
-      toast.error("Something went wrong");
-      console.log(e);
-    })
 
   }
   const uploadPost = async (selectedFile: File) => {
@@ -89,20 +95,12 @@ export const LabelsForm = () => {
     const file = e.target.files?.[0];
     if (file) {
       setCdrFile(file);
-      const url =await uploadPost(file)
-      if(url){
-        setCdrUrl(url);
-      }
     }
   };
   const handleImgFileChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImgFile(file);
-      const url = await uploadPost(file)
-      if(url){
-        setImageUrl(url);
-      }
     }
   };
   return (
@@ -167,7 +165,7 @@ export const LabelsForm = () => {
             type="submit"
             disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? <Spinner/>:"Submit"}
           </Button>
         </div>
       </form>

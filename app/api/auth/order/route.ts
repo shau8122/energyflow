@@ -56,3 +56,30 @@ export async function POST(request: Request) {
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
+export async function DELETE(req:Request){
+  try {
+    const session = await auth();
+    if(!session?.user){
+      return new NextResponse("Unauthorized",{status:401})
+    }
+    const params = new URLSearchParams(req.url.split('?')[1]);
+    const id = params.get('id');
+    const existingOrder= await db.order.findUnique({
+      where:{
+        id:String(id)
+      }
+    })
+    if(!existingOrder){
+      return new NextResponse("Order not found",{status:403})
+    }
+    const deleteOrder =  await db.order.delete({
+      where:{
+        id:existingOrder.id
+      }
+    })
+    return NextResponse.json(deleteOrder)
+  } catch (error) {
+    console.log(error, 'ORDER_ERROR');
+    return new NextResponse('Internal Error', { status: 500 })
+  }
+}

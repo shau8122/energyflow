@@ -21,25 +21,33 @@ enum CustomerType {
   ORGANISATION
 }
 
+enum ProgressType {
+  PENDING
+  APPROVE
+  REJECTED
+  COMPLETED
+}
+
 model User {
   // id            String    @id @default(cuid())
   id               String        @id @default(auto()) @map("_id") @db.ObjectId
   name             String?
   email            String?       @unique
   emailVerified    DateTime?
-  mobile           String?
+  mobile           Int?
   mobileVerified   DateTime?
   customerType     CustomerType? @default(INDIVIDUAL)
   organisationName String?
   image            String?
   state            String?
   city             String?
-  pinCode          String?
+  pinCode          Int?
   landmark         String?
   password         String?
   accounts         Account[]
   label            Label[]
   order            Order[]
+  bussiness       Bussiness[]
 }
 
 model Account {
@@ -65,7 +73,7 @@ model Account {
 
 model MobileVerificationToken {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  mobile  String   @unique
+  mobile  Int   @unique
   token   String
   expires DateTime
 }
@@ -95,10 +103,23 @@ model Order {
   price            Int
   state            String
   city             String
-  pinCode          String
+  pinCode          Int
   landmark         String
+  progress         ProgressType @default(PENDING)
   userId           String    @db.ObjectId
   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Label            Label?    @relation(fields: [bottleLabel], references: [id])
   bottleLabel         String?   @db.ObjectId
+}
+model Bussiness{
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  address          String?
+  price            Int?
+  discount          Int?
+  about            String?
+  mobile          Int?
+  imgUrls         String[]
+  userId            String  @db.ObjectId
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

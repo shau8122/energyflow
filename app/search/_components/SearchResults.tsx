@@ -4,6 +4,7 @@ import LocationFilter from "./LocationFilter";
 import ProductCard from "./ProductCard";
 import { RatingFilter } from "./RatingFilter";
 import PriceFilter from "./PriceFilter";
+import { Bussiness } from "@prisma/client";
 
 export type ProductType = {
   Name: string;
@@ -23,15 +24,33 @@ export type ProductType = {
 interface SearchResultsProps {
   products: ProductType[];
   query: string;
+  prod:Bussiness[]
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ products,query }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({ products,query,prod }) => {
   const [city, setCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
   const [price, setPrice] = useState(0);
   const minPrice = Math.min(...products.map((product) => product.NetPrice));
   const maxPrice = Math.max(...products.map((product) => product.NetPrice));
-
+  const newProd = useMemo(() => {
+    return prod.map((prodi) => ({
+      Name: prodi.title || "",
+      Address: prodi.address||"",
+      Distance: 2.5,
+      OpenClose: "Open",
+      Rating: 4.2,
+      RatingDescription: "Excellent",
+      Facilities: ["Free Cancellation", "Free Wi-Fi", "Free Breakfast"],
+      OriginalPricing: prodi.price || 100,
+      OffPricePercentage: prodi.discount || 20,
+      NetPrice: 102,
+      Tax: 8,
+      ImageURLs: prodi.imgUrls || [],
+      id:prodi.id
+    }));
+  }, [prod]);
+  
   const uniqueAddresses: string[] = products.reduce(
     (unique: string[], product) => {
       const lowerCaseAddress = product.Address.toLowerCase();
@@ -97,6 +116,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ products,query }) => {
       </div>
       {/* // gap-4 md:grid-cols-2 xl:grid-cols-3 */}
       <div className="flex flex-col my-4 gap-4">
+        { newProd!=null &&
+          newProd.map((prodi,index)=>(
+            <ProductCard isId id={prodi.id} product={prodi} key={index} />
+          ))
+        }
         {filteredProducts.length === 0 && (
           <div className="text-center text-xl font-semibold">
             No products found for{" "}

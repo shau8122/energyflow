@@ -1,8 +1,11 @@
 import AnimatedText from "../../_components/logocomponents/AnimatedText";
 import AboutComponents from "./AboutContent";
+import { Suspense } from 'react'
 
 const About = () => {
   return (
+    <Suspense fallback={<p>Loading feed...</p>}>
+        
     <div
       className="w-full
     bg-mainColor/20
@@ -31,7 +34,9 @@ const About = () => {
         <p className="md:text-2xl text-xl mb-5 text-center">Thank you for choosing Enerzyflow.</p>
       </div>
     </div>
+      </Suspense>
   );
 };
 
 export default About;
+

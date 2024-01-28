@@ -38,6 +38,7 @@ const FormFieldCommand:React.FC<FormFieldSelectProps> = ({
                     <Button
                       variant="outline"
                       role="combobox"
+                      disabled={isSubmitting}
                       aria-expanded={open}
                       className={cn(
                         "w-full justify-between",
@@ -59,7 +60,7 @@ const FormFieldCommand:React.FC<FormFieldSelectProps> = ({
                       placeholder={`Search ${placeholder}...`}
                     />
                     <CommandEmpty>No {placeholder} found.</CommandEmpty>
-                    <CommandGroup className="h-[200px] overflow-auto">
+                    <CommandGroup  className="h-[200px] overflow-auto">
                       {selectItems.map((selectItem) => (
                         <CommandItem
                           value={selectItem.label}
