@@ -10,10 +10,12 @@ const LogoComponent = () => {
     "/bottles/2 (3).jpeg",
     "/bottles/2 (4).jpeg",
     "/bottles/2 (5).jpeg",
+    "/bottles/latestbottle.jpg",
   ];
   const slides2 = [
     "/bottles/2 (6).jpeg",
     "/bottles/2 (7).jpeg",
+    "/bottles/latestbottle.jpg",
     "/bottles/2 (8).jpeg",
     "/bottles/2 (9).jpeg",
     "/bottles/2 (10).jpeg",
@@ -56,7 +58,7 @@ const LogoComponent = () => {
           <VideoBg />
         </div>
         <div className="relative md:hidden block h-[40vh] sm:h-[30vh]  md:h-full col-span-12 sm:col-span-6 md:col-span-3">
-          <AutoplayCarousel items={slides1} /> 
+          <AutoplayCarousel items={slides1} />
         </div>
         <div className="relative h-[40vh] sm:h-[30vh]  md:h-full col-span-12 sm:col-span-6 md:col-span-3">
           <AutoplayCarousel items={slides2} />
