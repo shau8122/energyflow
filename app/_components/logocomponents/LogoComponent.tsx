@@ -57,7 +57,7 @@ const LogoComponent = () => {
         <div className="md:col-span-6 col-span-12">
           <VideoBg />
         </div>
-        <div className="relative md:hidden block h-[40vh] sm:h-[30vh]  md:h-full col-span-12 sm:col-span-6 md:col-span-3">
+        <div className="relative hidden sm:block md:hidden  h-[40vh] sm:h-[30vh]  md:h-full col-span-12 sm:col-span-6 md:col-span-3">
           <AutoplayCarousel items={slides1} />
         </div>
         <div className="relative h-[40vh] sm:h-[30vh]  md:h-full col-span-12 sm:col-span-6 md:col-span-3">

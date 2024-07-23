@@ -107,35 +107,34 @@ const mobileRoutes = [
   },
 ];
 const Navbar = () => {
- 
-  const [isSearchOpen,setIsSearchOpen]=useState(false);
-  
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const user = useCurrentUser();
 
- 
-  
   const handleClick = () => {
     logout().then(() => {
       toast.success("Logged out successfully");
     });
   };
-  const onClose=()=>{
-    setIsSearchOpen(false)
-  }
+  const onClose = () => {
+    setIsSearchOpen(false);
+  };
   return (
     <div className="w-full mx-auto max-w-screen-2xl  flex lg:flex-row flex-col ">
       <div className="lg:w-[30%]  hidden w-full mx-auto  lg:flex justify-center items-center">
         <div className="w-[100px] h-[50px] md:w-[200px] md:h-[100px] relative">
-          <Image
-            src="/MainLogo3.png"
-            fill
-            priority
-            style={{
-              objectFit: "contain",
-            }}
-            sizes="100"
-            alt={"logo"}
-          />
+          <a href="/">
+            <Image
+              src="/MainLogo3.png"
+              fill
+              priority
+              style={{
+                objectFit: "contain",
+              }}
+              sizes="100"
+              alt={"logo"}
+            />
+          </a>
         </div>
         <div className="w-1 hidden sm:block rounded-xl h-3/4 ml-[2px] mr-1 bg-mainColor/50" />
         <h1 className="text-sm hidden sm:block xl:text-lg font-semibold text-mainColor">
@@ -164,16 +163,16 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="w-[70%] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
-            <div className="flex justify-center items-center">
-              <Button onClick={()=>setIsSearchOpen(true)}>
-                <MapPin />
-              </Button>
-              <p className="text-lg">Kharagpur</p>
-            </div>
-            <Button onClick={()=>setIsSearchOpen(true)}>
-              <SearchIcon />
+          <div className="flex justify-center items-center">
+            <Button onClick={() => setIsSearchOpen(true)}>
+              <MapPin />
             </Button>
+            <p className="text-lg">Kharagpur</p>
           </div>
+          <Button onClick={() => setIsSearchOpen(true)}>
+            <SearchIcon />
+          </Button>
+        </div>
         <div className="pr-4">
           <Hamburger>
             {mobileRoutes.map((route) => (
@@ -214,12 +213,12 @@ const Navbar = () => {
         <div className="w-full gap-2 flex justify-around items-center">
           <div className="w-[250px] mr-2 bg-white text-mainColor flex justify-between  border-2 py-1 items-center  rounded-xl">
             <div className="flex justify-center items-center">
-              <Button onClick={()=>setIsSearchOpen(true)}>
+              <Button onClick={() => setIsSearchOpen(true)}>
                 <MapPin />
               </Button>
               <p className="text-lg">Kharagpur</p>
             </div>
-            <Button onClick={()=>setIsSearchOpen(true)}>
+            <Button onClick={() => setIsSearchOpen(true)}>
               <SearchIcon />
             </Button>
           </div>

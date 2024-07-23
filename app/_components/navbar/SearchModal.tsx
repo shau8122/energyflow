@@ -1,5 +1,4 @@
 "use client";
-import axios from 'axios'
 
 import {
   Form,
@@ -13,27 +12,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import toast from 'react-hot-toast';
-import { useState } from 'react';
-import Modal from '@/components/Modal';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/Spinner';
-import { useRouter } from 'next/navigation';
+import toast from "react-hot-toast";
+import { useState } from "react";
+import Modal from "@/components/Modal";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/Spinner";
+import { useRouter } from "next/navigation";
 
 interface QueryFormModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 const queryFormSchema = z.object({
-
   query: z.string().min(2, {
     message: "Query should have atleast 2 characters",
   }),
 });
 const SearchModal: React.FC<QueryFormModalProps> = ({ isOpen, onClose }) => {
-  const [loading,setLoading] = useState(false)
-  const router = useRouter()
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof queryFormSchema>>({
     resolver: zodResolver(queryFormSchema),
     defaultValues: {
@@ -42,11 +40,11 @@ const SearchModal: React.FC<QueryFormModalProps> = ({ isOpen, onClose }) => {
   });
   const { isSubmitting, isValid } = form.formState;
   function onSubmit(values: z.infer<typeof queryFormSchema>) {
-    setLoading(true)
-    console.log(values)
-    router.push("/search?query=" + values.query)
-    
-    setLoading(false)
+    setLoading(true);
+    console.log(values);
+    router.push("/search?query=" + values.query);
+
+    setLoading(false);
     onClose();
   }
   return (
@@ -75,19 +73,22 @@ const SearchModal: React.FC<QueryFormModalProps> = ({ isOpen, onClose }) => {
                         placeholder={"search..."}
                       />
                     </FormControl>
-                    
+
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            
 
               <div className="col-span-12 flex justify-end">
-                <Button onClick={()=>{
-                  onClose();
-                  setLoading(false);
-                  form.reset()
-                }} type="button" variant="ghost">
+                <Button
+                  onClick={() => {
+                    onClose();
+                    setLoading(false);
+                    form.reset();
+                  }}
+                  type="button"
+                  variant="ghost"
+                >
                   Cancel
                 </Button>
 
@@ -97,8 +98,7 @@ const SearchModal: React.FC<QueryFormModalProps> = ({ isOpen, onClose }) => {
                   disabled={isSubmitting}
                 >
                   {loading ? <Spinner /> : " Search"}
-               </Button>
-                
+                </Button>
               </div>
             </form>
           </Form>

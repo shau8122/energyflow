@@ -5,9 +5,18 @@ import Counter from "./Counter";
 import AuthenticationModal from "@/components/AuthenticationModal";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import axios from "axios"
+
 import toast from "react-hot-toast";
-import { Facebook, FacebookIcon, Instagram, InstagramIcon, Linkedin, LinkedinIcon, Twitter, TwitterIcon } from "lucide-react";
+import {
+  Facebook,
+  FacebookIcon,
+  Instagram,
+  InstagramIcon,
+  Linkedin,
+  LinkedinIcon,
+  Twitter,
+  TwitterIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
@@ -31,20 +40,18 @@ const Footer: React.FC = () => {
     // Add 'user' to the dependency array if it's used inside the effect
   }, [user]);
 
-
   const onClose = () => {
     setIsOpen(false);
   };
- 
+
   return (
     <footer className="bg-[#50b8e7] p-5 text-center">
       <div className="max-w-7xl mx-auto">
+        <div className="mx-auto max-w-screen-md">
+          <Counter />
+        </div>
+        <AuthenticationModal isOpen={isOpen} onClose={onClose} />
 
-      <div className="mx-auto max-w-screen-md">
-        <Counter />
-      </div>
-      <AuthenticationModal isOpen={isOpen} onClose={onClose} />
-        
         <div className="flex flex-col md:flex-row  w-full justify-around mb-5">
           <div className="flex flex-col gap-2 justify-start items-start">
             <h2 className="font-bold text-lg mb-4">Services</h2>
@@ -79,7 +86,11 @@ const Footer: React.FC = () => {
             </Link>
           </div>
           <div className="hover:translate-y-[-10px] flex justify-center items-center text-lg bg-white px-1 py-2 rounded-xl  transition-all ease-in-out duration-150">
-            <Link href="https://www.instagram.com/enerzyflow/?igsh=MTRiZzkwMGs1dHNvNQ%3D%3D" target="_blank" className="bg-white">
+            <Link
+              href="https://www.instagram.com/enerzyflow/?igsh=MTRiZzkwMGs1dHNvNQ%3D%3D"
+              target="_blank"
+              className="bg-white"
+            >
               <Instagram size={30} />
             </Link>
           </div>

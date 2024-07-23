@@ -6,13 +6,9 @@ import { getUserByMobile } from "./data/user";
 import { LoginSchema } from "./schemas";
 import { getTokenByMobile } from "./data/token";
 
-
 export default {
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    }),
+    Google,
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET
@@ -42,7 +38,7 @@ export default {
             return null;
           }
 
-          // // // Check if the provided OTP matches the stored token
+          // Check if the provided OTP matches the stored token
           const passwordsMatch = token.token === otp;
 
 

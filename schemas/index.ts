@@ -4,11 +4,10 @@ import * as z from "zod";
 export const LoginSchema = z.object({
   mobile: z.coerce.number().refine((value) => String(value).length === 10, {
     message: "Mobile number must be exactly 10 digits.",
-}),
+  }),
   otp: z.string().min(6, {
     message: "otp is required",
   }),
-
 });
 export const UserIndividualSchema = z.object({
   name: z
@@ -21,7 +20,7 @@ export const UserIndividualSchema = z.object({
   email: z.string().email().trim(),
   mobile: z.coerce.number().refine((value) => String(value).length === 10, {
     message: "Mobile number must be exactly 10 digits.",
-}),
+  }),
   state: z.string().min(2, {
     message: "Please select a state.",
   }),
@@ -42,12 +41,12 @@ export const UserIndividualSchema = z.object({
     .trim(),
 })
 export const UserOrganizationSchema = UserIndividualSchema.extend({
-  organisationName:z.string().min(3,{
-    message:"input is very short"
+  organisationName: z.string().min(3, {
+    message: "input is very short"
   })
 })
 
-export const CustomisationOrderSchema =  z.object({
+export const CustomisationOrderSchema = z.object({
   bottleLabel: z.string(),
   totalQuantity: z.coerce.number().min(1, {
     message: "Total quantity must be at least 1.",
@@ -82,16 +81,16 @@ export const CustomisationOrderSchema =  z.object({
   }),
 });
 export const bussinessSchema = z.object({
-  title:z.string().min(2,{
-    message:"too short"
+  title: z.string().min(2, {
+    message: "too short"
   }),
-  address:z.string().min(10,{
-    message:"too short",
+  address: z.string().min(10, {
+    message: "too short",
   }),
-  price:z.coerce.number().optional(),
-  discount:z.coerce.number().optional(),
-  about:z.string().min(10,{
-    message:"too short"
+  price: z.coerce.number().optional(),
+  discount: z.coerce.number().optional(),
+  about: z.string().min(10, {
+    message: "too short"
   }),
   mobile: z.coerce.number().refine((value) => String(value).length === 10, {
     message: "Zip code must be exactly 10 characters.",

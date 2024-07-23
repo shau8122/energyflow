@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+
 import { Button } from "@/components/ui/button";
 import { startTransition, useState } from "react";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const Home = () => {
   const handleSendCode = async () => {
     setLoading(true);
     const formatPh = "+" + ph;
-    toast.error("Please use other options. There is a server problem")
+    toast.error("Please use other options. There is a server problem");
     // axios
     //   .post("/api/auth/sms", {
     //     mobile:formatPh
@@ -36,12 +36,11 @@ const Home = () => {
     //   })
     //   .catch(() => toast.error("Something went wrong"))
     //   .finally(() => setLoading(false));
-    
   };
 
   const handleVerifyCode = () => {
     setLoading(true);
-  
+
     const values = {
       mobile: parseInt(ph),
       otp: otp,
@@ -60,7 +59,6 @@ const Home = () => {
     });
   };
 
-  
   return (
     <div className="relative w-full mt-4 mb-64">
       <div className="">
@@ -119,7 +117,7 @@ const Home = () => {
               </>
             ) : (
               <>
-                <SocialAuthButton/>
+                <SocialAuthButton />
                 <div className="line bg-mainColor h-1 w-full my-2 relative">
                   <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-mainColor rounded-xl px-3">
                     Or

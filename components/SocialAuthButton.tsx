@@ -13,15 +13,18 @@ interface GoogleAuthButtonProps {
 const SocialAuthButton: React.FC<GoogleAuthButtonProps> = ({ onClose }) => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-  const handleClick = (provider: "google"| "facebook") => {
+  const handleClick = (provider: "google" | "facebook") => {
     signIn(provider, {
-      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   };
   return (
     <div className="w-full flex md:flex-row flex-col justify-between gap-2">
       <div className="w-full  md:w-1/2 ">
-        <Button className="w-full font-semibold" onClick={()=>handleClick("google")}>
+        <Button
+          className="w-full font-semibold"
+          onClick={() => handleClick("google")}
+        >
           <div className="flex w-full justify-center border-2 p-2 rounded-xl border-blue-300 items-center">
             <Image
               width={25}
@@ -35,7 +38,10 @@ const SocialAuthButton: React.FC<GoogleAuthButtonProps> = ({ onClose }) => {
         </Button>
       </div>
       <div className="w-full  md:w-1/2 ">
-        <Button onClick={()=>handleClick("facebook")} className=" w-full  font-semibold">
+        <Button
+          onClick={() => handleClick("facebook")}
+          className=" w-full  font-semibold"
+        >
           <div className="flex w-full  justify-center border-2 p-2  gap-3 rounded-xl border-blue-300 items-center">
             <Image
               width={30}

@@ -10,9 +10,8 @@ import PhoneInput from "react-phone-input-2";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import SocialAuthButton from "./SocialAuthButton";
-import axios from "axios";
-import { login } from "@/action/login";
 
+import { login } from "@/action/login";
 
 interface AuthenticationModalProps {
   isOpen: boolean;
@@ -28,11 +27,11 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
   const [otp, setOtp] = useState("");
   const [ph, setPh] = useState("");
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl")
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const handleSendCode = async () => {
     setLoading(true);
-    toast.error("Please use other options. There is a server problem")
+    toast.error("Please use other options. There is a server problem");
 
     const formatPh = "+" + ph;
     // await axios
@@ -70,7 +69,6 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
     });
   };
 
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="w-full bg-[#edf7fc] text-[#50b8e7] p-2">
@@ -79,7 +77,7 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
           to Enerzyflow
         </h1>
         <div className="w-full mt-4 flex justify-between gap-2">
-          <SocialAuthButton/>
+          <SocialAuthButton />
         </div>
 
         <div className="line bg-[#50b8e7] h-1 w-full my-9 relative">
@@ -146,7 +144,6 @@ const AuthenticationModal: React.FC<AuthenticationModalProps> = ({
               />
 
               <Button
-              
                 onClick={handleSendCode}
                 id="send-code-button"
                 className="bg-[#50b8e7] hover:text-[#50b8e7] hover:border-2 border-[#50b8e7] w-full flex gap-1 items-center justify-center py-3 text-white rounded-xl"

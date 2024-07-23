@@ -4,7 +4,7 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import MainLogo from "public/MainLogo3.png";
+// import MainLogo from "public/MainLogo3.png";
 
 import {
   Code,
@@ -20,7 +20,6 @@ import {
   Languages,
   LogOut,
   HelpCircle,
-  
 } from "lucide-react";
 import { cn } from "@/libs/utils";
 import { Button } from "@/components/ui/button";
@@ -69,7 +68,6 @@ const routes = [
     color: "text-emerald-500",
   },
 
-  
   {
     label: "Help",
     icon: HelpCircle,
@@ -80,12 +78,11 @@ const routes = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const handleLogout=()=>{
-    logout()
-    .then(()=>{
-      toast.success("Logged out successfully")
-    })
-  }
+  const handleLogout = () => {
+    logout().then(() => {
+      toast.success("Logged out successfully");
+    });
+  };
   return (
     <div
       id="sidebar"
@@ -93,14 +90,14 @@ const Sidebar = () => {
     >
       <div className="px-3 py-2 flex-1">
         <Link href="/dashboard" className="flex mx-12 items-center p-2 mb-10">
-          <Image priority alt="logo" src={MainLogo} />
+          {/* <Image priority alt="logo" src={MainLogo} /> */}
         </Link>
         <div className="space-y-2">
           {routes.map((route) => (
             <Button
-            onClick={()=>{
-              window.location.href=route.href
-            }}
+              onClick={() => {
+                window.location.href = route.href;
+              }}
               key={route.href}
               className={cn(
                 "text-lg group flex p-6 w-full justify-start font-medium cursor-pointer hover:text-mainColor hover:bg-gray-300 rounded-xl transition",
@@ -116,20 +113,18 @@ const Sidebar = () => {
             </Button>
           ))}
           <Button
-          onClick={handleLogout}
-              
-              className={cn(
-                "text-lg group flex p-6 w-full justify-start font-medium cursor-pointer hover:text-mainColor hover:bg-gray-300 rounded-xl transition text-zinc-400"
-              )}
-            >
-              <div className="flex items-center flex-1">
-                <LogOut className={cn("h-8 w-8 mr-3 text-green-700")} />
-                Log Out
-              </div>
+            onClick={handleLogout}
+            className={cn(
+              "text-lg group flex p-6 w-full justify-start font-medium cursor-pointer hover:text-mainColor hover:bg-gray-300 rounded-xl transition text-zinc-400"
+            )}
+          >
+            <div className="flex items-center flex-1">
+              <LogOut className={cn("h-8 w-8 mr-3 text-green-700")} />
+              Log Out
+            </div>
           </Button>
         </div>
       </div>
-      
     </div>
   );
 };

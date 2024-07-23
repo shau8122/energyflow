@@ -9,24 +9,22 @@ import Testimonials from "../_components/testimonials/Testimonials";
 import Collaborators from "../_components/collaborators/Collaborators";
 import Collab from "../_components/collaborators/Collab";
 import QueryIcon from "@/components/QueryIcon";
-
-
-
+import Branding from "../_components/branding/Branding";
 
 const Home = () => {
   return (
- <>
+    <>
       <LogoComponent />
       <Categories />
+      <Branding />
       <AboutHomePage />
       <WhatsAppLink />
-      <QueryIcon/>
-      <WhyEnerzyflow/>
+      <QueryIcon />
+      <WhyEnerzyflow />
       {/* <Collab/> */}
-      <Collaborators/>
-      <Testimonials/>
-
- </>
+      <Collaborators />
+      <Testimonials />
+    </>
   );
 };
 export default Home;
