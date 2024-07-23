@@ -6,7 +6,7 @@ import { getUserById } from "./data/user"
 import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
-import type { NextAuthConfig } from "next-auth"
+
 import { getUserByMobile } from "./data/user";
 import { LoginSchema } from "./schemas";
 import { getTokenByMobile } from "./data/token";

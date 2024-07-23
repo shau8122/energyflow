@@ -16,11 +16,15 @@ import toast from "react-hot-toast";
 
 interface UploadFormProps {
   initialUrls?: string[];
-  isBussines:boolean,
-  isUploading:boolean
+  isBussines: boolean;
+  isUploading: boolean;
 }
 
-const UploadForm = ({ initialUrls,isBussines, isUploading }: UploadFormProps) => {
+const UploadForm = ({
+  initialUrls,
+  isBussines,
+  isUploading,
+}: UploadFormProps) => {
   const [downloadUrls, setDownloadUrls] = useState<string[]>(initialUrls || []);
   const [isEditing, setIsEditing] = useState(false);
   const [deletedUrl, setDeleteUrl] = useState<string | null>(null);
@@ -51,8 +55,7 @@ const UploadForm = ({ initialUrls,isBussines, isUploading }: UploadFormProps) =>
     }
   };
   const handleDelete = async (deleteUrl: string) => {
-    setDeleteUrl(deleteUrl)
-    
+    setDeleteUrl(deleteUrl);
 
     const imageRef = ref(storage, deleteUrl);
 
@@ -92,85 +95,87 @@ const UploadForm = ({ initialUrls,isBussines, isUploading }: UploadFormProps) =>
       throw error;
     }
   };
-  
+
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
-      {isBussines && <>
-        <div className="font-medium flex items-center justify-between">
-        Attachments
-        {
-          isUploading && 
-        <Button onClick={toggleEdit} variant="ghost">
-          {isEditing && <>Cancel</>}
+      {isBussines && (
+        <>
+          <div className="font-medium flex items-center justify-between">
+            Attachments
+            {isUploading && (
+              <Button onClick={toggleEdit} variant="ghost">
+                {isEditing && <>Cancel</>}
+                {!isEditing && (
+                  <>
+                    <PlusCircle className="h-4 w-4 mr-2" />
+                    Add a file
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
+          {isEditing && (
+            <div>
+              <Input
+                type="file"
+                onChange={handleChange}
+                placeholder="Select files"
+                size={50 * 1024 * 1024}
+                multiple
+              />
+              <div className="text-xs text-muted-foreground mt-4">
+                Add anything use full to show about your business
+              </div>
+            </div>
+          )}
+
           {!isEditing && (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add a file
-            </>
-          )}
-        </Button>
-        }
-      </div>
-      {isEditing && (
-        <div>
-          <Input
-            type="file"
-            onChange={handleChange}
-            placeholder="Select files"
-            size={50 * 1024 * 1024}
-            multiple
-          />
-          <div className="text-xs text-muted-foreground mt-4">
-            Add anything use full to show about your business
-          </div>
-        </div>
-      )}
-
-      {!isEditing && (
-        <>
-          {downloadUrls.length === 0 && (
-            <p className="text-sm mt-2 text-slate-500 italic">
-              No attachments yet
-            </p>
-          )}
-          {downloadUrls.length > 0 && (
-            <div className="space-y-2 grid gap-2 grid-cols-12">
-              {downloadUrls.map((url,index) => (
-                <div
-                  key={index}
-                  className="flex  items-center h-[300px] p-3 col-span-12 md:col-span-4  lg:col-span-3 relative  bg-sky-100 border-sky-200 border text-sky-700 rounded-md"
-                >
-                  {/* <File className="h-4 w-4 mr-2 flex-shrink-0" /> */}
-                  <p className="text-xs ">
-                    <Image
-                      src={url}
-                      fill
-                      style={{
-                        objectFit: "contain",
-                      }}
-                      alt={index+""}
-                    />
-                  </p>
-                  {deletedUrl === url && (
-                      <div className="ml-auto top-0 right-0 absolute hover:opacity-75 transition">
-                        <Loader2 className="h-8 w-8 animate-spin" />
-                      </div>
-                    )}
-                  {deletedUrl !== url && isUploading && (
-                  <button
-                    onClick={() => handleDelete(url)}
-                    className="ml-auto top-0 right-0 absolute hover:opacity-75 transition"
-                  >
-                    <X className="h-8 w-8" />
-                  </button>
-                  )} 
+              {downloadUrls.length === 0 && (
+                <p className="text-sm mt-2 text-slate-500 italic">
+                  No attachments yet
+                </p>
+              )}
+              {downloadUrls.length > 0 && (
+                <div className="space-y-2 grid gap-2 grid-cols-12">
+                  {downloadUrls.map((url, index) => (
+                    <div
+                      key={index}
+                      className="flex  items-center h-[300px] p-3 col-span-12 md:col-span-4  lg:col-span-3 relative  bg-sky-100 border-sky-200 border text-sky-700 rounded-md"
+                    >
+                      {/* <File className="h-4 w-4 mr-2 flex-shrink-0" /> */}
+                      <p className="text-xs ">
+                        <Image
+                          src={url}
+                          fill
+                          style={{
+                            objectFit: "contain",
+                          }}
+                          alt={index + ""}
+                        />
+                      </p>
+                      {deletedUrl === url && (
+                        <div className="ml-auto top-0 right-0 absolute hover:opacity-75 transition">
+                          <Loader2 className="h-8 w-8 animate-spin" />
+                        </div>
+                      )}
+                      {deletedUrl !== url && isUploading && (
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(url)}
+                          className="ml-auto top-0 right-0 absolute hover:opacity-75 transition"
+                        >
+                          <X className="h-8 w-8" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </>
       )}
-      </>}
     </div>
   );
 };

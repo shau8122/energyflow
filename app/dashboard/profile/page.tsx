@@ -1,18 +1,13 @@
-
 import { auth } from "@/auth";
 import { getUserById } from "@/data/user";
 import { redirect } from "next/navigation";
 import db from "@/libs/db";
 import { ProfileForm } from "./_components/ProfileForm";
-import Bussiness from "./_components/Bussiness";
-
- 
-
- 
+import BussinessComp from "./_components/Bussiness";
 
 const ProfilePage = async () => {
   const session = await auth();
-  if (!session?.user) {
+  if (!session?.user || !session.user.id) {
     console.log(session?.user, "session:");
     return redirect("/");
   }
@@ -26,11 +21,9 @@ const ProfilePage = async () => {
   });
   return (
     <div className="my-5 md:mx-5">
-      
-        <ProfileForm userDetails={userDetails} />
-      
+      <ProfileForm userDetails={userDetails} />
 
-      <Bussiness bussinessDetails={bussinessDetails} />
+      <BussinessComp bussinessDetails={bussinessDetails} />
     </div>
   );
 };

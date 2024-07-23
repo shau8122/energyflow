@@ -14,17 +14,17 @@ export async function POST(
     }
     const body = await request.json();
     const { name, cdrUrl, imgUrl } = body;
-    
+
     if (!name || !cdrUrl || !imgUrl) {
       return new NextResponse("Invalid field", { status: 403 })
     }
     const createLabel = await db.label.create({
       data: {
-        name, cdrUrl , imgUrl,
-        userId:session.user.id
+        name, cdrUrl, imgUrl,
+        userId: session.user.id
       }
     })
-   
+
     return NextResponse.json(createLabel);
   } catch (error: any) {
     console.log(error, 'UPDATE_ERROR');
@@ -32,33 +32,33 @@ export async function POST(
   }
 }
 export async function PATCH(
-  req:Request
-){
+  req: Request
+) {
   try {
     const session = await auth();
-    if(!session?.user){
-      return new NextResponse("Unauthorized",{status:401})
+    if (!session?.user) {
+      return new NextResponse("Unauthorized", { status: 401 })
     }
     const body = await req.json();
 
-    const {fileId,filename} = body;
-    if(!fileId || !filename){
-      return new NextResponse("missing fields",{status:403})
+    const { fileId, filename } = body;
+    if (!fileId || !filename) {
+      return new NextResponse("missing fields", { status: 403 })
     }
     const getLable = await db.label.findUnique({
-      where:{
-        id:fileId 
+      where: {
+        id: fileId
       }
     })
-    if(!getLable){
-      return new NextResponse("Label is not available",{status:403})
+    if (!getLable) {
+      return new NextResponse("Label is not available", { status: 403 })
     }
     const updateLabelName = await db.label.update({
-      where:{
-        id:getLable.id
+      where: {
+        id: getLable.id
       },
-      data:{
-        name:filename
+      data: {
+        name: filename
       }
     })
     return NextResponse.json(updateLabelName);
@@ -67,25 +67,28 @@ export async function PATCH(
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
-export async function DELETE(req:Request){
+export async function DELETE(req: Request) {
   try {
-    const session  = await auth();
-    if(!session?.user){
-      return new NextResponse("Unauthorized",{status:401})
+    const session = await auth();
+    if (!session?.user) {
+      return new NextResponse("Unauthorized", { status: 401 })
     }
     const params = new URLSearchParams(req.url.split('?')[1]);
     const id = params.get('id');
     const getLable = await db.label.findUnique({
-      where:{
-        id:String(id) 
+      where: {
+        id: String(id)
       }
     })
-    if(getLable?.userId!==session.user.id){
-      return new NextResponse("Unauthorized",{status:403})
+    if (!getLable) {
+      return new NextResponse("Label is not available", { status: 403 })
+    }
+    if (getLable?.userId !== session.user.id) {
+      return new NextResponse("Unauthorized", { status: 403 })
     }
     const deletedLabel = await db.label.delete({
-      where:{
-        id:getLable.id
+      where: {
+        id: getLable.id
       }
     })
     return NextResponse.json(deletedLabel);

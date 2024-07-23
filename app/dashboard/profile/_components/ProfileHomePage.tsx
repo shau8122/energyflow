@@ -1,19 +1,14 @@
-
 import { auth } from "@/auth";
 import { getUserById } from "@/data/user";
 import { redirect } from "next/navigation";
 import db from "@/libs/db";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import { ProfileForm } from "./ProfileForm";
 import Bussiness from "./Bussiness";
 
- 
-
- 
-
 const ProfileHomePage = async () => {
   const session = await auth();
-  if (!session?.user) {
+  if (!session?.user || !session.user.id) {
     console.log(session?.user, "session:");
     return redirect("/");
   }

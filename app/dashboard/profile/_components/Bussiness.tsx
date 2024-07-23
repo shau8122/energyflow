@@ -9,7 +9,7 @@ import Link from "next/link";
 interface BussinessProps {
   bussinessDetails: Bussiness | null;
 }
-const Bussiness: React.FC<BussinessProps> = ({ bussinessDetails }) => {
+const BussinessComp: React.FC<BussinessProps> = ({ bussinessDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = () => setIsEditing((current) => !current);
   return (
@@ -24,15 +24,16 @@ const Bussiness: React.FC<BussinessProps> = ({ bussinessDetails }) => {
             Your Business
           </h1>
         </div>
-        {
-bussinessDetails &&
-        <Link href={`/product/${bussinessDetails.id}`}>
-        <Button variant={"outline"} className="text-xl rounded-xl font-semibold text-white ml-2">
-           
-          Go to your bussiness
-          </Button>
-        </Link>
-        }
+        {bussinessDetails && (
+          <Link href={`/product/${bussinessDetails.id}`}>
+            <Button
+              variant={"outline"}
+              className="text-xl rounded-xl font-semibold text-white ml-2"
+            >
+              Go to your bussiness
+            </Button>
+          </Link>
+        )}
         <Button className="text-white" onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Done</>
@@ -44,8 +45,11 @@ bussinessDetails &&
           )}
         </Button>
       </div>
-      
-      <BussinessProfileForm isEditing={isEditing} bussinessDetails={bussinessDetails} />
+
+      <BussinessProfileForm
+        isEditing={isEditing}
+        bussinessDetails={bussinessDetails}
+      />
       <UploadForm
         isBussines={!!bussinessDetails}
         initialUrls={bussinessDetails?.imgUrls}
@@ -55,4 +59,4 @@ bussinessDetails &&
   );
 };
 
-export default Bussiness;
+export default BussinessComp;
