@@ -5,20 +5,18 @@ import VideoBg from "@/components/VideoBg";
 
 const LogoComponent = () => {
   const slides1 = [
-    "/bottles/2 (1).jpeg",
-    "/bottles/2 (2).jpeg",
-    "/bottles/2 (3).jpeg",
-    "/bottles/2 (4).jpeg",
-    "/bottles/2 (5).jpeg",
-    "/bottles/latestbottle.jpg",
+    "/bottles/paradise_1 (3).jpg",
+    "/bottles/basundhara (1).jpg",
+    "/bottles/cherry_1.jpg",
+    "/bottles/paradise_1 (1).jpg",
+    "/bottles/smart_pind (1).jpg",
   ];
   const slides2 = [
-    "/bottles/2 (6).jpeg",
-    "/bottles/2 (7).jpeg",
-    "/bottles/latestbottle.jpg",
-    "/bottles/2 (8).jpeg",
-    "/bottles/2 (9).jpeg",
-    "/bottles/2 (10).jpeg",
+    "/bottles/basundhara (2).jpg",
+    "/bottles/cherry_2.jpg",
+    "/bottles/paradise_1 (2).jpg",
+    "/bottles/smart_pind (2).jpg",
+    "/bottles/cherry_3.jpg",
   ];
 
   return (

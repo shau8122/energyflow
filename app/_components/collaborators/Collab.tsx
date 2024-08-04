@@ -18,7 +18,23 @@ import {
 import CollaboratorsCard from "./CollaboratorsCard";
 import { MoveLeft, MoveRight } from "lucide-react";
 
-function Collab() {
+const Collab = () => {
+  const collaboratorLogos = [
+    "/logos/basundhara_logo.jpg",
+    "/logos/cherry_logo.jpg",
+    "/logos/smart_pind.jpg",
+    "/logos/mohor_logo.jpg",
+    "/logos/paradise_logo.jpg",
+    "/logos/taaz_logo.jpg",
+    "/logos/vinayak_logo.jpg",
+    "/logos/basundhara_logo.jpg",
+    "/logos/cherry_logo.jpg",
+    "/logos/smart_pind.jpg",
+    "/logos/mohor_logo.jpg",
+    "/logos/paradise_logo.jpg",
+    "/logos/taaz_logo.jpg",
+    "/logos/vinayak_logo.jpg",
+  ];
   return (
     <div>
       <Swiper
@@ -43,30 +59,11 @@ function Collab() {
         modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
         className="h-[400px] p-8 relative self-center"
       >
-        <SwiperSlide className="">
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <CollaboratorsCard />
-        </SwiperSlide>
+        {collaboratorLogos.map((logo, index) => (
+          <SwiperSlide key={index}>
+            <CollaboratorsCard src={logo} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <div className="slider-controler !-bottom-4">
         {/* <div className="swiper-button-prev slider-arrow">
@@ -79,6 +76,6 @@ function Collab() {
       </div>
     </div>
   );
-}
+};
 
 export default Collab;
